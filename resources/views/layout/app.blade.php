@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>aranoz</title>
+    <!-- <link rel="icon" href="https://cdn.ycan.shop/stores/monlit/theme-settings/mWih5ydeDQTDV07yK7GjQzQGU9fKZOB5j45cbk9b.jpeg"> -->
     <link rel="icon" href="img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -36,7 +37,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="{{url('/')}}"> <img src="img/logo.png" alt="logo"> </a>
+                        <a class="navbar-brand" href="{{url('/')}}">
+                            <img style="    width: 70%;" src="https://cdn.ycan.shop/stores/monlit/theme-settings/DGJnA1GfQWVA3j30pbv7UO1aNJFkhj5OkEdQDR1I.jpeg " alt="logo">
+                        </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="menu_icon"><i class="fas fa-bars"></i></span>
                         </button>
@@ -44,9 +47,9 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('/')}}">Home</a>
+                                    <a class="nav-link" href="{{url('/')}}">Accueil</a>
                                 </li>
-                                <li class="nav-item dropdown">
+                                <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Shop
                                     </a>
@@ -55,8 +58,8 @@
                                         <a class="dropdown-item" href="{{url('/single-product')}}">product details</a>
 
                                     </div>
-                                </li>
-                                <li class="nav-item dropdown">
+                                </li> -->
+                                <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         pages
                                     </a>
@@ -68,8 +71,21 @@
                                         <a class="dropdown-item" href="{{url('/confirmation')}}">confirmation</a>
                                         <a class="dropdown-item" href="{{url('/element')}}">elements</a>
                                     </div>
-                                </li>
+                                </li> -->
                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong>Nos Marques</strong>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                        <a class="dropdown-item" href="{{url('/login')}}"> login</a>
+                                        <a class="dropdown-item" href="{{url('/tracking')}}">tracking</a>
+                                        <a class="dropdown-item" href="{{url('/checkout')}}">product checkout</a>
+                                        <a class="dropdown-item" href="{{url('/cart')}}">shopping cart</a>
+                                        <a class="dropdown-item" href="{{url('/confirmation')}}">confirmation</a>
+                                        <a class="dropdown-item" href="{{url('/element')}}">elements</a>
+                                    </div>
+                                </li>
+                                <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         blog
                                     </a>
@@ -77,7 +93,7 @@
                                         <a class="dropdown-item" href="{{url('/blog')}}"> blog</a>
                                         <a class="dropdown-item" href="{{url('/single-blog')}}">Single blog</a>
                                     </div>
-                                </li>
+                                </li> -->
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('/contact')}}">Contact</a>
@@ -106,7 +122,7 @@
         <div class="search_input" id="search_input_box">
             <div class="container ">
                 <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <input type="text" class="form-control" id="search_input" placeholder="Rechercher">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
@@ -124,16 +140,16 @@
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Top Products</h4>
+                        <h4>Qui sommes-nous</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Managed Website</a></li>
-                            <li><a href="">Manage Reputation</a></li>
-                            <li><a href="">Power Tools</a></li>
-                            <li><a href="">Marketing Service</a></li>
+                            <li><a href="">A propos de nous.</a></li>
+                            <li><a href="">Notre réputation.</a></li>
+                            <li><a href="">Plus d'infos.</a></li>
+                            <li><a href="">Régle générale.</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-2">
+                <!-- <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
                         <h4>Quick Links</h4>
                         <ul class="list-unstyled">
@@ -143,19 +159,19 @@
                             <li><a href="">Terms of Service</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Features</h4>
+                        <h4>Services</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Jobs</a></li>
-                            <li><a href="">Brand Assets</a></li>
-                            <li><a href="">Investor Relations</a></li>
-                            <li><a href="">Terms of Service</a></li>
+                            <li><a href="">Lorem.</a></li>
+                            <li><a href="">Lorem, ipsum.</a></li>
+                            <li><a href="">Lorem.</a></li>
+                            <li><a href="">Lorem.</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-2">
+                <!-- <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
                         <h4>Resources</h4>
                         <ul class="list-unstyled">
@@ -165,16 +181,16 @@
                             <li><a href="">Agencies</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-lg-4">
                     <div class="single_footer_part">
                         <h4>Newsletter</h4>
-                        <p>Heaven fruitful doesn't over lesser in days. Appear creeping
+                        <p>Promotion et nouveaux produits chaque semaine !
                         </p>
                         <div id="mc_embed_signup">
                             <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part">
-                                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
-                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">subscribe</button>
+                                <input type="email" name="email" id="newsletter-form-email" placeholder="votre_email@mail.com" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
+                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">s'abonner</button>
                                 <div class="mt-10 info"></div>
                             </form>
                         </div>
@@ -203,7 +219,7 @@
                                 <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
                                 <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
-                                <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
+                                <li><a href="#" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -241,6 +257,10 @@
     @show
     <!-- custom js -->
     <script src="js/custom.js"></script>
+    <script>
+        $(".owl-prev").html("précedent");
+        $(".owl-next").html("suivant");
+    </script>
 </body>
 
 </html>
