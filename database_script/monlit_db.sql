@@ -64,7 +64,9 @@ start 1;
 create table PHOTO
 (
     id_photo int default nextval('PHOTO_seq') primary key,
-    chemin_photo varchar(50)
+    chemin_photo varchar(50),
+    produit_ int,
+    foreign key(produit_) references PRODUIT(id_produit)
 );
 
 create sequence CARATERISTIQUE_seq
@@ -74,7 +76,9 @@ create table CARATERISTIQUE
     id_caractere int default nextval('CARATERISTIQUE_seq') primary key,
     libelle_caractere varchar(20),
     libell_option_produit varchar(30),
-    prix_suplementaire double precision
+    prix_suplementaire double precision,
+    produit_ int,
+    foreign key(produit_) references PRODUIT(id_produit)
 );
 
 create sequence DESCRIPTION_PRODUIT_seq
@@ -98,4 +102,50 @@ create table CONTACT
     contenu_message varchar(250)
 );
 
- 
+create table ROLE_PERSONNE
+(
+    id_role int primary key,
+    libelle_role varchar(10),
+    description_role varchar(50)
+);
+
+create table SEXE
+(
+    id_sexe int primary key,
+    libele_sexe varchar(10)
+);
+
+create sequence PERSONNE_seq
+start 1;
+create table PERSONNE
+(
+    id_personne int default nextval('PERSONNE_seq') primary key,
+    nom varchar(20),
+    prenom varchar(20),
+    date_naissance date,
+    date_inscription date,
+    sexe_ int,
+    foreign key(sexe_) references SEXE(id_sexe),
+    adresse varchar(100),
+    ville varchar(20),
+    telephone varchar(15),
+    email varchar(20),
+    username varchar(10),
+    mot_de_passe varchar(20),
+    role_personne_ int,
+    foreign key(role_personne_) references ROLE_PERSONNE(id_role)
+);
+
+create sequence COMMANDE_seq
+start 1;
+create table COMMANDE
+(
+    id_commande int default nextval('COMMANDE_seq') primary key,
+    personne_ int,
+    foreign key(personne_) references PERSONNE(id_personne),
+    produit_ int,
+    foreign key(produit_) references PRODUIT(id_produit),
+    date_ajout date,
+    statut_commande varchar(25),
+    check(statut_commande in('Payé','En attente')),
+);

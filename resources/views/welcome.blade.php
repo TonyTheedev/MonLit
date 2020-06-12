@@ -110,7 +110,7 @@
                         <br>
                         Mora
                     </h3>
-                    <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
+                    <a href="/single-product" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
                     <img src="img/feature/feature_1.png" alt="">
                 </div>
             </div>
@@ -176,7 +176,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -186,7 +186,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -196,7 +196,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -206,7 +206,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -216,7 +216,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -226,7 +226,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -236,7 +236,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -246,7 +246,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -260,7 +260,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -270,7 +270,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -280,7 +280,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -290,7 +290,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -300,7 +300,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -320,7 +320,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -330,7 +330,7 @@
                                 <div class="single_product_item">
                                     <img src="img/imageProduits/lit.jpeg" alt="">
                                     <div class="single_product_text">
-                                        <h4>Quartz Belt Watch</h4>
+                                        <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
                                         <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                     </div>
@@ -399,35 +399,35 @@
                     <div class="single_product_item">
                         <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
                         <div class="single_product_text">
-                            <h4>Quartz Belt Watch</h4>
+                            <h4>Nom du Produit</h4>
                             <h3>150.00 Dhs</h3>
                         </div>
                     </div>
                     <div class="single_product_item">
                         <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
                         <div class="single_product_text">
-                            <h4>Quartz Belt Watch</h4>
+                            <h4>Nom du Produit</h4>
                             <h3>150.00 Dhs</h3>
                         </div>
                     </div>
                     <div class="single_product_item">
                         <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
                         <div class="single_product_text">
-                            <h4>Quartz Belt Watch</h4>
+                            <h4>Nom du Produit</h4>
                             <h3>150.00 Dhs</h3>
                         </div>
                     </div>
                     <div class="single_product_item">
                         <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
                         <div class="single_product_text">
-                            <h4>Quartz Belt Watch</h4>
+                            <h4>Nom du Produit</h4>
                             <h3>150.00 Dhs</h3>
                         </div>
                     </div>
                     <div class="single_product_item">
                         <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
                         <div class="single_product_text">
-                            <h4>Quartz Belt Watch</h4>
+                            <h4>Nom du Produit</h4>
                             <h3>150.00 Dhs</h3>
                         </div>
                     </div>

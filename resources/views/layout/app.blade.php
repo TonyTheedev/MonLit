@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>aranoz</title>
+    <title>Mon Lit</title>
     <!-- <link rel="icon" href="https://cdn.ycan.shop/stores/monlit/theme-settings/mWih5ydeDQTDV07yK7GjQzQGU9fKZOB5j45cbk9b.jpeg"> -->
     <link rel="icon" href="img/favicon.png">
     <!-- Bootstrap CSS -->
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <!-- font awesome CSS -->
     <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <!-- flaticon CSS -->
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/themify-icons.css">
@@ -24,6 +25,22 @@
     <!-- swiper CSS -->
     <link rel="stylesheet" href="css/slick.css">
 
+    <style>
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #5de6de;
+            background-image: linear-gradient(315deg, #5de6de 0%, #b58ecc 74%);
+            border-radius: 10px;
+        }
+    </style>
     @section('linkcss')
     @show
     <!-- style CSS -->
@@ -38,7 +55,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand" href="{{url('/')}}">
-                            <img style="    width: 70%;" src="https://cdn.ycan.shop/stores/monlit/theme-settings/DGJnA1GfQWVA3j30pbv7UO1aNJFkhj5OkEdQDR1I.jpeg " alt="logo">
+                            <img style="width: 70%;" src="https://cdn.ycan.shop/stores/monlit/theme-settings/DGJnA1GfQWVA3j30pbv7UO1aNJFkhj5OkEdQDR1I.jpeg " alt="logo">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="menu_icon"><i class="fas fa-bars"></i></span>
@@ -95,14 +112,16 @@
                                     </div>
                                 </li> -->
 
-                                <li class="nav-item">
+                                <li class="nav-item dropdown">
                                     <a class="nav-link" href="{{url('/contact')}}">Contact</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <a href=""><i class="ti-heart"></i></a>
+                            <a style="cursor: pointer;">
+                                <i class="fas fa-user-shield" data-toggle="modal" data-target="#modalLogin"></i>
+                            </a>
                             <div class="dropdown cart">
                                 <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-cart-plus"></i>
@@ -133,7 +152,35 @@
 
     @section('body')
     @show
-
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="LabelModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Authentification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="" autocomplete="">
+                        @csrf
+                        <div class="form-group">
+                            <label for="emailInput">Nom d'utilisateur</label>
+                            <input type="email" class="form-control" id="emailInput" placeholder="Pseudo">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="PasswordInput">Mot de passe</label>
+                            <input type="password" class="form-control" id="PasswordInput" placeholder="MotDePasse">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="container">
@@ -256,7 +303,7 @@
     @section('scripts')
     @show
     <!-- custom js -->
-    <script src="js/custom.js"></script>
+    <script src="../js/custom.js"></script>
     <script>
         $(".owl-prev").html("précedent");
         $(".owl-next").html("suivant");
