@@ -12,4 +12,14 @@ class AdminPagesController extends Controller
     {
         return view("BackOfficeAdmin.Accueil");
     }
+
+    public function ListeProduits()
+    {
+        return view("BackOfficeAdmin.listeProduits");
+    }
+
+    public function NouveauProduit()
+    {
+        return view("BackOfficeAdmin.nouveauProduit");
+    }
 }

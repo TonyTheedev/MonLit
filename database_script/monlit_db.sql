@@ -15,7 +15,8 @@ create table MARQUE
     id_marque int default nextval('MARQUE_seq') primary key,
     nom_marque varchar(20),
     sloggan_marque varchar(100),
-    logo_marque varchar(200)
+    logo_marque varchar(200),
+    description_marque varchar(250)
 );
 
 create sequence TYPE_seq
@@ -23,7 +24,9 @@ start 1;
 create table TYPE_PRODUIT
 (
     id_type int default nextval ('TYPE_seq') primary key,
-    libelle_type varchar(20)
+    libelle_type varchar(20),
+    marque_ int,
+    foreign key(marque_) references MARQUE(id_marque)
 );
 
 create sequence COULEUR_seq
@@ -44,8 +47,8 @@ create table PRODUIT
     qtt_stock int,
     min_qtt_stock int,
     max_qtt_stock int,
-    marque_ int,
-    foreign key(marque_) references MARQUE(id_marque),
+    -- marque_ int,
+    -- foreign key(marque_) references MARQUE(id_marque),
     type_ int,
     foreign key(type_) references TYPE_PRODUIT(id_type)
 );
@@ -147,5 +150,6 @@ create table COMMANDE
     foreign key(produit_) references PRODUIT(id_produit),
     date_ajout date,
     statut_commande varchar(25),
-    check(statut_commande in('Payé','En attente'))
+    check(statut_commande in('Payé','En attente')),
+    est_delivre bit default '0'
 );

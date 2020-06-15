@@ -178,7 +178,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +262,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +272,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +282,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +302,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -312,7 +312,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +332,7 @@
                                     <div class="single_product_text">
                                         <h4>Nom du Produit</h4>
                                         <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>

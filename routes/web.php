@@ -72,3 +72,5 @@ route::get('logout', 'AuthController@LogOut');
 
 // Back office
 route::get('/Admin/Accueil', 'AdminPagesController@Accueil');
+route::get('/Admin/ListeProduits', 'AdminPagesController@ListeProduits');
+route::get('/Admin/NouveauProduit', 'AdminPagesController@NouveauProduit');
