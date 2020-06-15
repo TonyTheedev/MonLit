@@ -604,7 +604,6 @@
         cursor: pointer;
     }
 
-    #upload-photo,
     #inpFile {
         opacity: 0;
         position: absolute;
@@ -773,38 +772,103 @@
                             <i class="far fa-trash-alt" style="color: white;"></i>
                         </div>
                         <div style="cursor: pointer;margin-left: 93%;margin-top: 3%;color: white;background: dodgerblue ;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
-                            <i class="fas fa-pen" style="color: white;"></i>
+                            <Label for="inpFile">
+                                <i class="fas fa-pen" style="color: white;"></i>
+                            </Label>
                         </div>
                     </div>
 
-                    <div id="toolInput1" >
+                    <div id="toolInput1">
                         <label for="inpFile">
                             <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
                         </label>
                         <input type="file" name="inpFile" id="inpFile" />
                     </div>
-                </div>
-
-                <div class="col-sm" style="margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
-                    <div style="margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
-                        <i class="far fa-trash-alt" style="color: white;"></i>
-                    </div>
-                </div>
-                <div class="col-sm" style="margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
-                    <div style="margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
-                        <i class="far fa-trash-alt" style="color: white;"></i>
-                    </div>
-                </div>
-                <div class="col-sm" style="margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
-                    <div style="margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
-                        <i class="far fa-trash-alt" style="color: white;"></i>
-                    </div>
 
                 </div>
-                <div class="col-sm" style="margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
-                    <div style="margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
-                        <i class="far fa-trash-alt" style="color: white;"></i>
+                <div class="col-sm" id="prvImage" style="background-size: 100% 100%;margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
+
+                    <div id="toolsImage1" style="visibility: hidden;">
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <i class="far fa-trash-alt" style="color: white;"></i>
+                        </div>
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: 3%;color: white;background: dodgerblue ;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <Label for="inpFile">
+                                <i class="fas fa-pen" style="color: white;"></i>
+                            </Label>
+                        </div>
                     </div>
+
+                    <div id="toolInput1">
+                        <label for="inpFile">
+                            <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
+                        </label>
+                        <input type="file" name="inpFile" id="inpFile" />
+                    </div>
+
+                </div>
+                <div class="col-sm" id="prvImage" style="background-size: 100% 100%;margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
+
+                    <div id="toolsImage1" style="visibility: hidden;">
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <i class="far fa-trash-alt" style="color: white;"></i>
+                        </div>
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: 3%;color: white;background: dodgerblue ;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <Label for="inpFile">
+                                <i class="fas fa-pen" style="color: white;"></i>
+                            </Label>
+                        </div>
+                    </div>
+
+                    <div id="toolInput1">
+                        <label for="inpFile">
+                            <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
+                        </label>
+                        <input type="file" name="inpFile" id="inpFile" />
+                    </div>
+
+                </div>
+                <div class="col-sm" id="prvImage" style="background-size: 100% 100%;margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
+
+                    <div id="toolsImage1" style="visibility: hidden;">
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <i class="far fa-trash-alt" style="color: white;"></i>
+                        </div>
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: 3%;color: white;background: dodgerblue ;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <Label for="inpFile">
+                                <i class="fas fa-pen" style="color: white;"></i>
+                            </Label>
+                        </div>
+                    </div>
+
+                    <div id="toolInput1">
+                        <label for="inpFile">
+                            <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
+                        </label>
+                        <input type="file" name="inpFile" id="inpFile" />
+                    </div>
+
+                </div>
+                <div class="col-sm" id="prvImage" style="background-size: 100% 100%;margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
+
+                    <div id="toolsImage1" style="visibility: hidden;">
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: -3%;color: white;background: red;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <i class="far fa-trash-alt" style="color: white;"></i>
+                        </div>
+                        <div style="cursor: pointer;margin-left: 93%;margin-top: 3%;color: white;background: dodgerblue ;width: 24px;height: 24px;border-radius: 50px;text-align: center;">
+                            <Label for="inpFile">
+                                <i class="fas fa-pen" style="color: white;"></i>
+                            </Label>
+                        </div>
+                    </div>
+
+                    <div id="toolInput1">
+                        <label for="inpFile">
+                            <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
+                        </label>
+                        <input type="file" name="inpFile" id="inpFile" />
+                    </div>
+
                 </div>
 
                 <!-- <div class="form-group">
