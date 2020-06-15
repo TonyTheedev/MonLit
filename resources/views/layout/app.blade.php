@@ -66,29 +66,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('/')}}">Accueil</a>
                                 </li>
-                                <!-- <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Shop
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="{{url('/category')}}"> shop category</a>
-                                        <a class="dropdown-item" href="{{url('/single-product')}}">product details</a>
-
-                                    </div>
-                                </li> -->
-                                <!-- <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        pages
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="{{url('/login')}}"> login</a>
-                                        <a class="dropdown-item" href="{{url('/tracking')}}">tracking</a>
-                                        <a class="dropdown-item" href="{{url('/checkout')}}">product checkout</a>
-                                        <a class="dropdown-item" href="{{url('/cart')}}">shopping cart</a>
-                                        <a class="dropdown-item" href="{{url('/confirmation')}}">confirmation</a>
-                                        <a class="dropdown-item" href="{{url('/element')}}">elements</a>
-                                    </div>
-                                </li> -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <strong>Nos Marques</strong>
@@ -118,21 +95,38 @@
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
+                            @if(App\Http\Controllers\AuthController::IsAuthentificated())
+                            <ul class="navbar-nav">
+                                <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+
+                                <li class="nav-item dropdown">
+                                    <a style="cursor: pointer;" class=" dropdown-toggle">
+                                        <i class="fas fa-user-shield" data-toggle="modal" data-target="#modalLogin"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                        <a class="dropdown-item" href="logout">se déconnecter</a>
+                                    </div>
+                                </li>
+
+                                <div class="dropdown cart">
+                                    <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </a>
+                                </div>
+                            </ul>
+                            @else
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+
                             <a style="cursor: pointer;">
                                 <i class="fas fa-user-shield" data-toggle="modal" data-target="#modalLogin"></i>
                             </a>
+
                             <div class="dropdown cart">
                                 <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-cart-plus"></i>
                                 </a>
-                                <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="single_product">
-    
-                                    </div>
-                                </div> -->
-
                             </div>
+                            @endif
                         </div>
                     </nav>
                 </div>
@@ -161,23 +155,23 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="" method="" autocomplete="">
+                <form action="" method="Post" autocomplete="off" id="formLogin">
+                    <div class="modal-body">
                         @csrf
                         <div class="form-group">
                             <label for="emailInput">Nom d'utilisateur</label>
-                            <input type="email" class="form-control" id="emailInput" placeholder="Pseudo">
+                            <input type="text" class="form-control" id="usernameInput" name="usernameInput" placeholder="Pseudo">
                         </div>
                         <br>
                         <div class="form-group">
                             <label for="PasswordInput">Mot de passe</label>
-                            <input type="password" class="form-control" id="PasswordInput" placeholder="MotDePasse">
+                            <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="MotDePasse">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Se connecter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -307,6 +301,11 @@
     <script>
         $(".owl-prev").html("précedent");
         $(".owl-next").html("suivant");
+
+        var action = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+        action === "" ?
+            document.getElementById('formLogin').action = "login-page=" + "home" :
+            document.getElementById('formLogin').action = "login-page=" + action;
     </script>
 </body>
 

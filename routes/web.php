@@ -17,55 +17,58 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog',function(){
+Route::get('/blog', function () {
     return view('blog');
 });
 
-Route::get('/cart',function(){
+Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/category',function(){
+Route::get('/category', function () {
     return view('category');
 });
 
-Route::get('/checkout',function(){
+Route::get('/checkout', function () {
     return view('checkout');
 });
 
-Route::get('/confirmation',function(){
+Route::get('/confirmation', function () {
     return view('confirmation');
 });
 
-Route::get('/contact',function(){
+Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/element',function(){
+Route::get('/element', function () {
     return view('element');
 });
 
-Route::get('/features',function(){
+Route::get('/features', function () {
     return view('features');
 });
 
-Route::get('/login',function(){
+Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/single-blog',function(){
+Route::get('/single-blog', function () {
     return view('single-blog');
 });
 
-Route::get('/single-product',function(){
+Route::get('/single-product', function () {
     return view('single-product');
 });
 
-Route::get('/tracking',function(){
+Route::get('/tracking', function () {
     return view('tracking');
 });
 
-// 
+// Front office
 
+route::post('login-page={page}', 'AuthController@AuthentificatedGoingToPage');
+route::get('logout', 'AuthController@LogOut');
 
-
+// Back office
+route::get('/Admin/Accueil', 'AdminPagesController@Accueil');

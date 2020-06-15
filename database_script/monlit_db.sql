@@ -1,7 +1,7 @@
 --dropping database
 select pg_terminate_backend (pg_stat_activity.pid)
 from pg_stat_activity
-where pg_stat_activity.datname = 'pgluxedatabase';
+where pg_stat_activity.datname = 'monlit_db';
 
 drop database monlit_db
 --
@@ -147,5 +147,5 @@ create table COMMANDE
     foreign key(produit_) references PRODUIT(id_produit),
     date_ajout date,
     statut_commande varchar(25),
-    check(statut_commande in('Payé','En attente')),
+    check(statut_commande in('Payé','En attente'))
 );
