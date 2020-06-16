@@ -31,7 +31,7 @@
         }
 
         .activeLink {
-            font-size: 18px;
+            font-size: 17px;
             text-decoration: underline;
             font-weight: bold;
         }
