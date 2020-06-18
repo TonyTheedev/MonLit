@@ -38,11 +38,15 @@
             `<div class="input-group mb-2" id="ContainerOption${nbrOptions}">` +
             ' <div div class = "input-group-prepend"> ' +
             '   <div class="input-group-text ">' +
-            `       <button class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})" disabled></button>` +
+            `       <button id="btnSuppr${nbrOptions}" class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
             '   </div>' +
             '  </div>' +
             ` <input type="text" class="form-control" id="option${nbrOptions}" name="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="type" style="border: 1px solid;" >` +
             '</div>');
+        if (document.getElementById(`btnSuppr${nbrOptions - 1}`) != null) {
+            document.getElementById(`btnSuppr${nbrOptions - 1}`).disabled = true;
+            document.getElementById(`btnSuppr${nbrOptions - 1}`).style.cursor = 'not-allowed';
+        }
         document.getElementById('BigContainerLabels').innerHTML +=
             `<span id="labelOption${nbrOptions}"  class="badge badge-pill badge-primary labelOption${nbrOptions}" style="margin: 5px;font-size: 15px;">type</span>`;
         nbrOptions++;
@@ -53,6 +57,10 @@
         Array.from(document.getElementsByClassName('labelOption' + option)).forEach(function(item) {
             item.remove();
         });
+        if (document.getElementById(`btnSuppr${option - 1}`) != null) {
+            document.getElementById(`btnSuppr${option - 1}`).disabled = false;
+            document.getElementById(`btnSuppr${option - 1}`).style.cursor = 'pointer';
+        }
         nbrOptions--;
     }
 
@@ -62,6 +70,7 @@
 
     function Validation() {
         document.getElementById('btnOption').remove();
+        document.getElementById('btnAjout').disabled = false;
         document.getElementById('nbrTotalOptions').value = nbrOptions;
         document.getElementById('widgetContainer').innerHTML = document.getElementById('BigContainerLabels').innerHTML;
         document.getElementById('BigContainerLabels').childNodes.forEach(function(item) {
@@ -120,7 +129,7 @@
                             </div>
                         </span>
                         <span class="col">
-                            <button type="submit" class="btn btn-success" style="margin-left: 69%;">
+                            <button type="submit" class="btn btn-success" style="margin-left: 69%;" id="btnAjout" disabled>
                                 <i class="fas fa-plus-circle"></i>
                                 Ajouter
                             </button>
@@ -133,7 +142,7 @@
     </div>
 
     <div>
-        <div class="row shadow-lg p-3 mb-5 bg-white" style="border-radius: 20px;">
+        <!-- <div class="row shadow-lg p-3 mb-5 bg-white" style="border-radius: 20px;">
             <div id="prvImage1" style="background-size: 100% 100%;
             margin: 0px 10px;
             height: 300px;
@@ -176,7 +185,7 @@
                     </span>
                 </div>
             </div>
-        </div>
+        </div> -->
         @foreach($marques as $marque)
         <div class="row shadow-lg p-3 mb-5 bg-white" style="border-radius: 20px;">
             <div id="prvImage1" style="background-size: 100% 100%;
@@ -214,7 +223,7 @@
                         @endforeach
                     </div>
                     <span class="col">
-                        <a href="#" class="btn btn-danger" style="margin-left: 66%;color: white;">
+                        <a href="/Admin/SupprimerMarque/{{ $marque->id_marque }}" class="btn btn-danger" style="margin-left: 66%;color: white;">
                             <i class="fas fa-minus-circle"></i>
                             Supprimer
                         </a>
@@ -269,9 +278,7 @@
 <script src="{{ url('js/scriptInputFile.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#homeSubmenu').removeClass();
-        $('#homeSubmenu').addClass('list-unstyled collapse show');
-        $('#linkNouveauProd').addClass('activeLink');
+        $('#linkNosMarques').addClass('activeLink');
 
     });
 </script>

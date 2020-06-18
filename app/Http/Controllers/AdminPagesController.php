@@ -23,22 +23,35 @@ class AdminPagesController extends Controller
 
     public function NouveauProduit()
     {
-        return view("BackOfficeAdmin.nouveauProduit");
+        $marques = DB::select('select id_marque, nom_marque from marque');
+        return view("BackOfficeAdmin.nouveauProduit", compact("marques"));
     }
 
-    public function AjoutNouveauProduit()
+    public function AjoutNouveauProduit(Request $request)
     {
-        //ajout de produit
-        return view("BackOfficeAdmin.listeProduits");
+        // $nom_produit = $request->nom_produit;
+        // $qtt_stock = $request->qtt_stock;
+        // $min_qtt_stock = $request->min_qtt_stock;
+        // $max_qtt_stock = $request->max_qtt_stock;
+        // $typeProduit = $request->typeProduit;
+        // DB::select(DB::raw("insert into produit(nom_produit, qtt_stock, min_qtt_stock, max_qtt_stock, type_)
+        //                     values('$nom_produit', $qtt_stock, $min_qtt_stock, $max_qtt_stock, $typeProduit)"));
+
+        if (isset($request->colorInput0)) {
+            echo $request->colorInput0;
+            // $couleur1 = $request->colorInput0;
+        }
+        // DB::select(DB::raw("insert into couleur(valeur_couleur) values('$couleur1');"));
+        // return view("BackOfficeAdmin.listeProduits");
     }
 
     //*********************** */
-    public function NouvelleMarque()
+    public function NosMarques()
     {
         $marques = DB::select('select * from marque');
-        return view("BackOfficeAdmin.nouvelleMarque", compact("marques"));
+        return view("BackOfficeAdmin.NosMarques", compact("marques"));
     }
-    
+
     public function AjoutNouvelleMarque(Request $request)
     {
         $request->inpFile1->store('images', 'public');
@@ -56,6 +69,22 @@ class AdminPagesController extends Controller
             $libelle_type = $request->get("labelOption$i");
             DB::select(DB::raw("insert into type_produit(libelle_type,marque_) VALUES('$libelle_type', $idmarque)"));
         }
-        return $this->NouvelleMarque();
+        return Redirect("/Admin/NosMarques");
+    }
+
+    public function SupprimerMarque($id_marque)
+    {
+        // todo : requis la supression des produit aussi !
+        // todo : supression de la photo
+        DB::select(DB::raw("delete from type_produit where type_produit.marque_ = $id_marque;"));
+        DB::select(DB::raw("delete from marque where marque.id_marque = $id_marque;"));
+        return Redirect("/Admin/NosMarques");
+    }
+
+    //****************** types */
+    public function ImportTypes(Request $request)
+    {
+        $types_de_marque = DB::select("select id_type, libelle_type from type_produit where type_produit.marque_ = " . $request->get('id_marque'));
+        echo json_encode($types_de_marque);
     }
 }

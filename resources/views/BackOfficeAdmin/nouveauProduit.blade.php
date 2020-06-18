@@ -19,24 +19,31 @@
         margin: 10px;
     }
 
-    input[type="color"] {
-        -webkit-appearance: none;
-        border: none;
-        width: 32px;
-        height: 32px;
+    #btnCLose {
+        background-color: #4CB3F4;
+        border: 0px;
+        width: 20px;
     }
 
-    input[type="color"]::-webkit-color-swatch-wrapper {
-        padding: 0;
+    .divColor {
+        height: 35px;
+        width: 35px;
+        border: 2px solid black;
+        border-radius: 10px;
+        background-color: whitesmoke;
     }
 
-    input[type="color"]::-webkit-color-swatch {
-        border: none;
+    #col0,
+    #col1,
+    #col2,
+    #col3 {
+        width: 100px;
+        border: 1px solid;
+        border-radius: 10px;
+        font-weight: bold;
     }
 </style>
 @endsection
-
-
 
 @section('body')
 <script>
@@ -54,11 +61,15 @@
             `<div class="input-group mb-2" id="ContainerOption${nbrOptions}">` +
             ' <div div class = "input-group-prepend"> ' +
             '   <div class="input-group-text ">' +
-            `       <button class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
+            `       <button id="btnSuppr${nbrOptions}" class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
             '   </div>' +
             '  </div>' +
             ` <input type="text" class="form-control" id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." style="border: 1px solid;" >` +
             '</div>');
+        if (document.getElementById(`btnSuppr${nbrOptions - 1}`) != null) {
+            document.getElementById(`btnSuppr${nbrOptions - 1}`).disabled = true;
+            document.getElementById(`btnSuppr${nbrOptions - 1}`).style.cursor = 'not-allowed';
+        }
         document.getElementById('BigContainerLabels').innerHTML +=
             `<label id="labelOption${nbrOptions}" style="cursor: default;font-weight: 900;">- info : petite description.</label><br id="br${nbrOptions}">`;
         nbrOptions++;
@@ -68,35 +79,64 @@
         document.getElementById('ContainerOption' + option).remove();
         document.getElementById('labelOption' + option).remove();
         document.getElementById('br' + option).remove();
+        if (document.getElementById(`btnSuppr${option - 1}`) != null) {
+            document.getElementById(`btnSuppr${option - 1}`).disabled = false;
+            document.getElementById(`btnSuppr${option - 1}`).style.cursor = 'pointer';
+        }
         nbrOptions--;
     }
 
     function commitText(id, text) {
         document.getElementById(id).innerHTML = text.replace('*', '&times;');
     }
+
+    function Validation() {
+        document.getElementById('nbrTotalOptions').value = nbrOptions;
+
+        Array.from(document.getElementById('containerDescriptions').childNodes).forEach(function(item) {
+            item.remove();
+        });
+
+        document.getElementById('BigContainerLabels').childNodes.forEach(function(description) {
+            if (description.nodeName === "LABEL") {
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", description.id);
+                input.setAttribute("value", description.textContent);
+                document.getElementById('containerDescriptions').appendChild(input)
+            }
+        });
+    }
+
+    function changeCouleur(id) {
+        document.getElementById('colorInput' + id).style.backgroundColor = document.getElementById('col' + id).value;
+        document.getElementById('color' + id).value = document.getElementById('col' + id).value;
+    }
 </script>
 <div id="content" class="p-4 p-md-5 pt-5">
 
     <div class="">
-        <form action="" method="POST" autocomplete="off">
+        <form action="{{ route('AjoutNouveauProduit') }}" method="POST" autocomplete="off">
             @csrf
             <h1>Ajout d'un nouveau produit.</h1>
             <br>
             <h3>Informations de base.</h3>
             <div class="row">
                 <div class="form-group col" style="padding-left: 0px">
-                    <input type="text" required="required" />
+                    <input type="text" required="required" name="nom_produit" />
                     <label for="input" class="control-label">Libellé du produit</label><i class="bar"></i>
                 </div>
                 <div class="form-group col" style="padding-left: 0px">
-                    <select>
-                        <option>Mora</option>
-                        <option>Pelee 2</option>
+                    <select id="Marques" required>
+                        <option value="-1" disabled selected></option>
+                        @foreach($marques as $marque)
+                        <option value="{{$marque->id_marque}}">{{$marque->nom_marque}}</option>
+                        @endforeach
                     </select>
                     <label for="select" class="control-label">Marque</label><i class="bar"></i>
                 </div>
                 <div class="form-group col" style="padding-left: 0px">
-                    <select>
+                    <select name="typeProduit" id="Types">
 
                     </select>
                     <label for="select" class="control-label">Type</label><i class="bar"></i>
@@ -104,29 +144,33 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input type="number" required="required" />
+                    <input name="qtt_stock" type="number" required="required" />
                     <label for="input" class="control-label">Quantité en stock</label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input type="number" required="required" />
-                    <label for="input" class="control-label">Seuil min </label><i class="bar"></i>
+                    <input name="min_qtt_stock" type="number" required="required" />
+                    <label for="min_qtt_stock" class="control-label">Seuil min </label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input type="number" required="required" />
-                    <label for="input" class="control-label">Seuil max </label><i class="bar"></i>
+                    <input name="max_qtt_stock" type="number" required="required" />
+                    <label for="max_qtt_stock" class="control-label">Seuil max </label><i class="bar"></i>
                 </div>
                 <div class=" row form-group col-sm">
                     <div class="col">
-                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#FEF4E8" />
+                        <div class="divColor" id="colorInput0"></div>
+                        <input name="color0" id="color0" type="hidden" />
                     </div>
                     <div class="col">
-                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#DFC4BB" />
+                        <div class="divColor" id="colorInput1"></div>
+                        <input name="color1" id="color1" type="hidden" />
                     </div>
                     <div class="col">
-                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#AD9A8B" />
+                        <div class="divColor" id="colorInput2"></div>
+                        <input name="color2" id="color2" type="hidden" />
                     </div>
                     <div class="col">
-                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#4CB3F4" />
+                        <div class="divColor" id="colorInput3"></div>
+                        <input name="color3" id="color3" type="hidden" />
                     </div>
                 </div>
             </div>
@@ -150,7 +194,7 @@
                         <label for="inpFile1">
                             <img src="{{ url('img/imageProduit.png') }}" style="height: 120px;margin-left: 30%;">
                         </label>
-                        <input type="file" name="inpFile1" id="inpFile1" accept="image/*" />
+                        <input type="file" name="inpFile1" id="inpFile1" accept="image/*" required />
                     </div>
 
                 </div>
@@ -263,6 +307,10 @@
                     </label>
                 </div>
             </div> -->
+            <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
+            <div id="containerDescriptions">
+
+            </div>
             <div class="button-container">
                 <button type="submit" class="button">
                     <span>Enregistrer</span>
@@ -307,8 +355,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('nbrTotalOptions').value= nbrOptions;">Valider</button>
+                    <button type="button" class="btn btn-primary" onclick="Validation()" data-dismiss="modal" aria-label="Close">Valider</button>
                 </div>
             </div>
         </div>
@@ -318,12 +365,104 @@
 @section('scripts')
 
 <script src="{{ url('js/scriptInputFile.js') }}"></script>
+<script src="{{ url('js/notify.min.js') }}"></script>
 <script>
     $(document).ready(function() {
+
+        $("#colorInput0").click(
+            function() {
+                $.notify.addStyle('foo', {
+                    html: "<input type='text' onchange='changeCouleur(0)' id='col0' ><i type='button' id='btnCLose'>&times;</i>"
+                });
+
+                $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $("#colorInput0").notify({}, {
+                    style: 'foo',
+                    autoHide: false,
+                    clickToHide: false,
+                });
+            });
+
+        $("#colorInput1").click(
+            function() {
+                $.notify.addStyle('foo', {
+                    html: "<input type='text'   onchange='changeCouleur(1)' id='col1' ><i type='button' id='btnCLose'>&times;</i>"
+                });
+
+                $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $("#colorInput1").notify({}, {
+                    style: 'foo',
+                    autoHide: false,
+                    clickToHide: false,
+                });
+            });
+
+        $("#colorInput2").click(
+            function() {
+                $.notify.addStyle('foo', {
+                    html: "<input type='text'   onchange='changeCouleur(2)' id='col2' ><i type='button' id='btnCLose'>&times;</i>"
+                });
+
+                $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $("#colorInput2").notify({}, {
+                    style: 'foo',
+                    autoHide: false,
+                    clickToHide: false,
+                });
+            });
+
+        $("#colorInput3").click(
+            function() {
+                $.notify.addStyle('foo', {
+                    html: "<input type='text'   onchange='changeCouleur(3)' id='col3' ><i type='button' id='btnCLose'>&times;</i>"
+                });
+
+                $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $("#colorInput3").notify({}, {
+                    style: 'foo',
+                    autoHide: false,
+                    clickToHide: false,
+                });
+            });
+
         $('#homeSubmenu').removeClass();
         $('#homeSubmenu').addClass('list-unstyled collapse show');
         $('#linkNouveauProd').addClass('activeLink');
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).on('change', '#Marques', function() {
+            $.ajax({
+                url: "{{ route('ImportTypes') }}",
+                method: 'GET',
+                data: {
+                    id_marque: this.value
+                },
+                dataType: 'json',
+                success: function(Types) {
+                    $("#Types").empty();
+                    $("#Types").append("<option value='-1' disabled selected>-Choisir un type-</option>")
+                    Types.forEach(function(type) {
+                        $("#Types").append(`<option value="${type.id_type}">${type.libelle_type}</option>`);
+                    })
+                }
+            });
+        });
     });
 </script>
 @endsection

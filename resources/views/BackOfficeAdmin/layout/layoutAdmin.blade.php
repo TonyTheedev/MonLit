@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="{{ url('css/styleLayoutAdmin.css') }}">
     <link rel="stylesheet" href="{{ url('css/style.css') }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         ::-webkit-scrollbar {
             width: 20px;
@@ -78,22 +78,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <strong>Marques</strong></a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li>
-                                <a href="{{ url('/Admin/NouvelleMarque') }}" id="linkNouveauMarque">
-                                    <i class="fas fa-plus-circle"></i>
-                                    Nouvelle Marque
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Page 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 3</a>
-                            </li>
-                        </ul>
+                        <a href="{{ url('/Admin/NosMarques') }}" id="linkNosMarques">
+                            <strong>
+                                <img src="{{ url('img/NosMarques.png') }}" style="height: 25px;">
+                                Marques
+                            </strong>
+                        </a>
                     </li>
                     <li>
                         <a href="#">About</a>
@@ -142,7 +132,7 @@
         @show
     </div>
 
-    <script src="{{ url('js/jquery.min.js') }}"></script>
+    <script src="{{ url('js/jquery.js') }}"></script>
     <script src="{{ url('js/popper.js') }}"></script>
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <script src="{{ url('js/mainLayoutAdmin.js') }}"></script>

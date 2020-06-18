@@ -76,7 +76,9 @@ route::get('/Admin/Accueil', 'AdminPagesController@Accueil');
 route::get('/Admin/ListeProduits', 'AdminPagesController@ListeProduits');
 route::get('/Admin/NouveauProduit', 'AdminPagesController@NouveauProduit');
 route::post('/Admin/AjoutNouveauProduit', 'AdminPagesController@AjoutNouveauProduit')->name('AjoutNouveauProduit');
+route::get('/Admin/importTypes', 'AdminPagesController@ImportTypes')->name('ImportTypes');
 
 // route::get('/Admin/ListeProduits', 'AdminPagesController@ListeProduits');
-route::get('/Admin/NouvelleMarque', 'AdminPagesController@NouvelleMarque');
+route::get('/Admin/NosMarques', 'AdminPagesController@NosMarques');
 route::post('/Admin/AjoutNouvelleMarque', 'AdminPagesController@AjoutNouvelleMarque')->name('AjoutNouvelleMarque');
+route::get('/Admin/SupprimerMarque/{id_marque}', 'AdminPagesController@SupprimerMarque');
