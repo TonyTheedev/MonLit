@@ -2,8 +2,40 @@
 
 @section('linkcss')
 <link rel="stylesheet" href="{{ url('css/nouveauProduitStyle.css') }}">
+<style>
+    .btnSupr {
+        background: red;
+        color: white;
+        border: 0px;
+        border-radius: 50px;
+        height: 24px;
+    }
 
+    #btnLine {
+        background-color: #63a4ff;
+        background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+        border: 0px;
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    input[type="color"] {
+        -webkit-appearance: none;
+        border: none;
+        width: 32px;
+        height: 32px;
+    }
+
+    input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+        border: none;
+    }
+</style>
 @endsection
+
 
 
 @section('body')
@@ -14,11 +46,40 @@
         document.getElementById('toolsImage' + id).style.visibility = "hidden";
         document.getElementById('toolInput' + id).style.visibility = "visible";
     }
+
+    let nbrOptions = 0;
+
+    function AjoutOptionItem() {
+        document.getElementById('BigContainerOption').insertAdjacentHTML('beforeend',
+            `<div class="input-group mb-2" id="ContainerOption${nbrOptions}">` +
+            ' <div div class = "input-group-prepend"> ' +
+            '   <div class="input-group-text ">' +
+            `       <button class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
+            '   </div>' +
+            '  </div>' +
+            ` <input type="text" class="form-control" id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." style="border: 1px solid;" >` +
+            '</div>');
+        document.getElementById('BigContainerLabels').innerHTML +=
+            `<label id="labelOption${nbrOptions}" style="cursor: default;font-weight: 900;">- info : petite description.</label><br id="br${nbrOptions}">`;
+        nbrOptions++;
+    }
+
+    function suprimerDescription(option) {
+        document.getElementById('ContainerOption' + option).remove();
+        document.getElementById('labelOption' + option).remove();
+        document.getElementById('br' + option).remove();
+        nbrOptions--;
+    }
+
+    function commitText(id, text) {
+        document.getElementById(id).innerHTML = text.replace('*', '&times;');
+    }
 </script>
 <div id="content" class="p-4 p-md-5 pt-5">
 
     <div class="">
-        <form>
+        <form action="" method="POST" autocomplete="off">
+            @csrf
             <h1>Ajout d'un nouveau produit.</h1>
             <br>
             <h3>Informations de base.</h3>
@@ -54,9 +115,19 @@
                     <input type="number" required="required" />
                     <label for="input" class="control-label">Seuil max </label><i class="bar"></i>
                 </div>
-                <div class="form-group col-sm">
-                    <input type="color" required="required" />
-                    <label for="input" class="control-label">Couleurs disponibles</label><i class="bar"></i>
+                <div class=" row form-group col-sm">
+                    <div class="col">
+                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#FEF4E8" />
+                    </div>
+                    <div class="col">
+                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#DFC4BB" />
+                    </div>
+                    <div class="col">
+                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#AD9A8B" />
+                    </div>
+                    <div class="col">
+                        <input type="color" style="border-radius: 7px;border: 3px solid;" value="#4CB3F4" />
+                    </div>
                 </div>
             </div>
             <hr>
@@ -192,16 +263,19 @@
                     </label>
                 </div>
             </div> -->
+            <div class="button-container">
+                <button type="submit" class="button">
+                    <span>Enregistrer</span>
+                </button>
+            </div>
         </form>
     </div>
-    <div class="button-container">
-        <button type="button" class="button"><span>Enregistrer</span></button>
-    </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 150%;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ajout des options</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -209,18 +283,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <small>exemple :</small>
-                        <br>
-                        <input type="radio" name="radioExemple" id="radioExemple">
-                        <label for="radioExemple" id="labelExemple">texte de l'option</label>
-                    </div>
-                    <div>
-                        <input type="text" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value">
+                    <div class="row">
+
+                        <div class="col">
+                            <small>exemple :</small>
+                            <br>
+                            <input type="radio" name="radioExemple" id="radioExemple">
+                            <label for="radioExemple" id="labelExemple">270 &times; 100 cms</label>
+                            <br>
+                            <div id="BigContainerLabels">
+
+                            </div>
+                        </div>
+                        <hr style="border-left: 5px solid; height : 100px;">
+                        <div class="col">
+                            <input type="text" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                            <br>
+                            <button id="btnLine" onclick="AjoutOptionItem()"><i class="fas fa-plus-circle"></i>Ligne</button>
+                            <div id="BigContainerOption">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Valider</button>
+                    <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('nbrTotalOptions').value= nbrOptions;">Valider</button>
                 </div>
             </div>
         </div>
@@ -235,8 +323,6 @@
         $('#homeSubmenu').removeClass();
         $('#homeSubmenu').addClass('list-unstyled collapse show');
         $('#linkNouveauProd').addClass('activeLink');
-        $('#btnOption').click();
-
 
     });
 </script>

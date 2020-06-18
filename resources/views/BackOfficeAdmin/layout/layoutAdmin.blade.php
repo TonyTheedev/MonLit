@@ -78,6 +78,24 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <strong>Marques</strong></a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a href="{{ url('/Admin/NouvelleMarque') }}" id="linkNouveauMarque">
+                                    <i class="fas fa-plus-circle"></i>
+                                    Nouvelle Marque
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Page 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#">About</a>
                     </li>
                     <li>
