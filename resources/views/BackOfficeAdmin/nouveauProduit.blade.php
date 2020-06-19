@@ -42,6 +42,18 @@
         border-radius: 10px;
         font-weight: bold;
     }
+
+    .titreSection {
+        color: dodgerblue;
+        font-style: italic;
+        text-decoration: underline;
+        font-family: 'Montserrat';
+    }
+
+    .txtCaracteristique {
+        margin: 5px;
+        border-radius: 5px;
+    }
 </style>
 @endsection
 
@@ -91,21 +103,21 @@
     }
 
     function Validation() {
-        document.getElementById('nbrTotalOptions').value = nbrOptions;
+        // document.getElementById('nbrTotalOptions').value = nbrOptions;
 
-        Array.from(document.getElementById('containerDescriptions').childNodes).forEach(function(item) {
-            item.remove();
-        });
+        // Array.from(document.getElementById('containerDescriptions').childNodes).forEach(function(item) {
+        //     item.remove();
+        // });
 
-        document.getElementById('BigContainerLabels').childNodes.forEach(function(description) {
-            if (description.nodeName === "LABEL") {
-                var input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("name", description.id);
-                input.setAttribute("value", description.textContent);
-                document.getElementById('containerDescriptions').appendChild(input)
-            }
-        });
+        // document.getElementById('BigContainerLabels').childNodes.forEach(function(description) {
+        //     if (description.nodeName === "LABEL") {
+        //         var input = document.createElement("input");
+        //         input.setAttribute("type", "text");
+        //         input.setAttribute("name", description.id);
+        //         input.setAttribute("value", description.textContent);
+        //         document.getElementById('containerDescriptions').appendChild(input)
+        //     }
+        // });
     }
 
     function changeCouleur(id) {
@@ -116,11 +128,11 @@
 <div id="content" class="p-4 p-md-5 pt-5">
 
     <div class="">
-        <form action="{{ route('AjoutNouveauProduit') }}" method="POST" autocomplete="off">
+        <form action="{{ route('AjoutNouveauProduit') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
             @csrf
             <h1>Ajout d'un nouveau produit.</h1>
             <br>
-            <h3>Informations de base.</h3>
+            <h3 class="titreSection">Informations de base.</h3>
             <div class="row">
                 <div class="form-group col" style="padding-left: 0px">
                     <input type="text" required="required" name="nom_produit" />
@@ -175,7 +187,8 @@
                 </div>
             </div>
             <hr>
-            <h3>Photos (Maximum 5).</h3>
+            <h3 class="titreSection">Photos (Maximum 5).</h3>
+            <br>
             <div class="row">
                 <div class="col-sm" id="prvImage1" style="background-size: 100% 100%;margin: 0px 10px;height: 200px;width: 200px;background-color: lightgray;border-radius: 20px;">
 
@@ -293,8 +306,8 @@
                         <input type="checkbox" /><i class="helper"></i>I'm the label from a checkbox
                     </label>-->
             </div>
-            <br>
-            <input type="button" id="btnOption" value="+ options" data-toggle="modal" data-target="#exampleModal">
+            <hr>
+            <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal">
             <!-- <div class="form-radio">
                 <div class="radio">
                     <label>
@@ -345,7 +358,11 @@
                         </div>
                         <hr style="border-left: 5px solid; height : 100px;">
                         <div class="col">
-                            <input type="text" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                            <input class="txtCaracteristique" type="text" style="width: 310px;" placeholder="Exemple" id="texteNom" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                            <span class="row">
+                                <input class="txtCaracteristique" type="text" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                                <input class="txtCaracteristique" type="text" placeholder="1200.0 Dhs" id="textePrix" oninput="">
+                            </span>
                             <br>
                             <button id="btnLine" onclick="AjoutOptionItem()"><i class="fas fa-plus-circle"></i>Ligne</button>
                             <div id="BigContainerOption">
@@ -379,6 +396,10 @@
                     $(this).trigger('notify-hide');
                 });
 
+                $(document).on('focusout', '#col0', function() {
+                    $(this).trigger('notify-hide');
+                });
+
                 $("#colorInput0").notify({}, {
                     style: 'foo',
                     autoHide: false,
@@ -393,6 +414,10 @@
                 });
 
                 $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $(document).on('focusout', '#col1', function() {
                     $(this).trigger('notify-hide');
                 });
 
@@ -413,6 +438,10 @@
                     $(this).trigger('notify-hide');
                 });
 
+                $(document).on('focusout', '#col2', function() {
+                    $(this).trigger('notify-hide');
+                });
+
                 $("#colorInput2").notify({}, {
                     style: 'foo',
                     autoHide: false,
@@ -427,6 +456,10 @@
                 });
 
                 $(document).on('click', '#btnCLose', function() {
+                    $(this).trigger('notify-hide');
+                });
+
+                $(document).on('focusout', '#col3', function() {
                     $(this).trigger('notify-hide');
                 });
 
