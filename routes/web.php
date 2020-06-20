@@ -76,7 +76,9 @@ route::get('/Admin/Accueil', 'AdminPagesController@Accueil');
 route::get('/Admin/ListeProduits', 'AdminPagesController@ListeProduits');
 route::get('/Admin/NouveauProduit', 'AdminPagesController@NouveauProduit');
 route::post('/Admin/AjoutNouveauProduit', 'AdminPagesController@AjoutNouveauProduit')->name('AjoutNouveauProduit');
+route::post('/Admin/AjoutDecriptionAuProduit', 'AdminPagesController@AjoutDecriptionAuProduit')->name('AjoutDecriptionAuProduit');
 route::get('/Admin/importTypes', 'AdminPagesController@ImportTypes')->name('ImportTypes');
+
 
 // route::get('/Admin/ListeProduits', 'AdminPagesController@ListeProduits');
 route::get('/Admin/NosMarques', 'AdminPagesController@NosMarques');

@@ -76,7 +76,7 @@
             `       <button id="btnSuppr${nbrOptions}" class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
             '   </div>' +
             '  </div>' +
-            ` <input type="text" class="form-control" id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." style="border: 1px solid;" >` +
+            ` <input type="text" class="form-control" name="option${nbrOptions}" value="test" id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." style="border: 1px solid;" >` +
             '</div>');
         if (document.getElementById(`btnSuppr${nbrOptions - 1}`) != null) {
             document.getElementById(`btnSuppr${nbrOptions - 1}`).disabled = true;
@@ -102,24 +102,6 @@
         document.getElementById(id).innerHTML = text.replace('*', '&times;');
     }
 
-    function Validation() {
-        // document.getElementById('nbrTotalOptions').value = nbrOptions;
-
-        // Array.from(document.getElementById('containerDescriptions').childNodes).forEach(function(item) {
-        //     item.remove();
-        // });
-
-        // document.getElementById('BigContainerLabels').childNodes.forEach(function(description) {
-        //     if (description.nodeName === "LABEL") {
-        //         var input = document.createElement("input");
-        //         input.setAttribute("type", "text");
-        //         input.setAttribute("name", description.id);
-        //         input.setAttribute("value", description.textContent);
-        //         document.getElementById('containerDescriptions').appendChild(input)
-        //     }
-        // });
-    }
-
     function changeCouleur(id) {
         document.getElementById('colorInput' + id).style.backgroundColor = document.getElementById('col' + id).value;
         document.getElementById('color' + id).value = document.getElementById('col' + id).value;
@@ -128,14 +110,14 @@
 <div id="content" class="p-4 p-md-5 pt-5">
 
     <div class="">
-        <form action="{{ route('AjoutNouveauProduit') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form id="formAjoutProd" autocomplete="off" enctype="multipart/form-data">
             @csrf
             <h1>Ajout d'un nouveau produit.</h1>
             <br>
             <h3 class="titreSection">Informations de base.</h3>
             <div class="row">
                 <div class="form-group col" style="padding-left: 0px">
-                    <input type="text" required="required" name="nom_produit" />
+                    <input type="text" required="required" value="Libellé du produit" name="nom_produit" />
                     <label for="input" class="control-label">Libellé du produit</label><i class="bar"></i>
                 </div>
                 <div class="form-group col" style="padding-left: 0px">
@@ -156,15 +138,15 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="qtt_stock" type="number" required="required" />
+                    <input name="qtt_stock" type="number" value="1" required="required" />
                     <label for="input" class="control-label">Quantité en stock</label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="min_qtt_stock" type="number" required="required" />
+                    <input name="min_qtt_stock" value="1" type="number" required="required" />
                     <label for="min_qtt_stock" class="control-label">Seuil min </label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="max_qtt_stock" type="number" required="required" />
+                    <input name="max_qtt_stock" value="1" type="number" required="required" />
                     <label for="max_qtt_stock" class="control-label">Seuil max </label><i class="bar"></i>
                 </div>
                 <div class=" row form-group col-sm">
@@ -307,31 +289,21 @@
                     </label>-->
             </div>
             <hr>
-            <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal">
-            <!-- <div class="form-radio">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="radio" checked="checked" /><i class="helper"></i>I'm the label from a radio button
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="radio" /><i class="helper"></i>I'm the label from a radio button
-                    </label>
-                </div>
-            </div> -->
-            <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
+
             <div id="containerDescriptions">
 
             </div>
             <div class="button-container">
-                <button type="submit" class="button">
+                <!-- <button type="submit" class="button">
                     <span>Enregistrer</span>
-                </button>
+                </button> -->
+                <input type="submit" value="Enregistrer">
             </div>
         </form>
     </div>
 
+    <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal">
+    <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -347,7 +319,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <small>exemple :</small>
+                            <small id="nomLbl">Libellé de l'option</small>
                             <br>
                             <input type="radio" name="radioExemple" id="radioExemple">
                             <label for="radioExemple" id="labelExemple">270 &times; 100 cms</label>
@@ -358,21 +330,24 @@
                         </div>
                         <hr style="border-left: 5px solid; height : 100px;">
                         <div class="col">
-                            <input class="txtCaracteristique" type="text" style="width: 310px;" placeholder="Exemple" id="texteNom" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                            <input class="txtCaracteristique" type="text" id="texteNom" style="width: 310px;" value="Libellé de l'option" placeholder="Exemple" oninput="document.getElementById('nomLbl').innerHTML= document.getElementById('texteLBL').value">
                             <span class="row">
-                                <input class="txtCaracteristique" type="text" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
-                                <input class="txtCaracteristique" type="text" placeholder="1200.0 Dhs" id="textePrix" oninput="">
+                                <input class="txtCaracteristique" type="text" value="270 * 100 cms" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                                <input class="txtCaracteristique" type="number" value="200" placeholder="1200.0 Dhs" id="textePrix" oninput="">
                             </span>
                             <br>
                             <button id="btnLine" onclick="AjoutOptionItem()"><i class="fas fa-plus-circle"></i>Ligne</button>
-                            <div id="BigContainerOption">
+                            <form id="formDescriptions">
+                                @csrf
+                                <div id="BigContainerOption">
 
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-primary" value="Valider">
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="Validation()" data-dismiss="modal" aria-label="Close">Valider</button>
                 </div>
             </div>
         </div>
@@ -493,6 +468,66 @@
                     Types.forEach(function(type) {
                         $("#Types").append(`<option value="${type.id_type}">${type.libelle_type}</option>`);
                     })
+                }
+            });
+        });
+
+        $("#formAjoutProd").on('submit', function(event) {
+            event.preventDefault();
+
+            var formData = new FormData($(this));
+            $.ajax({
+                url: "{{ route('AjoutNouveauProduit') }}",
+                method: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                // data: {
+                //     nom_produit: $('input[name ="nom_produit"]').val(),
+                //     qtt_stock: $('input[name ="qtt_stock"]').val(),
+                //     min_qtt_stock: $('input[name ="min_qtt_stock"]').val(),
+                //     max_qtt_stock: $('input[name ="max_qtt_stock"]').val(),
+                //     typeProduit: $('select[name ="typeProduit"]').find(":selected").val(),
+                //     color0: $('input[name ="color0"]').val(),
+                //     color1: $('input[name ="color1"]').val(),
+                //     color2: $('input[name ="color2"]').val(),
+                //     color3: $('input[name ="color3"]').val(),
+                //     inpFile1: $('input[name ="inpFile1"]').val(),
+                //     inpFile2: $('input[name ="inpFile2"]').val(),
+                //     inpFile3: $('input[name ="inpFile3"]').val(),
+                //     inpFile4: $('input[name ="inpFile4"]').val(),
+                //     inpFile5: $('input[name ="inpFile5"]').val(),
+                // },
+                dataType: 'json',
+                success: function(id_prod) {
+                    console.log(id_prod);
+                }
+            });
+        });
+
+        $("#formDescriptions").on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "{{ route('AjoutDecriptionAuProduit') }}",
+                method: 'POST',
+                data: {
+                    nbrOptions: nbrOptions,
+                    libelle_caractere: $('#texteNom').val(),
+                    libell_option_produit: $('#texteOption').val(),
+                    prix_suplementaire: $('#textePrix').val(),
+                    produit_: 1,
+                    options: $("#formDescriptions").serialize()
+                },
+                dataType: 'json',
+                success: function(donnees) {
+                    $('#texteNom').val("");
+                    $('#texteOption').val("");
+                    $('#textePrix').val("");
+                    for (let i = nbrOptions; i > 0; i--) {
+                        suprimerDescription(i - 1);
+                    }
+                    $('#exampleModal').modal('hide');
                 }
             });
         });
