@@ -44,8 +44,8 @@
                                         </h4>
                                     </span>
                                     <h3>
-                                        @if(isset(collect(DB::select("select carateristique.prix_suplementaire from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix_suplementaire asc limit 1"))->first()->prix_suplementaire))
-                                        {{ collect(DB::select("select carateristique.prix_suplementaire from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix_suplementaire asc limit 1"))->first()->prix_suplementaire }}
+                                        @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                                        {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
                                         Dhs
                                         @endif
                                     </h3>

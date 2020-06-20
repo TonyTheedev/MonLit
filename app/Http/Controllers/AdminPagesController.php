@@ -150,7 +150,11 @@ class AdminPagesController extends Controller
                     )
                 );
             }
-            echo json_encode($id_produit);
+            $success = array(
+                'reponse' => "produit ajouté avc succée !!",
+                'id_produit' => $id_produit
+            );
+            echo json_encode($success);
         }
     }
 
@@ -158,13 +162,13 @@ class AdminPagesController extends Controller
     {
         if ($request->ajax()) {
             DB::statement(
-                "insert into carateristique (libelle_caractere, libell_option_produit, prix_suplementaire, produit_) 
-                values(:libelle_caracteree , :libell_option_produit, :prix_suplementaire, :produit_);",
+                "insert into carateristique (libelle_caractere, libelle_option_produit, prix, produit_) 
+                values(:libelle_caracteree , :libelle_option_produit, :prix, :produit_);",
                 array(
                     'libelle_caracteree' => $request->get('libelle_caractere'),
-                    'libell_option_produit' => $request->get('libell_option_produit'),
-                    'prix_suplementaire' => $request->get('prix_suplementaire'),
-                    'produit_' => 1 // todo
+                    'libelle_option_produit' => $request->get('libelle_option_produit'),
+                    'prix' => $request->get('prix'),
+                    'produit_' => $request->get('produit_')
                 ),
             );
             $id = collect(DB::select("select currval('carateristique_seq') as currval;"))->first()->currval;
@@ -179,10 +183,7 @@ class AdminPagesController extends Controller
                     ),
                 );
             }
-            $success = array(
-                'reponse' => 'succées',
-            );
-            echo json_encode($success);
+            echo json_encode('ajout de caractere et description : succées ');
         }
     }
 
@@ -202,13 +203,29 @@ class AdminPagesController extends Controller
         $nomMarque = $request->nomMarque;
         $slogganMarque = $request->slogganMarque;
         $descriptionMarque = $request->descriptionMarque;
-        DB::select(DB::raw("insert into marque(nom_marque,sloggan_marque,description_marque,logo_marque) VALUES ('$nomMarque','$slogganMarque','$descriptionMarque','/images/$path');"));
-        $idmarque = collect(
-            DB::select("select id_marque from marque where marque.nom_marque = '$nomMarque'")
-        )->first()->id_marque;
+
+        DB::statement(
+            "insert into marque(nom_marque,sloggan_marque,description_marque,logo_marque) 
+                            values (:nomMarque, :slogganMarque, :descriptionMarque,'/images/$path');",
+            array(
+                'nomMarque' => $nomMarque,
+                'slogganMarque' => $slogganMarque,
+                'descriptionMarque' => $descriptionMarque,
+            )
+        );
+
+        $idmarque = collect(DB::select("select currval('marque_seq') as currval;"))->first()->currval;
+
+        //affectation des types
         for ($i = 0; $i < $request->nbrTotalOptions; $i++) {
             $libelle_type = $request->get("labelOption$i");
-            DB::select(DB::raw("insert into type_produit(libelle_type,marque_) VALUES('$libelle_type', $idmarque)"));
+            DB::statement(
+                "insert into type_produit(libelle_type,marque_) values(:libelle_type, :idmarque)",
+                array(
+                    'libelle_type' => $libelle_type,
+                    'idmarque' => $idmarque
+                )
+            );
         }
         return Redirect("/Admin/NosMarques");
     }

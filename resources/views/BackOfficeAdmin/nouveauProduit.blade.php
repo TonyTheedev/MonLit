@@ -117,7 +117,7 @@
             <h3 class="titreSection">Informations de base.</h3>
             <div class="row">
                 <div class="form-group col" style="padding-left: 0px">
-                    <input type="text" required="required" value="Libellé du produit" name="nom_produit" />
+                    <input type="text" required="required" name="nom_produit" />
                     <label for="input" class="control-label">Libellé du produit</label><i class="bar"></i>
                 </div>
                 <div class="form-group col" style="padding-left: 0px">
@@ -138,15 +138,15 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="qtt_stock" type="number" value="1" required="required" />
+                    <input name="qtt_stock" type="number" required="required" />
                     <label for="input" class="control-label">Quantité en stock</label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="min_qtt_stock" value="1" type="number" required="required" />
+                    <input name="min_qtt_stock" type="number" required="required" />
                     <label for="min_qtt_stock" class="control-label">Seuil min </label><i class="bar"></i>
                 </div>
                 <div class="form-group col-sm" style="padding-left: 0px">
-                    <input name="max_qtt_stock" value="1" type="number" required="required" />
+                    <input name="max_qtt_stock" type="number" required="required" />
                     <label for="max_qtt_stock" class="control-label">Seuil max </label><i class="bar"></i>
                 </div>
                 <div class=" row form-group col-sm">
@@ -294,15 +294,15 @@
 
             </div>
             <div class="button-container">
-                <!-- <button type="submit" class="button">
+                <button type="submit" class="button">
                     <span>Enregistrer</span>
-                </button> -->
-                <input type="submit" value="Enregistrer">
+                </button>
+                <!-- <input type="submit" value="Enregistrer"> -->
             </div>
         </form>
     </div>
 
-    <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal">
+    <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal" disabled>
     <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
 
     <!-- Modal -->
@@ -330,13 +330,13 @@
                         </div>
                         <hr style="border-left: 5px solid; height : 100px;">
                         <div class="col">
-                            <input class="txtCaracteristique" type="text" id="texteNom" style="width: 310px;" value="Libellé de l'option" placeholder="Exemple" oninput="document.getElementById('nomLbl').innerHTML= document.getElementById('texteLBL').value">
+                            <input class="txtCaracteristique" type="text" id="texteNom" style="width: 310px;" placeholder="Exemple" oninput="document.getElementById('nomLbl').innerHTML= document.getElementById('texteNom').value">
                             <span class="row">
-                                <input class="txtCaracteristique" type="text" value="270 * 100 cms" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
-                                <input class="txtCaracteristique" type="number" value="200" placeholder="1200.0 Dhs" id="textePrix" oninput="">
+                                <input class="txtCaracteristique" type="text" placeholder="270 &times; 100 cms" id="texteOption" oninput="document.getElementById('labelExemple').innerHTML= document.getElementById('texteOption').value.replace('*', '&times;');">
+                                <input class="txtCaracteristique" type="number" placeholder="1200.0 Dhs" id="textePrix" oninput="">
                             </span>
                             <br>
-                            <button id="btnLine" onclick="AjoutOptionItem()"><i class="fas fa-plus-circle"></i>Ligne</button>
+                            <button class="btnLine" id="btnLine" onclick="AjoutOptionItem()"><i class="fas fa-plus-circle"></i>Ligne</button>
                             <form id="formDescriptions">
                                 @csrf
                                 <div id="BigContainerOption">
@@ -360,6 +360,8 @@
 <script src="{{ url('js/notify.min.js') }}"></script>
 <script>
     $(document).ready(function() {
+
+        let id_produit;
 
         $("#colorInput0").click(
             function() {
@@ -475,7 +477,7 @@
         $("#formAjoutProd").on('submit', function(event) {
             event.preventDefault();
 
-            var formData = new FormData($(this));
+            var formData = new FormData($(this)[0]);
             $.ajax({
                 url: "{{ route('AjoutNouveauProduit') }}",
                 method: 'POST',
@@ -483,25 +485,11 @@
                 contentType: false,
                 processData: false,
                 data: formData,
-                // data: {
-                //     nom_produit: $('input[name ="nom_produit"]').val(),
-                //     qtt_stock: $('input[name ="qtt_stock"]').val(),
-                //     min_qtt_stock: $('input[name ="min_qtt_stock"]').val(),
-                //     max_qtt_stock: $('input[name ="max_qtt_stock"]').val(),
-                //     typeProduit: $('select[name ="typeProduit"]').find(":selected").val(),
-                //     color0: $('input[name ="color0"]').val(),
-                //     color1: $('input[name ="color1"]').val(),
-                //     color2: $('input[name ="color2"]').val(),
-                //     color3: $('input[name ="color3"]').val(),
-                //     inpFile1: $('input[name ="inpFile1"]').val(),
-                //     inpFile2: $('input[name ="inpFile2"]').val(),
-                //     inpFile3: $('input[name ="inpFile3"]').val(),
-                //     inpFile4: $('input[name ="inpFile4"]').val(),
-                //     inpFile5: $('input[name ="inpFile5"]').val(),
-                // },
                 dataType: 'json',
-                success: function(id_prod) {
-                    console.log(id_prod);
+                success: function(data) {
+                    id_produit = data.id_prod;
+                    console.log(data.reponse + " " + id_produit);
+                    $(".btnLine").disabled = false;
                 }
             });
         });
@@ -516,11 +504,12 @@
                     libelle_caractere: $('#texteNom').val(),
                     libell_option_produit: $('#texteOption').val(),
                     prix_suplementaire: $('#textePrix').val(),
-                    produit_: 1,
+                    produit_: id_produit,
                     options: $("#formDescriptions").serialize()
                 },
                 dataType: 'json',
-                success: function(donnees) {
+                success: function(reponse) {
+                    console.log(reponse);
                     $('#texteNom').val("");
                     $('#texteOption').val("");
                     $('#textePrix').val("");

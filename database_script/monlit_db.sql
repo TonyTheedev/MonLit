@@ -77,9 +77,9 @@ start 1;
 create table CARATERISTIQUE
 (
     id_caractere int default nextval('CARATERISTIQUE_seq') primary key,
-    libelle_caractere varchar(20),
-    libell_option_produit varchar(30),
-    prix_suplementaire double precision,
+    libelle_caractere varchar(50),
+    libelle_option_produit varchar(50),
+    prix double precision,
     produit_ int,
     foreign key(produit_) references PRODUIT(id_produit)
 );
@@ -147,7 +147,7 @@ create table COMMANDE
     personne_ int,
     foreign key(personne_) references PERSONNE(id_personne),
     produit_ int,
-    foreign key(produit_) references PRODUIT(id_produit),
+    foreign key(produit_) references CARATERISTIQUE(id_caractere),
     date_ajout date,
     statut_commande varchar(25),
     check(statut_commande in('Payé','En attente')),
