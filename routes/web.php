@@ -57,10 +57,6 @@ Route::get('/single-blog', function () {
     return view('single-blog');
 });
 
-Route::get('/single-product', function () {
-    return view('single-product');
-});
-
 Route::get('/tracking', function () {
     return view('tracking');
 });
@@ -69,6 +65,8 @@ Route::get('/tracking', function () {
 
 route::post('login-page={page}', 'AuthController@AuthentificatedGoingToPage');
 route::get('logout', 'AuthController@LogOut');
+
+Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
 
 // Back office
 route::get('/Admin/Accueil', 'AdminPagesController@Accueil');

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use Faker\Provider\Image;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB as FacadesDB;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AdminPagesController extends Controller
 {
@@ -200,6 +199,7 @@ class AdminPagesController extends Controller
         $file = $request->inpFile1;
         $path = $request->nomMarque . '.jpg';
         $file->move(public_path() . '/images/', $path);
+        
         $nomMarque = $request->nomMarque;
         $slogganMarque = $request->slogganMarque;
         $descriptionMarque = $request->descriptionMarque;

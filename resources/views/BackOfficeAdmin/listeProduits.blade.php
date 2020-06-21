@@ -38,7 +38,7 @@
                             <div class="single_product_item">
                                 <img src="{{ url('img/imageProduits/lit.jpeg') }}" alt="">
                                 <div class="single_product_text">
-                                    <span href="/single-product" style="cursor: pointer;">
+                                    <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
                                         <h4>
                                             {{$prod->nom_produit}}
                                         </h4>
