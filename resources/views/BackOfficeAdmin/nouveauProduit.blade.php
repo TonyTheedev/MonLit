@@ -477,6 +477,11 @@
         $("#formAjoutProd").on('submit', function(event) {
             event.preventDefault();
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             var formData = new FormData($(this)[0]);
             $.ajax({
                 url: "{{ route('AjoutNouveauProduit') }}",
@@ -487,23 +492,29 @@
                 data: formData,
                 dataType: 'json',
                 success: function(data) {
-                    id_produit = data.id_prod;
-                    console.log(data.reponse + " " + id_produit);
-                    $(".btnLine").disabled = false;
+                    id_produit = data.id_produit;
+                    console.log(data.reponse + " " + data.id_produit);
+                    $("#btnLine").disabled = false; //todo
                 }
             });
         });
 
         $("#formDescriptions").on('submit', function(event) {
             event.preventDefault();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url: "{{ route('AjoutDecriptionAuProduit') }}",
                 method: 'POST',
                 data: {
                     nbrOptions: nbrOptions,
                     libelle_caractere: $('#texteNom').val(),
-                    libell_option_produit: $('#texteOption').val(),
-                    prix_suplementaire: $('#textePrix').val(),
+                    libelle_option_produit: $('#texteOption').val(),
+                    prix: $('#textePrix').val(),
                     produit_: id_produit,
                     options: $("#formDescriptions").serialize()
                 },

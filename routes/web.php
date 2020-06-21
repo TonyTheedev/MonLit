@@ -67,6 +67,7 @@ route::post('login-page={page}', 'AuthController@AuthentificatedGoingToPage');
 route::get('logout', 'AuthController@LogOut');
 
 Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
+route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('importDescriptions');
 
 // Back office
 route::get('/Admin/Accueil', 'AdminPagesController@Accueil');

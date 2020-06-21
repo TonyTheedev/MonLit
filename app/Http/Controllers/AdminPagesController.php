@@ -199,7 +199,7 @@ class AdminPagesController extends Controller
         $file = $request->inpFile1;
         $path = $request->nomMarque . '.jpg';
         $file->move(public_path() . '/images/', $path);
-        
+
         $nomMarque = $request->nomMarque;
         $slogganMarque = $request->slogganMarque;
         $descriptionMarque = $request->descriptionMarque;

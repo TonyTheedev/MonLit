@@ -7,14 +7,14 @@
 
 @section('body')
 <!-- breadcrumb start-->
-<section class="breadcrumb breadcrumb_bg">
+<section class="breadcrumb" style="background-image: url('/img/ImgIrina.png');">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="breadcrumb_iner">
           <div class="breadcrumb_iner_item">
-            <h2>Nom de la marque</h2>
-            <p>Sloggan marque</p>
+            <h2> {{ $info_produit->nom_marque }} </h2>
+            <p>{{ $info_produit->sloggan_marque }}</p>
           </div>
         </div>
       </div>
@@ -31,42 +31,51 @@
       <div class="col-lg-7 col-xl-7">
         <div class="product_slider_img">
           <div id="vertical">
-            <div data-thumb="{{ url('img/product/single-product/product_1.png') }}">
-              <img src="{{ url('img/product/single-product/product_1.png') }}" />
+
+            @foreach(
+            DB::select("select * from photo where produit_ = $info_produit->id_produit ")
+            as
+            $photo
+            )
+            <div data-thumb="/images/{{$photo->chemin_photo}}" style="filter: contrast(0.5);">
+              <img src="/images/{{$photo->chemin_photo}}" style="border-radius: 20px;" />
             </div>
-            <div data-thumb="{{ url('img/product/single-product/product_1.png') }}">
-              <img src="{{ url('img/product/single-product/product_1.png') }}" />
+            <div data-thumb="/images/{{$photo->chemin_photo}}">
+              <img src="/images/{{$photo->chemin_photo}}" style="border-radius: 20px;" />
             </div>
-            <div data-thumb="{{ url('img/product/single-product/product_1.png') }}">
-              <img src="{{ url('img/product/single-product/product_1.png') }}" />
-            </div>
-            <div data-thumb="{{ url('img/product/single-product/product_1.png') }}">
-              <img src="{{ url('img/product/single-product/product_1.png') }}" />
-            </div>
+            @endforeach
           </div>
         </div>
       </div>
       <div class="col-lg-5 col-xl-4">
         <div class="s_product_text">
-          <h3>Faded SkyBlu Denim Jeans</h3>
+          <h3>{{ $info_produit->nom_produit }}</h3>
           <h5>
-            <input type="radio" name="" id=""> test
-            <span>|</span>
-            <input type="radio" name="" id=""> test
+            @foreach(
+            DB::select("
+            select id_caractere, libelle_option_produit from produit inner join carateristique on carateristique.produit_ = produit.id_produit
+            where produit.id_produit = $info_produit->id_produit")
+            as
+            $info
+            )
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" class="radioOptions" name="radioOptions" id="{{$info->id_caractere}}">
+              <label class="form-check-label" for="{{$info->id_caractere}}"> {{ $info->libelle_option_produit }}</label>
+            </div>
+            @endforeach
           </h5>
-          <h2>$149.99</h2>
+          <h2 id="prix"></h2>
           <ul class="list">
             <li>
               <a class="active" href="#">
-                <span>Category</span> : Household</a>
+                <span>Catégorie</span> : {{ $info_produit->libelle_type }}</a>
             </li>
             <li>
-              <a href="#"> <span>Availibility</span> : In Stock</a>
+              <a href="#"> <span>disponibilité</span> : {{ $info_produit->qtt_stock }} en Stock</a>
             </li>
           </ul>
-          <p>
-            First replenish living. Creepeth image image. Creeping can't, won't called.
-            Two fruitful let days signs sea together all land fly subdue
+          <p id="containerDescriptions">
+
           </p>
           <div class="card_area d-flex justify-content-between align-items-center">
             <div class="product_count">
@@ -578,8 +587,38 @@
 @endsection
 
 @section('scripts')
-
 <script src="{{ url('js/lightslider.min.js') }}"></script>
 <script src="{{ url('js/stellar.js') }}"></script>
 <script src="{{ url('js/theme.js') }}"></script>
+<script>
+  $(document).ready(function() {
+
+    $("input:radio[name='radioOptions']").change(function() {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      // id = 
+      $.ajax({
+        url: "{{ route('importDescriptions') }}",
+        method: 'GET',
+        data: {
+          id_caracteristique: this.id,
+        },
+        dataType: 'json',
+        success: function(reponse) {
+          $('#prix').html(reponse.prix + " Dhs");
+          $("#containerDescriptions").empty();
+          reponse.descriptions.forEach(function(description) {
+            $("#containerDescriptions").append(`<i>${description.libelle_description}</i><br>`);
+          });
+        }
+      });
+
+    });
+
+    Array.from($("input:radio[name='radioOptions']"))[0].click();
+  });
+</script>
 @endsection

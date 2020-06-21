@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ url('css/magnific-popup.css') }}">
     <!-- swiper CSS -->
     <link rel="stylesheet" href="{{ url('css/slick.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
 
     <style>
         ::-webkit-scrollbar {
