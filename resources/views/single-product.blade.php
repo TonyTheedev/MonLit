@@ -37,9 +37,6 @@
             as
             $photo
             )
-            <div data-thumb="/images/{{$photo->chemin_photo}}" style="filter: contrast(0.5);">
-              <img src="/images/{{$photo->chemin_photo}}" style="border-radius: 20px;" />
-            </div>
             <div data-thumb="/images/{{$photo->chemin_photo}}">
               <img src="/images/{{$photo->chemin_photo}}" style="border-radius: 20px;" />
             </div>
@@ -58,9 +55,13 @@
             as
             $info
             )
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" class="radioOptions" name="radioOptions" id="{{$info->id_caractere}}">
-              <label class="form-check-label" for="{{$info->id_caractere}}"> {{ $info->libelle_option_produit }}</label>
+            <div class="row">
+
+              <div class="primary-radio">
+                <input type="radio" class="radioOptions" name="radioOptions" id="{{$info->id_caractere}}">
+                <label style="border:1px solid black;" for="{{$info->id_caractere}}"></label>
+              </div>
+              <i> &nbsp; {{ $info->libelle_option_produit }}</i>
             </div>
             @endforeach
           </h5>
@@ -101,7 +102,7 @@
         <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">caractéristiques</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Caractéristiques</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Commentaires</a>
@@ -144,7 +145,7 @@
       </div>
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="table-responsive">
-          <table class="table">
+          <!-- <table class="table">
             <tbody>
               <tr>
                 <td>
@@ -208,6 +209,74 @@
                 </td>
                 <td>
                   <h5>60pcs</h5>
+                </td>
+              </tr>
+            </tbody>
+          </table> -->
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <h5>Longueur</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Largeur</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Profondeur</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Poid</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Livraison</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Garantie</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Marque d'origine</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5>Nbr d'article</h5>
+                </td>
+                <td>
+                  <h5>info</h5>
                 </td>
               </tr>
             </tbody>
@@ -543,41 +612,26 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-lg-12">
         <div class="best_product_slider owl-carousel">
+
+          @foreach($produits as $prod)
           <div class="single_product_item">
-            <img src="{{ url('img/product/product_1.png') }}" alt="">
+            <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
             <div class="single_product_text">
-              <h4>Nom du produit</h4>
-              <h3>1200.50 DHS</h3>
+              <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
+                <h4>
+                  {{$prod->nom_produit}}
+                </h4>
+              </span>
+              <h3>
+                @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
+                Dhs
+                @endif
+              </h3>
             </div>
           </div>
-          <div class="single_product_item">
-            <img src="{{ url('img/product/product_2.png') }}" alt="">
-            <div class="single_product_text">
-              <h4>Nom du produit</h4>
-              <h3>1200.50 DHS</h3>
-            </div>
-          </div>
-          <div class="single_product_item">
-            <img src="{{ url('img/product/product_3.png') }}" alt="">
-            <div class="single_product_text">
-              <h4>Nom du produit</h4>
-              <h3>1200.50 DHS</h3>
-            </div>
-          </div>
-          <div class="single_product_item">
-            <img src="{{ url('img/product/product_4.png') }}" alt="">
-            <div class="single_product_text">
-              <h4>Nom du produit</h4>
-              <h3>1200.50 DHS</h3>
-            </div>
-          </div>
-          <div class="single_product_item">
-            <img src="{{ url('img/product/product_5.png') }}" alt="">
-            <div class="single_product_text">
-              <h4>Nom du produit</h4>
-              <h3>1200.50 DHS</h3>
-            </div>
-          </div>
+          @endforeach
+
         </div>
       </div>
     </div>
@@ -599,7 +653,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-      // id = 
+
       $.ajax({
         url: "{{ route('importDescriptions') }}",
         method: 'GET',
@@ -610,6 +664,7 @@
         success: function(reponse) {
           $('#prix').html(reponse.prix + " Dhs");
           $("#containerDescriptions").empty();
+          $("#containerDescriptions").append(`<b style='text-decoration: underline;font-size: 18px;'>${reponse.libelle_caractere}</b><br>`);
           reponse.descriptions.forEach(function(description) {
             $("#containerDescriptions").append(`<i>${description.libelle_description}</i><br>`);
           });

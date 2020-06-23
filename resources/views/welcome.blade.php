@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="banner_img d-none d-lg-block">
-                                <img src="img/banner_img.png" alt="">
+                                <img src="img/bedMoraTransparent.png" alt="" style="width: 67%;margin-left: 33%;margin-top: -10%;">
                             </div>
                         </div>
                     </div>
@@ -110,8 +110,8 @@
                         <br>
                         Mora
                     </h3>
-                    <a href="/single-product" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
-                    <img src="img/feature/feature_1.png" alt="">
+                    <a href="/Produit/6" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
+                    <img src="img/bedMoraTransparent.png" alt="" style="width: 70%;border-radius: 30%;bottom: 50px;">
                 </div>
             </div>
             <div class="col-lg-5 col-sm-6">
@@ -120,10 +120,10 @@
                     <h3>
                         Nouveauté chez
                         <br>
-                        Mora
+                        Naturel
                     </h3>
                     <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
-                    <img src="img/feature/feature_2.png" alt="">
+                    <img src="img/serviettesTransparent.png" alt="" style="width: 70%;bottom: 50px;">
                 </div>
             </div>
             <div class="col-lg-5 col-sm-6">
@@ -132,7 +132,7 @@
                     <h3>
                         Nouveauté chez
                         <br>
-                        Mora
+                        Irina Home
                     </h3>
                     <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
                     <img src="img/feature/feature_3.png" alt="">
@@ -144,7 +144,7 @@
                     <h3>
                         Nouveauté chez
                         <br>
-                        Mora
+                        Bait & Gan
                     </h3>
                     <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
                     <img src="img/feature/feature_4.png" alt="">
@@ -172,170 +172,56 @@
                 <div class="product_list_slider owl-carousel">
                     <div class="single_product_list_slider">
                         <div class="row align-items-center justify-content-between">
+
+                            @foreach($produits as $prod)
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
+                                    <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
                                     <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
+                                        <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
+                                            <h4>
+                                                {{$prod->nom_produit}}
+                                            </h4>
+                                        </span>
+                                        <h3>
+                                            @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                                            {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
+                                            Dhs
+                                            @endif
+                                        </h3>
                                         <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                     <div class="single_product_list_slider">
                         <div class="row align-items-center justify-content-between">
+
+                            @foreach($produits as $prod)
                             <div class="col-lg-3 col-sm-6">
                                 <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
+                                    <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
                                     <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
+                                        <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
+                                            <h4>
+                                                {{$prod->nom_produit}}
+                                            </h4>
+                                        </span>
+                                        <h3>
+                                            @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                                            {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
+                                            Dhs
+                                            @endif
+                                        </h3>
                                         <a href="#" class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="img/imageProduits/lit.jpeg" alt="">
-                                    <div class="single_product_text">
-                                        <h4>Nom du Produit</h4>
-                                        <h3>150.00 Dhs</h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -351,14 +237,14 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-lg-6 col-md-6">
                 <div class="offer_img">
-                    <img src="img/offer_img.png" alt="">
+                    <img src="../img/promotion.jpg" alt="" style="border-radius: 20%;">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="offer_text">
                     <h2>
                         Promotion -60% !
-                        uniquement cette semaine.
+                        Uniquement cette semaine.
                     </h2>
                     <div class="date_countdown">
                         <div id="timer">
@@ -368,12 +254,15 @@
                             <div id="seconds" class="date"></div>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Votre adresse Email" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <a href="#" class="input-group-text btn_2" id="basic-addon2">Réserver</a>
+                    <form action="{{ route('StoreMessage') }}" method="post" autocomplete="off">
+                        <div class="input-group">
+                            @csrf
+                            <input type="email" name="email_persone" class="form-control" placeholder="Votre adresse Email" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                                <input type="submit" class="input-group-text btn_2" id="basic-addon2" value="Réserver">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -396,41 +285,24 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-lg-12">
                 <div class="best_product_slider owl-carousel">
+                    @foreach($produits as $prod)
                     <div class="single_product_item">
-                        <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
+                        <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
                         <div class="single_product_text">
-                            <h4>Nom du Produit</h4>
-                            <h3>150.00 Dhs</h3>
+                            <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
+                                <h4>
+                                    {{$prod->nom_produit}}
+                                </h4>
+                            </span>
+                            <h3>
+                                @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                                {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
+                                Dhs
+                                @endif
+                            </h3>
                         </div>
                     </div>
-                    <div class="single_product_item">
-                        <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
-                        <div class="single_product_text">
-                            <h4>Nom du Produit</h4>
-                            <h3>150.00 Dhs</h3>
-                        </div>
-                    </div>
-                    <div class="single_product_item">
-                        <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
-                        <div class="single_product_text">
-                            <h4>Nom du Produit</h4>
-                            <h3>150.00 Dhs</h3>
-                        </div>
-                    </div>
-                    <div class="single_product_item">
-                        <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
-                        <div class="single_product_text">
-                            <h4>Nom du Produit</h4>
-                            <h3>150.00 Dhs</h3>
-                        </div>
-                    </div>
-                    <div class="single_product_item">
-                        <img src="https://cdn.ycan.shop/stores/monlit/products/E4YVbweOArWAWPnOvrvQa2WNB1Zt7puxinpzNQ3P_md.jpeg" alt="">
-                        <div class="single_product_text">
-                            <h4>Nom du Produit</h4>
-                            <h3>150.00 Dhs</h3>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -439,19 +311,22 @@
 <!-- product_list part end-->
 
 <!-- subscribe_area part start-->
-<section class="subscribe_area section_padding">
+<section class="subscribe_area section_padding" style="background-image: url('img/test.png')">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7">
                 <div class="subscribe_area_text text-center">
                     <h5>Rejoignez notre Newsletter</h5>
                     <h2>Abonnez-vous pour ne pas rater nos meilleurs offres !</h2>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Votre adresse Email" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <a href="#" class="input-group-text btn_2" id="basic-addon2">S'abonner</a>
+                    <form action="{{ route('StoreMessage') }}" method="post" autocomplete="off">
+                        <div class="input-group">
+                            @csrf
+                            <input type="email" name="email_persone" class="form-control" placeholder="Votre adresse Email" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                                <input type="submit" class="input-group-text btn_2" id="basic-addon2" value="S'abonner">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

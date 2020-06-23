@@ -17,7 +17,7 @@ class AdminPagesController extends Controller
 
     public function ListeProduits()
     {
-        $produits = DB::select("select * from produit ");
+        $produits = DB::select("select * from produit");
         return view("BackOfficeAdmin.listeProduits", compact("produits"));
     }
 

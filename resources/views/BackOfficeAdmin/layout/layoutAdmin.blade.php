@@ -54,7 +54,7 @@
                 <h1><a href="{{ url('/Admin/Accueil') }}" class="logo">Admin</a></h1>
                 <ul class="list-unstyled components mb-5">
                     <li class="">
-                        <a href="{{ url('/Admin/Accueil') }}" id="linkAccueil">
+                        <a href="{{ url('/') }}" id="linkAccueil">
                             <i class="fas fa-home"></i>
                             <strong>Accueil</strong>
                         </a>

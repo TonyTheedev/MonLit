@@ -42,7 +42,41 @@
             background-image: linear-gradient(315deg, #5de6de 0%, #b58ecc 74%);
             border-radius: 10px;
         }
+
+        .dropdown-submenu {
+            position: relative !important;
+        }
+
+        .dropdown .dropdown-menu {
+            overflow: visible;
+        }
+
+        .dropdown-submenu .dropdown-menu-level2 {
+            position: absolute;
+            top: 100%;
+            left: 20%;
+            background-color: aqua;
+            z-index: 100;
+            display: none;
+            min-width: 200px;
+        }
+
+
+        .dropdown-menu .dropdown-menu-level3 {
+            position: absolute;
+            top: 100%;
+            left: 20%;
+            background-color: orange;
+            z-index: 100;
+            display: none;
+            min-width: 200px;
+        }
+
+        .dropdown-menu a {
+            color: white !important
+        }
     </style>
+
     @section('linkcss')
     @show
     <!-- style CSS -->
@@ -69,18 +103,105 @@
                                     <a class="nav-link" href="{{url('/')}}">Accueil</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <strong>Nos Marques</strong>
+                                    {{-- <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <strong>Nos Marques</strong>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="{{url('/login')}}"> login</a>
-                                        <a class="dropdown-item" href="{{url('/tracking')}}">tracking</a>
-                                        <a class="dropdown-item" href="{{url('/checkout')}}">product checkout</a>
-                                        <a class="dropdown-item" href="{{url('/cart')}}">shopping cart</a>
-                                        <a class="dropdown-item" href="{{url('/confirmation')}}">confirmation</a>
-                                        <a class="dropdown-item" href="{{url('/element')}}">elements</a>
+                                        @foreach(
+                                        DB::select("select * from marque")
+                                        as
+                                        $marque
+                                        )
+                                        <a class="dropdown-item" href="#">{{ $marque->nom_marque }}</a>
+                                        <hr style="margin: 0px;">
+                                        @endforeach
+                                    </div> --}}
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" style="padding: 30px 23px;" data-toggle="dropdown">
+                                            <strong>Nos Marques</strong>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="margin-left: 10px;">
+                                            @foreach(
+                                            DB::select("select * from marque")
+                                            as
+                                            $marque
+                                            )
+                                            @if(sizeof(DB::select("select type_produit.id_type , type_produit.libelle_type from marque inner join type_produit ON type_produit.marque_ = marque.id_marque where marque.id_marque = $marque->id_marque")) != 0)
+                                            <li class="dropdown-submenu" style="padding-left: 9px;">
+                                                <a class="test" tabindex="-1" href="#">
+                                                    {{ $marque->nom_marque }}
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu-level2" style="background-color: #d387ab;background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);border-radius: 5px;">
+                                                    @foreach(
+                                                    DB::select("select type_produit.id_type , type_produit.libelle_type from marque inner join type_produit ON type_produit.marque_ = marque.id_marque where marque.id_marque = $marque->id_marque")
+                                                    as
+                                                    $type_prod
+                                                    )
+                                                    <li>
+                                                        <a style="padding-left: 6px;" tabindex="-1" href="#">
+                                                            {{ $type_prod->libelle_type }}
+                                                        </a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                                <hr style="margin: 3px;">
+                                            </li>
+                                            @endif
+                                            @endforeach
+                                            <li class="dropdown-submenu" style="padding-left: 9px;">
+                                                <a class="test" tabindex="-1" href="#">
+                                                    Tous nos produits !
+                                                    <span class="caret"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </li>
+                                <!-- <li class="nav-item dropdown">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" style="padding: 30px 23px;" data-toggle="dropdown">Tutorials
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="#">HTML</a></li>
+                                            <li><a tabindex="-1" href="#">CSS</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
+                                                <ul class="dropdown-menu-level2" style="background-color: #d387ab;background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);border-radius: 5px;">
+                                                    <li><a style="padding-left: 6px;" tabindex="-1" href="#">2nd level
+                                                            dropdown</a></li>
+                                                    <li><a style="padding-left: 6px;" tabindex="-1" href="#">2nd level
+                                                            dropdown</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                                <!-- <li class="nav-item dropdown">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Tutorials
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="#">HTML</a></li>
+                                            <li><a tabindex="-1" href="#">CSS</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+                                                    <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+                                                    <li class="dropdown-submenu">
+                                                        <a class="test" href="#">Another dropdown <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#">3rd level dropdown</a></li>
+                                                            <li><a href="#">3rd level dropdown</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li> -->
                                 <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         blog
@@ -124,7 +245,7 @@
                             </a>
 
                             <div class="dropdown cart">
-                                <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="dropdown-toggle" href="{{ url('/Panier') }}" id="navbarDropdown3" role="button">
                                     <i class="fas fa-cart-plus"></i>
                                 </a>
                             </div>
@@ -228,11 +349,12 @@
                 <div class="col-sm-6 col-lg-4">
                     <div class="single_footer_part">
                         <h4>Newsletter</h4>
-                        <p>Promotion et nouveaux produits chaque semaine !
+                        <p>Des promotion et de nouveaux produits chaque semaine !
                         </p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part">
-                                <input type="email" name="email" id="newsletter-form-email" placeholder="votre_email@mail.com" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
+                        <div>
+                            <form action="{{ route('StoreMessage') }}" method="post" class="subscribe_form relative mail_part">
+                                @csrf
+                                <input type="email" name="email_persone" id="" placeholder="votre_email@mail.com" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' votre_email@mail.com '" required>
                                 <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">s'abonner</button>
                                 <div class="mt-10 info"></div>
                             </form>
@@ -261,7 +383,6 @@
                             <ul class="list-unstyled">
                                 <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
                                 <li><a href="#" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </div>
@@ -308,6 +429,36 @@
         action === "" ?
             document.getElementById('formLogin').action = "login-page=" + "home" :
             document.getElementById('formLogin').action = "login-page=" + action;
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-submenu a.test').on("click", function(e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            // $('.dropdown-submenu a.test').on("mouseover", function(e) {
+            //     $(this).next('ul').toggle();
+            //     e.stopPropagation();
+            //     e.preventDefault();
+            // });
+            //
+            // $('.dropdown-submenu a.test').on("mouseout", function(e) {
+            //     // $(this).next('ul').toggle();
+            //     // e.stopPropagation();
+            //     // e.preventDefault();
+            //     if ($(this).next('ul').is(':hover')) {
+            //         $(this).next('ul').toggle();
+            //         e.stopPropagation();
+            //         e.preventDefault();
+            //     }
+            // });
+
+            // $(".dropdown-menu-level2").on("mouseout", function(e) {
+            //     $('.dropdown-submenu a.test').mouseout();
+            // });
+        });
     </script>
 </body>
 

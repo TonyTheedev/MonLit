@@ -113,12 +113,12 @@
                         <i class="bar"></i>
                     </div>
                     <div class="form-group" style="padding-left: 0px;width: 50%;">
-                        <input type="text" name="slogganMarque" required />
+                        <input type="text" name="slogganMarque" />
                         <label for="input" class="control-label">Sloggan</label>
                         <i class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <textarea name="descriptionMarque" required></textarea>
+                        <textarea name="descriptionMarque"></textarea>
                         <label for="textarea" class="control-label">Description (facultatif ...)</label><i class="bar"></i>
                     </div>
                     <div class="row">

@@ -3,14 +3,14 @@
 @section('body')
 <!--================Home Banner Area =================-->
 <!-- breadcrumb start-->
-<section class="breadcrumb breadcrumb_bg">
+<section class="breadcrumb breadcrumb_bg" style="background-image: url('../img/imgContact.png');">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="breadcrumb_iner">
           <div class="breadcrumb_iner_item">
             <h2>Contactez-nous</h2>
-            <p><span>-</span>Nous répendrons aussitot que possible <span>-</span></p>
+            <p><span>-</span>Nous répondrons aussit&ocirc;t que possible <span>-</span></p>
           </div>
         </div>
       </div>
@@ -70,32 +70,33 @@
         <h2 class="contact-title">Une demande ..?</h2>
       </div>
       <div class="col-lg-8">
-        <form class="form-contact" action="" method="post" autocomplete="off">
+        <form class="form-contact" id="form-contact" action="{{ route('StoreMessage') }}" method="post" autocomplete="off">
           <div class="row">
             <div class="col-12">
               <div class="form-group">
+                @csrf
 
-                <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre message.'" placeholder='Votre message.'></textarea>
+                <textarea class="form-control w-100" name="contenu_message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre message.'" placeholder='Votre message.' required></textarea>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <input class="form-control" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre nom'" placeholder='Votre nom'>
+                <input class="form-control" name="nom_personne" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom Complet'" placeholder='Votre nom'>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <input class="form-control" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre adresse Email'" placeholder='Votre adresse Email'>
+                <input class="form-control" name="email_persone" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre adresse Email'" placeholder='Votre adresse Email' required>
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
-                <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'à propos de'" placeholder='à propos de'>
+                <input class="form-control" name="sujet_message" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'à propos de'" placeholder='à propos de'>
               </div>
             </div>
           </div>
           <div class="form-group mt-3">
-            <a href="#" class="btn_3 button-contactForm">Envoyer</a>
+            <input type="button" id="BtnInput" class="btn_3 button-contactForm" value="Envoyer">
           </div>
         </form>
       </div>
@@ -126,4 +127,32 @@
   </div>
 </section>
 <!-- ================ contact section end ================= -->
+@endsection
+
+@section('scripts')
+<script src="{{ url('js/notify.min.js') }}"></script>
+
+<script>
+  $(document).ready(function() {
+
+    $("#BtnInput").click(function() {
+      if ($('#email').valid() && $('#message').valid()) {
+        $.notify("Nous vous répondront aussitot ! Vérifiez votre boite email ...", {
+          autoHideDelay: 8000,
+          className: 'success',
+          position: "bottom center"
+        });
+
+        setTimeout(function() {
+
+          $("#form-contact").submit()
+
+        }, 3000);
+      }
+    });
+
+
+
+  })
+</script>
 @endsection

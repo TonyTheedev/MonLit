@@ -13,15 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/blog', function () {
     return view('blog');
 });
 
-Route::get('/cart', function () {
+Route::get('/Panier', function () {
     return view('cart');
 });
 
@@ -62,12 +58,17 @@ Route::get('/tracking', function () {
 });
 
 // Front office
+Route::get('/', 'ClientPagesController@Accueil');
+
 
 route::post('login-page={page}', 'AuthController@AuthentificatedGoingToPage');
 route::get('logout', 'AuthController@LogOut');
 
 Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
 route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('importDescriptions');
+route::get('/Produit/AjoutPanier-produit={prod}', 'ClientPagesController@AjoutPanier')->name('AjoutPanier');
+
+Route::post('/StoreMessage', 'ClientPagesController@StoreMessage')->name('StoreMessage');
 
 // Back office
 route::get('/Admin/Accueil', 'AdminPagesController@Accueil');

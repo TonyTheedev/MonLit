@@ -76,7 +76,7 @@
             `       <button id="btnSuppr${nbrOptions}" class="far fa-trash-alt btnSupr" style="color: white;" onclick="suprimerDescription(${nbrOptions})"></button>` +
             '   </div>' +
             '  </div>' +
-            ` <input type="text" class="form-control" name="option${nbrOptions}" value="test" id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." style="border: 1px solid;" >` +
+            ` <input type="text" class="form-control" name="option${nbrOptions}" style="font-weight: bold;border: 1px solid;" value="- " id="option${nbrOptions}" onfocusout="commitText('labelOption'+${nbrOptions},document.getElementById('option${nbrOptions}').value)" placeholder="- info : petite description." >` +
             '</div>');
         if (document.getElementById(`btnSuppr${nbrOptions - 1}`) != null) {
             document.getElementById(`btnSuppr${nbrOptions - 1}`).disabled = true;
@@ -302,7 +302,7 @@
         </form>
     </div>
 
-    <input type="button" id="btnLine" value="+ options" data-toggle="modal" data-target="#exampleModal" disabled>
+    <input type="button" id="btnLine" value="+ caractéristiques" data-toggle="modal" data-target="#exampleModal">
     <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
 
     <!-- Modal -->
@@ -366,7 +366,7 @@
         $("#colorInput0").click(
             function() {
                 $.notify.addStyle('foo', {
-                    html: "<input type='text' onchange='changeCouleur(0)' id='col0' ><i type='button' id='btnCLose'>&times;</i>"
+                    html: "<input type='text' value='#' onchange='changeCouleur(0)' id='col0' ><i type='button' id='btnCLose'>&times;</i>"
                 });
 
                 $(document).on('click', '#btnCLose', function() {
@@ -456,6 +456,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $(document).on('change', '#Marques', function() {
             $.ajax({
                 url: "{{ route('ImportTypes') }}",
@@ -495,6 +496,12 @@
                     id_produit = data.id_produit;
                     console.log(data.reponse + " " + data.id_produit);
                     $("#btnLine").disabled = false; //todo
+                    $.notify(" Produit ajouté avec succées.\n Veuillez maintenant saisir ses caractéristiques.", {
+                        autoHideDelay: 8000,
+                        className: 'success',
+                        align: "center",
+                        verticalAlign: "top"
+                    });
                 }
             });
         });
@@ -528,9 +535,17 @@
                         suprimerDescription(i - 1);
                     }
                     $('#exampleModal').modal('hide');
+                    $.notify("Caractéristiques ajoutés avec succées !", {
+                        autoHideDelay: 8000,
+                        className: 'success',
+                        align: "center",
+                        verticalAlign: "top"
+                    });
                 }
             });
         });
+
+
     });
 </script>
 @endsection

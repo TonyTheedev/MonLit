@@ -10,10 +10,19 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class ClientPagesController extends Controller
 {
+    public function Accueil()
+    {
+        $produits = DB::select("select * from produit limit 8");
+        return view("welcome", compact("produits"));
+    }
+
     public function ProduitOverview($product)
     {
         $info_produit = collect(DB::select("select * from produit inner join type_produit on type_produit.id_type = produit.type_ inner join marque ON marque.id_marque = type_produit.marque_ where produit.id_produit = $product "))->first();
-        return view("single-product", compact('info_produit'));
+        $produits = DB::select("select * from produit limit 5");
+        return view("single-product")
+            ->with('info_produit', $info_produit)
+            ->with('produits', $produits);
     }
 
     public function importDescriptions(Request $request)
@@ -21,15 +30,52 @@ class ClientPagesController extends Controller
         if ($request->ajax()) {
             $id = $request->id_caracteristique;
             $prix = collect(DB::select("select prix from carateristique where id_caractere = $id"))->first()->prix;
+            $libelle_caractere = collect(DB::select("select libelle_caractere from carateristique where id_caractere = $id"))->first()->libelle_caractere;
             $descriptions = DB::select("
             select libelle_description from carateristique inner join description_produit on description_produit.caracteristique_ = carateristique.id_caractere
             where carateristique.id_caractere = $id");
 
             $success = array(
                 'prix' => $prix,
+                'libelle_caractere' => $libelle_caractere,
                 'descriptions' => $descriptions
             );
             echo json_encode($success);
         }
+    }
+
+    public function AjoutPanier($produit, $nbr)
+    {
+        if (AuthController::IsAuthentificated()) {
+            $userConnected = "";
+            $statut_commande = "";
+            for ($i = 0; $i < $nbr; $i++) {
+                DB::statement(
+                    "insert into commande(personne_, produit_, date_ajout,)",
+                    array()
+                );
+            }
+        }
+    }
+
+    public function StoreMessage(Request $request)
+    {
+
+        $nom_personne = isset($request->nom_personne) ? $request->nom_personne : 'Abonnement client';
+        $email_persone = $request->email_persone;
+        $sujet_message = isset($request->sujet_message) ? $request->sujet_message : '';
+        $contenu_message = isset($request->contenu_message) ? $request->contenu_message : '';
+
+        DB::statement(
+            "insert into contact(nom_personne, email_persone, sujet_message, contenu_message)
+                       values(:nom_personne, :email_persone, :sujet_message, :contenu_message)",
+            array(
+                'nom_personne' => $nom_personne,
+                'email_persone' => $email_persone,
+                'sujet_message' => $sujet_message,
+                'contenu_message' => $contenu_message
+            )
+        );
+        return redirect("/");
     }
 }
