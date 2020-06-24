@@ -66,7 +66,7 @@ route::get('logout', 'AuthController@LogOut');
 
 Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
 route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('importDescriptions');
-route::get('/Produit/AjoutPanier-produit={prod}', 'ClientPagesController@AjoutPanier')->name('AjoutPanier');
+route::post('/AjoutPanier', 'ClientPagesController@AjoutPanier')->name("AjoutPanier");
 
 Route::post('/StoreMessage', 'ClientPagesController@StoreMessage')->name('StoreMessage');
 

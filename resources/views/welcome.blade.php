@@ -189,7 +189,7 @@
                                             Dhs
                                             @endif
                                         </h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
+                                        <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +216,7 @@
                                             Dhs
                                             @endif
                                         </h3>
-                                        <a href="#" class="add_cart">+ Au panier</a>
+                                        <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
                                     </div>
                                 </div>
                             </div>
@@ -374,4 +374,43 @@
     </div>
 </section>
 <!--::subscribe_area part end::-->
+@endsection
+
+@section('scripts')
+
+<script src="{{ url('js/notify.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $(".add_cart").click(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('AjoutPanier') }}",
+                method: 'POST',
+                data: {
+                    produit: this.id,
+                    nbr: 1
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $.notify("Ajouté au panier 🤩 !", {
+                        autoHideDelay: 5000,
+                        className: 'success',
+                        align: "center",
+                        verticalAlign: "top"
+                    });
+                }
+            });
+
+        });
+
+    });
+</script>
 @endsection

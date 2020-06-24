@@ -44,17 +44,40 @@ class ClientPagesController extends Controller
         }
     }
 
-    public function AjoutPanier($produit, $nbr)
+    public function AjoutPanier(Request $request)
     {
-        if (AuthController::IsAuthentificated()) {
-            $userConnected = "";
-            $statut_commande = "";
-            for ($i = 0; $i < $nbr; $i++) {
-                DB::statement(
-                    "insert into commande(personne_, produit_, date_ajout,)",
-                    array()
-                );
+        if ($request->ajax()) {
+
+            $produit = $request->get("produit");
+            $nbr = $request->get("nbr");
+
+            if (AuthController::IsAuthentificated()) {
+                $userConnected = session()->get('userObject')->id_personne;
+                for ($i = 0; $i < $nbr; $i++) {
+                    DB::statement(
+                        "insert into commande(personne_, produit_, statut_commande, est_delivre) 
+                        values(:personne_, :produit_, :statut_commande, :est_delivre)",
+                        array(
+                            'personne_' => $userConnected,
+                            'produit_' => $produit,
+                            'statut_commande' => 'En attente',
+                            'est_delivre' => 'false'
+                        )
+                    );
+                }
+            } else {
+                if (!session()->has("produits"))
+                    $panier = collect([]);
+                else
+                    $panier = session()->get("produits");
+
+
+                $panier->put("$produit", $panier->get("$produit") + $nbr);
+                session()->put("produits", $panier);
             }
+            // \Session::forget("produits");
+
+            echo json_encode("success");
         }
     }
 
@@ -76,6 +99,6 @@ class ClientPagesController extends Controller
                 'contenu_message' => $contenu_message
             )
         );
-        return redirect("/");
+        return redirect(url()->previous());
     }
 }
