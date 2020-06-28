@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Mon Lit</title>
-    <!-- <link rel="icon" href="https://cdn.ycan.shop/stores/monlit/theme-settings/mWih5ydeDQTDV07yK7GjQzQGU9fKZOB5j45cbk9b.jpeg"> -->
-    <link rel="icon" href="{{ url('img/favicon.png') }}">
+    <link rel="icon" href="https://cdn.ycan.shop/stores/monlit/theme-settings/mWih5ydeDQTDV07yK7GjQzQGU9fKZOB5j45cbk9b.jpeg">
+    <!-- <link rel="icon" href="{{ url('img/favicon.png') }}"> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <!-- animate CSS -->
@@ -151,7 +151,7 @@
                                             @endif
                                             @endforeach
                                             <li class="dropdown-submenu" style="padding-left: 9px;">
-                                                <a class="test" tabindex="-1" href="#">
+                                                <a class="" tabindex="-1" href="/Catalogue">
                                                     Tous nos produits !
                                                     <span class="caret"></span>
                                                 </a>
@@ -227,12 +227,20 @@
                                         <i class="fas fa-user-shield" data-toggle="modal" data-target="#modalLogin"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="logout">se déconnecter</a>
+                                        @if(true)
+                                        <a class="dropdown-item" href="/Admin/ListeProduits">Administration</a>
+                                        @endif
+                                        <a class="dropdown-item" href="logout">Se déconnecter</a>
                                     </div>
                                 </li>
 
-                                <div class="dropdown cart">
+                                <!-- <div class="dropdown cart">
                                     <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </a>
+                                </div> -->
+                                <div class="dropdown cart">
+                                    <a class="dropdown-toggle" href="{{ url('/Panier') }}" id="navbarDropdown3" role="button">
                                         <i class="fas fa-cart-plus"></i>
                                     </a>
                                 </div>

@@ -101,4 +101,26 @@ class ClientPagesController extends Controller
         );
         return redirect(url()->previous());
     }
+
+    public function Category()
+    {
+        $marques = DB::select('select COUNT(produit.nom_produit) as nbrproduct , marque.nom_marque , marque.id_marque
+                                from marque inner join type_produit on type_produit.marque_ = marque.id_marque
+                                    inner join produit on produit.type_ = type_produit.id_type
+                                group by marque.nom_marque ,marque.id_marque;');
+
+        $types = DB::select('select distinct on (libelle_type) libelle_type , id_type from type_produit');
+
+        $couleurs = DB::select('select distinct valeur_couleur from couleur;');
+
+        $produits = DB::select("select * from produit limit 5");
+
+        $produits_filtres = DB::select("select * from produit");
+
+        return view('category')
+            ->with("marques", $marques)
+            ->with("types", $types)
+            ->with("couleurs", $couleurs)
+            ->with("produits", $produits);
+    }
 }

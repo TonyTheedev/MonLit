@@ -15,8 +15,8 @@
       <div class="col-lg-8">
         <div class="breadcrumb_iner">
           <div class="breadcrumb_iner_item">
-            <h2>Cart Products</h2>
-            <p>Home <span>-</span>Cart Products</p>
+            <h2>Mon Panier</h2>
+            <p>-Intervention & Paiement sécurisés-</p>
           </div>
         </div>
       </div>
@@ -29,14 +29,14 @@
 <section class="cart_area padding_top">
   <div class="container">
     <div class="cart_inner">
-      <div class="table-responsive">
+      <div class="table-responsive" style="overflow-x: unset;">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Produit</th>
+              <th scope="col" style="text-align: center;">Produit</th>
               <th scope="col">Prix</th>
-              <th scope="col">Quantité</th>
-              <th scope="col">Total</th>
+              <th scope="col" style="text-align: center;">Quantité</th>
+              <th scope="col" style="text-align: center;">Total</th>
             </tr>
           </thead>
           <tbody>
@@ -47,31 +47,43 @@
               <td>
                 <div class="media">
                   <div class="d-flex" style="width: 33%;">
-                    <!-- TODO : rechercher tof par id_caractéristique non pas par id_produit !! -->
-                    <img style="border-radius: 22px;" src='images/{{ collect(DB::select("select photo.chemin_photo from produit inner join photo ON photo.produit_ = produit.id_produit where id_produit = $prod"))->first()->chemin_photo }}' alt="" />
+                    <img style="border-radius: 22px;" src='images/{{ collect(DB::select("select photo.chemin_photo from carateristique inner join produit on produit.id_produit = carateristique.produit_ inner join photo ON photo.produit_ = produit.id_produit where carateristique.id_caractere = $prod"))->first()->chemin_photo }}' alt="" />
                   </div>
                   <div class="media-body">
-                    <!-- TODO : rechercher nom_produit par id_caractéristique non pas par id_produit !! -->
                     <p>
-                      {{ collect(DB::select("select nom_produit from produit where id_produit = $prod"))->first()->nom_produit }}
+                      {{ collect(DB::select("select produit.nom_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->nom_produit }}
+                      <br>
+                      <span style="font-weight: 500;text-decoration: underline;">
+                        {{ collect(DB::select("select carateristique.libelle_option_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->libelle_option_produit }}
+                      </span>
                     </p>
                   </div>
                 </div>
               </td>
-              <td>
+              <td style="width: 10%;padding: 0px;">
                 <h5>
-                  Prix
+                  <span id="prix{{ $prod }}">
+                    {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->prix }}
+                  </span>
+                  Dhs
                 </h5>
               </td>
               <td>
                 <div class="product_count">
-                  <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-                  <input class="input-number" type="text" min="0" value="{{ session()->get('produits')['' . $prod] }}">
-                  <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
+                  <span class="input-number-decrement"> <i id="{{ $prod }}" class="ti-angle-down" style="cursor: pointer;"></i></span>
+                  <input id="quantite{{ $prod }}" class="input-number" type="text" min="0" value="{{ session()->get('produits')['' . $prod] }}">
+                  <span class="input-number-increment"> <i id="{{ $prod }}" class="ti-angle-up" style="cursor: pointer;"></i></span>
                 </div>
               </td>
-              <td>
-                <h5>$720.00</h5>
+              <td style="padding: 0px;">
+                <h5>
+                  <span id="total{{ $prod }}" class="spanTotal">
+                    {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->prix
+                      *
+                      session()->get('produits')['' . $prod]
+                    }}
+                  </span>
+                  Dhs</h5>
               </td>
             </tr>
             @endforeach
@@ -86,7 +98,7 @@
             </tr>
             @endif
 
-            <tr class="bottom_button">
+            <!-- <tr class="bottom_button">
               <td>
                 <a class="btn_1" href="#">Update Cart</a>
               </td>
@@ -97,63 +109,82 @@
                   <a class="btn_1" href="#">Close Coupon</a>
                 </div>
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td></td>
               <td></td>
               <td>
-                <h5>Subtotal</h5>
+                <h5>Facturation :</h5>
               </td>
               <td>
-                <h5>$2160.00</h5>
+                <h5>
+                  <span id="spanFacturation">
+
+                  </span>
+                  Dhs
+                </h5>
               </td>
             </tr>
+            @if(session()->has("produits"))
             <tr class="shipping_area">
               <td></td>
               <td></td>
               <td>
-                <h5>Shipping</h5>
+                <h5></h5>
               </td>
               <td>
                 <div class="shipping_box">
                   <ul class="list">
                     <li>
-                      <a href="#">Flat Rate: $5.00</a>
+                      <a style="cursor: pointer;">Livraison Option 1: &nbsp; 55.00 Dhs</a>
                     </li>
                     <li>
-                      <a href="#">Free Shipping</a>
+                      <a style="cursor: pointer;">Livraison Option 2</a>
                     </li>
                     <li>
-                      <a href="#">Flat Rate: $10.00</a>
+                      <a style="cursor: pointer;">Livraison Option 3: &nbsp; 100 Dhs</a>
                     </li>
                     <li class="active">
-                      <a href="#">Local Delivery: $2.00</a>
+                      <a style="cursor: pointer;">Livraison Option 4: &nbsp; 270 Dhs</a>
                     </li>
                   </ul>
-                  <h6>
+                  <!-- <h6>
                     Calculate Shipping
                     <i class="fa fa-caret-down" aria-hidden="true"></i>
-                  </h6>
+                  </h6> -->
                   <select class="shipping_select">
-                    <option value="1">Bangladesh</option>
-                    <option value="2">India</option>
-                    <option value="4">Pakistan</option>
+                    <option value="1">Nador</option>
+                    <option value="2">Oujda</option>
+                    <option value="4">Berkane</option>
+                    <option value="5">Rabat</option>
+                    <option value="6">Casa Blanca</option>
                   </select>
-                  <select class="shipping_select section_bg">
+                  <!-- <select class="shipping_select section_bg" style="visibility: hidden;">
                     <option value="1">Select a State</option>
                     <option value="2">Select a State</option>
                     <option value="4">Select a State</option>
-                  </select>
-                  <input type="text" placeholder="Postcode/Zipcode" />
-                  <a class="btn_1" href="#">Update Details</a>
+                  </select> -->
+                  <input type="text" placeholder="Adresse Exact, N&ordm; Rue." />
+                  <a class="btn_1" href="#" style="visibility: hidden;">Update Details</a>
                 </div>
               </td>
             </tr>
+            @endif
           </tbody>
         </table>
         <div class="checkout_btn_inner float-right">
-          <a class="btn_1" href="#">Continue Shopping</a>
-          <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+          <a class="btn_1" href="/">
+            <i class="fas fa-store-alt"></i>
+            &nbsp;
+            Retour à la boutique
+          </a>
+          @if(session()->has("produits"))
+          <a class="btn_1 checkout_btn_1" href="#">
+            Confirmation
+            &nbsp;
+            <i class="fas fa-chevron-circle-right"></i>
+          </a>
+          @endif
         </div>
       </div>
     </div>
@@ -170,7 +201,31 @@
     $(".input-number-decrement").unbind("click");
     $(".input-number-increment").unbind("click");
 
-    
+    $(".ti-angle-up").click(function() {
+      var nouvelleQtt = parseInt($("#quantite" + this.id).val()) + 1;
+      var prix = parseFloat($("#prix" + this.id).html());
+      $("#quantite" + this.id).val(nouvelleQtt);
+      $("#total" + this.id).html(nouvelleQtt * prix);
+      CalculeFacturation();
+    })
+    $(".ti-angle-down").click(function() {
+      if (parseInt($("#quantite" + this.id).val()) > 0) {
+        var nouvelleQtt = parseInt($("#quantite" + this.id).val()) - 1;
+        var prix = parseFloat($("#prix" + this.id).html());
+        $("#quantite" + this.id).val(nouvelleQtt);
+        $("#total" + this.id).html(nouvelleQtt * prix);
+      }
+      CalculeFacturation();
+    })
+
+    function CalculeFacturation() {
+      var somme = 0;
+      Array.from(document.getElementsByClassName("spanTotal")).forEach(span => {
+        somme += parseFloat(span.textContent);
+      });
+      $('#spanFacturation').html(somme);
+    }
+    CalculeFacturation();
   })
 </script>
 @endsection

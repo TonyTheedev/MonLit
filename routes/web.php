@@ -21,9 +21,7 @@ Route::get('/Panier', function () {
     return view('cart');
 });
 
-Route::get('/category', function () {
-    return view('category');
-});
+Route::get('/Catalogue', 'ClientPagesController@Category');
 
 Route::get('/checkout', function () {
     return view('checkout');
