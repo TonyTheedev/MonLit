@@ -230,7 +230,7 @@
                                         @if(true)
                                         <a class="dropdown-item" href="/Admin/ListeProduits">Administration</a>
                                         @endif
-                                        <a class="dropdown-item" href="logout">Se déconnecter</a>
+                                        <a class="dropdown-item" href="{{ url('logout') }}">Se déconnecter</a>
                                     </div>
                                 </li>
 
@@ -377,13 +377,13 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="copyright_text">
-                            <P>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <!-- <P>
+                                Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                                 Copyright &copy;<script>
                                     document.write(new Date().getFullYear());
                                 </script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </P>
+                                Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+                            </P> -->
                         </div>
                     </div>
                     <div class="col-lg-4">

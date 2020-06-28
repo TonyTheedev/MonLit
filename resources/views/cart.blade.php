@@ -179,7 +179,7 @@
             Retour à la boutique
           </a>
           @if(session()->has("produits"))
-          <a class="btn_1 checkout_btn_1" href="#">
+          <a class="btn_1 checkout_btn_1" href="{{ url('/Paiement') }}">
             Confirmation
             &nbsp;
             <i class="fas fa-chevron-circle-right"></i>

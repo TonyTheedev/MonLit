@@ -23,9 +23,7 @@ Route::get('/Panier', function () {
 
 Route::get('/Catalogue', 'ClientPagesController@Category');
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+Route::get('/Paiement', 'ClientPagesController@InfoPaiement');
 
 Route::get('/confirmation', function () {
     return view('confirmation');

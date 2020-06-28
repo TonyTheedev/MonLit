@@ -30,6 +30,7 @@ class ClientPagesController extends Controller
         if ($request->ajax()) {
             $id = $request->id_caracteristique;
             $prix = collect(DB::select("select prix from carateristique where id_caractere = $id"))->first()->prix;
+            $id_caractere = collect(DB::select("select id_caractere from carateristique where id_caractere = $id"))->first()->id_caractere;
             $libelle_caractere = collect(DB::select("select libelle_caractere from carateristique where id_caractere = $id"))->first()->libelle_caractere;
             $descriptions = DB::select("
             select libelle_description from carateristique inner join description_produit on description_produit.caracteristique_ = carateristique.id_caractere
@@ -37,6 +38,7 @@ class ClientPagesController extends Controller
 
             $success = array(
                 'prix' => $prix,
+                'id_caractere' => $id_caractere,
                 'libelle_caractere' => $libelle_caractere,
                 'descriptions' => $descriptions
             );
@@ -122,5 +124,10 @@ class ClientPagesController extends Controller
             ->with("types", $types)
             ->with("couleurs", $couleurs)
             ->with("produits", $produits);
+    }
+
+    public function InfoPaiement()
+    {
+        return view('checkout');
     }
 }

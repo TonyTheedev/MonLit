@@ -7,7 +7,7 @@
 
 @section('body')
 <!-- breadcrumb start-->
-<section class="breadcrumb" style="background-image: url('/img/ImgIrina.png');">
+<!-- <section class="breadcrumb" style="background-image: url('/img/ImgIrina.png');">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- breadcrumb start-->
 <!--================End Home Banner Area =================-->
 
@@ -81,10 +81,10 @@
           <div class="card_area d-flex justify-content-between align-items-center">
             <div class="product_count">
               <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-              <input class="input-number" type="text" value="1" min="0" max="10">
+              <input id="QttInput" class="input-number" type="text" value="1" min="0" max="10">
               <span class="number-increment"> <i class="ti-plus"></i></span>
             </div>
-            <a href="#" class="btn_3" style="font-weight: 700;">Au panier !</a>
+            <a class="btn_3 add_cart" style="font-weight: 700;cursor: pointer;" id="">Au panier !</a>
             <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
           </div>
         </div>
@@ -644,6 +644,8 @@
 <script src="{{ url('js/lightslider.min.js') }}"></script>
 <script src="{{ url('js/stellar.js') }}"></script>
 <script src="{{ url('js/theme.js') }}"></script>
+<script src="{{ url('js/notify.min.js') }}"></script>
+
 <script>
   $(document).ready(function() {
 
@@ -663,6 +665,8 @@
         dataType: 'json',
         success: function(reponse) {
           $('#prix').html(reponse.prix + " Dhs");
+          $('.add_cart').attr("id", reponse.id_caractere);
+
           $("#containerDescriptions").empty();
           $("#containerDescriptions").append(`<b style='text-decoration: underline;font-size: 18px;'>${reponse.libelle_caractere}</b><br>`);
           reponse.descriptions.forEach(function(description) {
@@ -673,7 +677,37 @@
 
     });
 
+    $(".add_cart").click(function() {
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $.ajax({
+        url: "{{ route('AjoutPanier') }}",
+        method: 'POST',
+        data: {
+          produit: this.id,
+          nbr: $("#QttInput").val()
+        },
+        dataType: 'json',
+        success: function(data) {
+          $.notify("Ajouté au panier 🤩 !", {
+            autoHideDelay: 5000,
+            className: 'success',
+            align: "center",
+            verticalAlign: "top"
+          });
+        }
+      });
+
+    });
+
     Array.from($("input:radio[name='radioOptions']"))[0].click();
+
+
   });
 </script>
 @endsection
