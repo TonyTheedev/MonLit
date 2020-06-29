@@ -17,7 +17,7 @@ Route::get('/blog', function () {
     return view('blog');
 });
 
-Route::get('/Panier', function () {
+Route::get('/Panier', function () { //todo : transférer en controller !
     return view('cart');
 });
 
@@ -25,9 +25,7 @@ Route::get('/Catalogue', 'ClientPagesController@Category');
 
 Route::get('/Paiement', 'ClientPagesController@InfoPaiement');
 
-Route::get('/confirmation', function () {
-    return view('confirmation');
-});
+Route::post('/Confirmation', 'ClientPagesController@ConfirmationFinal')->name("ConfirmationFinal");
 
 Route::get('/contact', function () {
     return view('contact');

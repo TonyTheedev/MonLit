@@ -152,20 +152,20 @@
                     Calculate Shipping
                     <i class="fa fa-caret-down" aria-hidden="true"></i>
                   </h6> -->
-                  <select class="shipping_select">
+                  <!-- <select class="shipping_select">
                     <option value="1">Nador</option>
                     <option value="2">Oujda</option>
                     <option value="4">Berkane</option>
                     <option value="5">Rabat</option>
                     <option value="6">Casa Blanca</option>
-                  </select>
+                  </select> -->
                   <!-- <select class="shipping_select section_bg" style="visibility: hidden;">
                     <option value="1">Select a State</option>
                     <option value="2">Select a State</option>
                     <option value="4">Select a State</option>
                   </select> -->
-                  <input type="text" placeholder="Adresse Exact, N&ordm; Rue." />
-                  <a class="btn_1" href="#" style="visibility: hidden;">Update Details</a>
+                  <!-- <input type="text" placeholder="Adresse Exact, N&ordm; Rue." /> -->
+                  <!-- <a class="btn_1" href="#">Update Details</a> -->
                 </div>
               </td>
             </tr>

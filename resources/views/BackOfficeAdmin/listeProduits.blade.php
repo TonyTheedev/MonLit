@@ -36,7 +36,7 @@
                         @foreach($produits as $prod)
                         <div class="col-lg-3 col-sm-6">
                             <div class="single_product_item">
-                                <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
+                                <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' style="height: 260px;width: 300px;">
                                 <div class="single_product_text">
                                     <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
                                         <h4>

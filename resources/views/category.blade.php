@@ -78,7 +78,7 @@
                                 @foreach($couleurs as $couleur)
                                 <li>
                                     <!-- <a href="#"></a> -->
-                                    <div style="border-radius: 17px 0px 17px 17px;height: 30px; width: 30px ;background-color: {{$couleur->valeur_couleur}};"></div>
+                                    <div style="cursor: pointer ;border-radius: 17px 0px 17px 17px;height: 30px; width: 30px ;background-color: {{$couleur->valeur_couleur}};"></div>
                                 </li>
                                 @endforeach
                             </ul>

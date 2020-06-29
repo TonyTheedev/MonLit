@@ -53,8 +53,10 @@
 
         .dropdown-submenu .dropdown-menu-level2 {
             position: absolute;
-            top: 100%;
-            left: 20%;
+            /* top: 100%;
+            left: 20%; */
+            top: 30%;
+            left: 85%;
             background-color: aqua;
             z-index: 100;
             display: none;
@@ -372,26 +374,25 @@
             </div>
 
         </div>
-        <div class="copyright_part">
+        <div class="copyright_part" style="margin-left: 30%;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <!-- <div class="col-lg-8">
                         <div class="copyright_text">
-                            <!-- <P>
+                            <P>
                                 Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                                 Copyright &copy;<script>
                                     document.write(new Date().getFullYear());
                                 </script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                                 Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
-                            </P> -->
+                            </P>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4">
                         <div class="footer_icon social_icon">
                             <ul class="list-unstyled">
-                                <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="https://web.facebook.com/monlit.ma" class="single_social_icon" style="font-size: 40px;border-radius: 10px;"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="https://www.instagram.com/monlit.ma/" class="single_social_icon" style="font-size: 40px;border-radius: 10px;"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>

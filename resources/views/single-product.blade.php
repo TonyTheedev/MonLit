@@ -56,7 +56,6 @@
             $info
             )
             <div class="row">
-
               <div class="primary-radio">
                 <input type="radio" class="radioOptions" name="radioOptions" id="{{$info->id_caractere}}">
                 <label style="border:1px solid black;" for="{{$info->id_caractere}}"></label>

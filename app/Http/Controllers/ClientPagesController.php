@@ -130,4 +130,11 @@ class ClientPagesController extends Controller
     {
         return view('checkout');
     }
+
+    public function ConfirmationFinal(Request $request)
+    {
+        return view('confirmation')
+            ->with("MontantHidden", $request->MontantHidden)
+            ->with("FacturationHidden", $request->FacturationHidden);
+    }
 }
