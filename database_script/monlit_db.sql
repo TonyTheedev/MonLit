@@ -122,16 +122,17 @@ create table PERSONNE
     id_personne int default nextval('PERSONNE_seq') primary key,
     nom varchar(20),
     prenom varchar(20),
-    date_naissance date,
-    date_inscription date,
+    -- date_naissance date,
+    date_inscription date default CURRENT_DATE,
     sexe_ int,
     foreign key(sexe_) references SEXE(id_sexe),
+    codepostal varchar(10),
     adresse varchar(100),
     ville varchar(20),
-    telephone varchar(15),
+    telephone varchar(20),
     email varchar(20),
-    username varchar(10),
-    mot_de_passe varchar(20),
+    username varchar(20),
+    mot_de_passe varchar(50),
     role_personne_ int,
     foreign key(role_personne_) references ROLE_PERSONNE(id_role)
 );
@@ -640,12 +641,53 @@ INSERT INTO public.contact
 VALUES
     ('Abonnement client', 'email_persone@gmil.com', '', '');
 
+-- INSERTT PERSONNE
+INSERT INTO public.sexe
+    (id_sexe, libele_sexe)
+VALUES
+    (1, 'Homme');
+INSERT INTO public.sexe
+    (id_sexe, libele_sexe)
+VALUES
+    (2, 'Femme');
 
+-- INSERTT ROLE_PERSONNE
+INSERT INTO public.role_personne
+    (id_role, libelle_role, description_role)
+VALUES
+    (1, 'Admin', 'Admin');
+INSERT INTO public.role_personne
+    (id_role, libelle_role, description_role)
+VALUES
+    (2, 'Client', 'Client');
+INSERT INTO public.role_personne
+    (id_role, libelle_role, description_role)
+VALUES
+    (3, 'Invité', 'Invité');
+
+-- INSERTT PERSONNE
+
+INSERT INTO public.personne
+    (id_personne, nom, prenom, date_inscription, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_)
+VALUES
+    (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.personne
+    (id_personne, nom, prenom, date_inscription, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_)
+VALUES
+    (1, 'Saffih', 'Hicham', NULL, 1, '60000', 'hay andalous, rue laymoune 2', 'Oujda', '+212 0666201740', 'tony@gmail.com', 'hicham', 'hicham123', 1);
+INSERT INTO public.personne
+    (id_personne, nom, prenom, date_inscription, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_)
+VALUES
+    (3, 'Saffih', 'Hicham Oussama', '2020-06-30', 1, '60000', 'Lorem ipsum lambda', 'Nador', '0666201740', NULL, 'invit', 'invit', 3);
+INSERT INTO public.personne
+    (id_personne, nom, prenom, date_inscription, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_)
+VALUES
+    (4, 'Saffih', 'Hicham Oussamaa', '2020-06-30', 1, '60000', 'Lorem ipsum lambda', 'Oujda', '0666201740', 'adr@mail.com', 'invit', 'invit', 3);
 
 
 -----------------------Informations---------------------------------------------------------------------
 --Pour faire backup : aller dans  => C:\Program Files\PostgreSQL\9.5\bin
--- commande : pg_dump -U postgres --column-inserts -p 5433 -d pgluxedatabase > C:\Users\pc\Desktop\testBackup.sql
+-- commande : pg_dump -U postgres --column-inserts -p 5433 -d pgluxedatabase > C:\Users\pc\Desktop\monlitInserts.sql
 -- -U : postgres : Username 
 -- -d : pgluxedatabse : database name 
 -- -a : generer que le script INSERT (Copy .. \.)

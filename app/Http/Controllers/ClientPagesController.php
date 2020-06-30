@@ -133,8 +133,41 @@ class ClientPagesController extends Controller
 
     public function ConfirmationFinal(Request $request)
     {
+        $nom = $request->nom;
+        $prenom = $request->prenom;
+        $sexe = isset($request->radioHomme) ? 1 : 2;
+        $adresse = $request->adresse;
+        $ville = $request->ville;
+        $telephone = $request->telephone;
+        $email = $request->email;
+        $codePostal = $request->codePostal;
+        if (isset($request->message))
+            echo "msg";
+        $role = $request->compte == 'on' ? 2 : 3;
+
+        DB::statement(
+            "insert into personne(nom, prenom, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_) 
+                        values(:nom, :prenom, :sexe_, :codepostal, :adresse, :ville, :telephone, :email, :username, :mot_de_passe, :role_personne_)",
+            array(
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'sexe_' => $sexe,
+                'adresse' => $adresse,
+                'ville' => $ville,
+                'telephone' => $telephone,
+                'email' => $email,
+                'codepostal' => $codePostal,
+                'role_personne_' => $role,
+                'username' => "invit",
+                'mot_de_passe' => "invit",
+            )
+        );
+        $last_person_id = collect(DB::select("select currval('personne_seq') as currval;"))->first()->currval;
+        $last_person =  collect(DB::select("select * from personne where personne.id_personne = $last_person_id"))->first();
+
         return view('confirmation')
             ->with("MontantHidden", $request->MontantHidden)
-            ->with("FacturationHidden", $request->FacturationHidden);
+            ->with("FacturationHidden", $request->FacturationHidden)
+            ->with("last_person", $last_person);
     }
 }

@@ -40,16 +40,16 @@
           <ul>
 
             <li>
-              <p>Référence </p><span>: 78512</span>
+              <p>Référence </p><span>: Ref{{ $last_person->role_personne_ . $last_person->id_personne }} </span>
             </li>
             <li>
-              <p>Date</p><span>: 29 Juin 2020 (faux)</span>
+              <p>Date</p><span>: {{ (Carbon\Carbon::now())->toDateTimeString() }} </span>
             </li>
             <li>
-              <p>Par Mr/Mme </p><span>: Nom Prénom CLient</span>
+              <p>Par Mr/Mme </p><span>: {{$last_person->nom . ' ' . $last_person->prenom}} </span>
             </li>
             <li>
-              <p>Facturation</p><span>: xxxx Dhs (TTC)</span>
+              <p>Facturation</p><span>: {{ $FacturationHidden }} (TTC)</span>
             </li>
             <li>
               <p>Méthode de Paiement</p><span>: Par chéque</span>
@@ -62,19 +62,19 @@
           <h4>&Aacute; propos de la Livraison</h4>
           <ul>
             <li>
-              <p>Ville </p><span>: info</span>
+              <p>Ville </p><span>: {{ $last_person->ville }} </span>
             </li>
             <li>
-              <p>Adresse </p><span>: Nom Quartier, Rue N&deg; X.</span>
+              <p>Adresse </p><span>: {{ $last_person->adresse }} </span>
             </li>
             <!-- <li>
               <p>country</p><span>: United States</span>
             </li> -->
             <li>
-              <p>Code Postal</p><span>: 60 000</span>
+              <p>Code Postal</p><span>: {{ $last_person->codepostal }} </span>
             </li>
             <li>
-              <p>N&deg; Téléphone</p><span>: +212 0 666 2017 40</span>
+              <p>N&deg; Téléphone</p><span>: {{ $last_person->telephone }} </span>
             </li>
           </ul>
         </div>

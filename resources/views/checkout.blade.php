@@ -61,59 +61,59 @@
             <h3>Informations de paiement</h3>
             <div class="row contact_form">
               <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" id="first" name="name" placeholder="Nom de famille" autocomplete="off" />
+                <input type="text" class="form-control" id="first" name="nom" placeholder="Nom de famille" autocomplete="off" />
               </div>
               <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" id="last" name="name" placeholder="Prénom" />
+                <input type="text" class="form-control" id="last" name="prenom" placeholder="Prénom" />
               </div>
 
               <div class="col-md-12 form-group row">
                 <div class="col row" style="padding-left: 40px;">
                   <div class="primary-radio">
-                    <input type="radio" name="radioOptions" id="test">
-                    <label style="border:1px solid black;" for="test"></label>
+                    <input type="radio" name="radioHomme" id="homme" value="homme" onchange="document.getElementById('femme').checked = false;">
+                    <label style="border:1px solid black;" for="homme"></label>
                   </div>
                   <i> &nbsp; Homme</i>
                 </div>
 
                 <div class="col row" style="padding-left: 75px;">
                   <div class="primary-radio">
-                    <input type="radio" name="radioOptions" id="tt">
-                    <label style="border:1px solid black;" for="tt"></label>
+                    <input type="radio" name="radioFemme" id="femme" value="femme" onchange="document.getElementById('homme').checked = false;">
+                    <label style="border:1px solid black;" for="femme"></label>
                   </div>
                   <i> &nbsp; Femme</i>
                 </div>
               </div>
 
               <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" id="number" name="number" placeholder="N&deg; téléphone" />
+                <input type="text" class="form-control" id="number" name="telephone" placeholder="N&deg; téléphone" />
               </div>
 
               <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" id="email" name="compemailany" placeholder="Adresse email" />
+                <input type="email" class="form-control" id="email" name="email" placeholder="Adresse email" />
               </div>
 
               <div class="col-md-12 form-group p_star">
-                <select class="country_select">
-                  <option value="1">Nador</option>
-                  <option value="2">Oujda</option>
-                  <option value="3">Berkane</option>
-                  <option value="4">Rabat</option>
-                  <option value="5">Fes</option>
-                  <option value="6">Casa Blanca</option>
+                <select class="country_select" name="ville">
+                  <option value="Nador">Nador</option>
+                  <option value="Oujda">Oujda</option>
+                  <option value="Berkane">Berkane</option>
+                  <option value="Rabat">Rabat</option>
+                  <option value="Fes">Fes</option>
+                  <option value="Casa_Blanca">Casa Blanca</option>
                 </select>
               </div>
               <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" id="add1" name="add1" placeholder="Addresse de livraison" />
+                <input type="text" class="form-control" id="add1" name="adresse" placeholder="Addresse de livraison" />
               </div>
 
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" id="zip" name="zip" placeholder="Code postale" />
+                <input type="number" class="form-control" id="zip" name="codePostal" placeholder="Code postal" />
               </div>
 
               <div class="col-md-12 form-group">
                 <div class="creat_account">
-                  <input type="checkbox" id="f-option2" name="selector" />
+                  <input type="checkbox" id="f-option2" name="compte" />
                   <label for="f-option2">Créer un compte.</label>
                 </div>
               </div>
@@ -129,7 +129,7 @@
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="order_box">
+            <div class="order_box" style="width: 125%;">
               <h2>Votre Commande</h2>
               <ul class="list">
                 <li>
@@ -140,12 +140,12 @@
                 @if(session()->has("produits"))
                 @foreach(session()->get("produits")->keys() as $prod)
                 <li>
-                  <a href="{{ url('/Panier') }}">
-                    <span style="text-decoration: underline;">{{ collect(DB::select("select produit.nom_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->nom_produit }}
-                    </span>
-                    <br>
-                    <span class="middle">x {{ session()->get('produits')['' . $prod] }}pcs</span>
-                    <span class="last">{{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->prix
+                  <a href="{{ url('/Panier') }}" style="color: #90A4A3;">
+                    <p style="color: #90A4A3;font-style: italic;font-weight: 600;">{{ collect(DB::select("select produit.nom_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->nom_produit }}
+                    </p>
+
+                    <span class="middle"><i class="fas fa-shopping-cart"></i> x {{ session()->get('produits')['' . $prod] }}</span>
+                    <span class="last" style="font-weight: 600;color: #21292C;"><i class="fas fa-coins"></i> {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod"))->first()->prix
                         *
                         session()->get('produits')['' . $prod]
                       }} Dhs
@@ -159,7 +159,7 @@
               <ul class="list list_2">
                 <li>
                   <a>Montant :
-                    <span id="Montant"></span>
+                    <span id="Montant" style="font-weight: 600;color: #21292C;"></span>
                     <input type="hidden" name="MontantHidden" id="MontantHidden">
                   </a>
                 </li>
@@ -169,15 +169,16 @@
                   </a>
                 </li>
                 <li>
-                  <a>Facturation (TTC)
-                    <span id="Facturation"></span>
+                  <a>
+                    <i style="text-decoration: underline;">Facturation (TTC)</i>
+                    <span id="Facturation" style="font-weight: 600;color: #21292C;text-decoration: underline;"></span>
                     <input type="hidden" name="FacturationHidden" id="FacturationHidden">
                   </a>
                 </li>
               </ul>
               <div class="payment_item">
                 <div class="radion_btn">
-                  <input type="radio" id="f-option5" name="selector" />
+                  <input type="radio" id="f-option5" name="selector" checked />
                   <label for="f-option5">Par Chéque</label>
                   <div class="check"></div>
                 </div>
@@ -198,6 +199,7 @@
                 </div>
                 <p>
                   RIB de la boutique : <span style="font-weight: 500;">N&deg; 57493157</span>
+                  <br>
                   Identifiant : <span style="font-weight: 500;">7778524</span>
                 </p>
               </div>
@@ -206,7 +208,7 @@
                 <label for="f-option4">J'accepte les </label>
                 <a href="#">termes et les conditions*</a>
               </div>
-              <input type="submit" class="btn_3" value="Procéder">
+              <input id="btnSubmit" type="submit" class="btn_3" value="Procéder">
             </div>
           </div>
         </div>
@@ -224,14 +226,27 @@
   function CalculeFacturation() {
     var somme = 0;
     Array.from(document.getElementsByClassName("last")).forEach(span => {
-      somme += parseFloat(span.textContent.split(" ")[0]);
+      somme += parseFloat(span.textContent.split(" ")[1]);
     });
     $('#Montant').html(somme + " Dhs");
     $('#MontantHidden').val(somme + " Dhs");
-    $('#Facturation').html((somme + 270) + " Dhs");
+    $('#Facturation').html('<i class="fas fa-money-bill-wave"></i> ' + (somme + 270) + " Dhs");
     $('#FacturationHidden').val((somme + 270) + " Dhs");
-
+    $('#FacturationHidden').val((somme + 270) + " Dhs");
   }
   CalculeFacturation();
+
+  $("#f-option4").change(function() {
+    if (this.checked) {
+      $("#btnSubmit").attr("title", "");
+      $("#btnSubmit").attr("disabled", false);
+      $("#btnSubmit").css("background-color", "#ff3368");
+    } else {
+      $("#btnSubmit").attr("title", "Veuillez accepter d'abbord les termes & conditions");
+      $("#btnSubmit").attr("disabled", true);
+      $("#btnSubmit").css("background-color", "lightgray");
+    }
+  });
+  $("#f-option4").change();
 </script>
 @endsection
