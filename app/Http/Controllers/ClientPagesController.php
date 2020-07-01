@@ -170,4 +170,14 @@ class ClientPagesController extends Controller
             ->with("FacturationHidden", $request->FacturationHidden)
             ->with("last_person", $last_person);
     }
+
+    public static function nbrPanier()
+    {
+        $nbr = 0;
+        if (session()->has("produits"))
+            foreach (session()->get("produits")->keys() as $prod) {
+                $nbr += session()->get('produits')['' . $prod];
+            }
+        return $nbr;
+    }
 }

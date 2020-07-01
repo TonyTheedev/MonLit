@@ -77,6 +77,12 @@
         .dropdown-menu a {
             color: white !important
         }
+
+        .main_menu .cart i:after {
+            content : "{{ App\Http\Controllers\ClientPagesController::nbrPanier() }}"
+        }
+
+        /*  */
     </style>
 
     @section('linkcss')
