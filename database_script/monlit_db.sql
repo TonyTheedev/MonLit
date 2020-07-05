@@ -152,6 +152,35 @@ create table COMMANDE
     est_delivre bit default '0'
 );
 
+create sequence COMMENTAIRE_seq
+start 1;
+create table COMMENTAIRE
+(
+    id_commentaire int default nextval('COMMENTAIRE_seq') primary key,
+    description_commentaire varchar(250),
+    date_insertion date default CURRENT_DATE,
+    nom_complet_user varchar(50),
+    email_personne varchar(100),
+    telephone varchar(20),
+    produit_ int,
+    foreign key(produit_) references PRODUIT(id_produit)
+);
+
+create sequence DEMONTRATION_seq
+start 1;
+create table DEMONTRATION
+(
+    id_demontration int default nextval('DEMONTRATION_seq') primary key,
+    description_demontration varchar(250),
+    date_insertion date default CURRENT_DATE,
+    nom_complet_user varchar(50),
+    email_personne varchar(100),
+    telephone varchar(20),
+    produit_ int,
+    note_etoile int,
+    foreign key(produit_) references PRODUIT(id_produit)
+);
+
 -- INSERTT MARQUES
 
 INSERT INTO public.marque

@@ -2,7 +2,12 @@
 
 @section('linkcss')
 <link rel="stylesheet" href="{{ url('css/lightslider.min.css') }}">
-
+<style>
+  .disabled {
+    pointer-events: none;
+    cursor: pointer;
+  }
+</style>
 @endsection
 
 @section('body')
@@ -79,9 +84,9 @@
           </p>
           <div class="card_area d-flex justify-content-between align-items-center">
             <div class="product_count">
-              <span class="inumber-decrement"> <i class="ti-minus"></i></span>
+              <span class="inumber-decrement" style="cursor: pointer;"> <i class="ti-minus"></i></span>
               <input id="QttInput" class="input-number" type="text" value="1" min="0" max="10">
-              <span class="number-increment"> <i class="ti-plus"></i></span>
+              <span class="number-increment" style="cursor: pointer;"> <i class="ti-plus"></i></span>
             </div>
             <a class="btn_3 add_cart" style="font-weight: 700;cursor: pointer;" id="">Au panier !</a>
             <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
@@ -286,98 +291,40 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="comment_list">
+
+              @foreach($commentaires as $avis)
               <div class="review_item">
                 <div class="media">
                   <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-1.png') }}" alt="" />
+                    <img src="{{ url('img/avatar.jpg') }}" style="width: 70px;border-radius: 50px;" />
                   </div>
                   <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <h5>12th Feb, 2017 at 05:56 pm</h5>
-                    <!-- <a class="reply_btn" href="#">Reply</a> -->
+                    <h4>{{ $avis->nom_complet_user }}</h4>
+                    <!-- <h5>12th Feb, 2017 at 05:56 pm</h5> -->
+                    <h5>
+                      @php
+                      setlocale(LC_TIME, 'French');
+                      echo Carbon\Carbon::parse($avis->date_insertion)->formatLocalized('%d %B %Y');
+                      @endphp
+                    </h5>
                   </div>
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
+                  {{ $avis->description_commentaire }}
                 </p>
               </div>
-              <div class="review_item reply">
-                <div class="media">
-                  <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-2.png') }}" alt="" />
-                  </div>
-                  <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <h5>12th Feb, 2017 at 05:56 pm</h5>
-                    <!-- <a class="reply_btn" href="#">Reply</a> -->
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
-                </p>
-              </div>
-              <div class="review_item">
-                <div class="media">
-                  <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-3.png') }}" alt="" />
-                  </div>
-                  <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <h5>12th Feb, 2017 at 05:56 pm</h5>
-                    <!-- <a class="reply_btn" href="#">Reply</a> -->
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
-                </p>
-              </div>
+              @endforeach
+
             </div>
           </div>
           <div class="col-lg-6">
             <div class="review_box">
               <h4>Ajouter un commentaire</h4>
-              <p>Votre note : </p>
-              <ul class="list">
-                <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
-                  </a>
-                </li>
-              </ul>
-              <!-- <p>Outstanding</p> -->
-              <form class="row contact_form" action="" method="post" novalidate="novalidate" autocomplete="off">
+              <form class="row contact_form" action="{{ route('StoreCommentaire') }}" method="post" autocomplete="off">
+                @csrf
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="Nom complet" />
+                    <input type="text" class="form-control" name="nom_complet" placeholder="Nom complet" required />
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -387,14 +334,15 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="number" placeholder="Numéro de téléphone" />
+                    <input type="text" class="form-control" name="telephone" placeholder="Numéroo de téléphone" required />
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <textarea class="form-control" name="message" rows="1" style="height: 100px;" placeholder="Votre avis"></textarea>
+                    <textarea class="form-control" name="avis" rows="1" style="height: 100px;" placeholder="Votre avis" maxlength="250" required></textarea>
                   </div>
                 </div>
+                <input type="hidden" name="produit" value="{{$info_produit->id_produit}}">
                 <div class="col-md-12 text-right">
                   <button type="submit" value="submit" class="btn_3">
                     Envoyer
@@ -412,123 +360,110 @@
               <div class="col-6">
                 <div class="box_total">
                   <h5>En Moyenne</h5>
-                  <h4>4.0</h4>
-                  <h6>(03 personnes)</h6>
+                  <h4>{{ number_format(collect($demontrations)->pluck('note_etoile')->avg(), 2) }}</h4>
+                  <h6>({{ count($demontrations) }} démo)</h6>
                 </div>
               </div>
               <div class="col-6">
                 <div class="rating_list">
-                  <h3>Basé sur 3 commentaires</h3>
+                  <h3>Basé sur {{ count($demontrations) }} démo</h3>
                   <ul class="list">
+
+                    @if(collect($notes)->pluck('note_etoile')->contains('5'))
                     <li>
-                      <a href="#">5 étoile
+                      <a>5 étoile
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 01</a>
+                        <i class="fa fa-star"></i> {{collect($notes)->where('note_etoile',5)->first()->nbr}}
+                      </a>
                     </li>
+                    @endif
+
+                    @if(collect($notes)->pluck('note_etoile')->contains('4'))
                     <li>
-                      <a href="#">4 étoile
+                      <a>4 étoile
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 01</a>
+                        <i class="far fa-star"></i> {{collect($notes)->where('note_etoile',4)->first()->nbr}}
+                      </a>
                     </li>
+                    @endif
+
+                    @if(collect($notes)->pluck('note_etoile')->contains(3))
                     <li>
-                      <a href="#">3 étoile
+                      <a>3 étoile
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 01</a>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i> {{collect($notes)->where('note_etoile',3)->first()->nbr}}
+                      </a>
                     </li>
+                    @endif
+
+                    @if(collect($notes)->pluck('note_etoile')->contains(2))
                     <li>
-                      <a href="#">2 étoile
+                      <a>2 étoile
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 01</a>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i> {{collect($notes)->where('note_etoile',2)->first()->nbr}}
+                      </a>
                     </li>
+                    @endif
+
+                    @if(collect($notes)->pluck('note_etoile')->contains(1))
                     <li>
-                      <a href="#">1 étoile
+                      <a>1 étoile&nbsp;
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 01</a>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i> {{collect($notes)->where('note_etoile',1)->first()->nbr}}
+                      </a>
                     </li>
+                    @endif
+
                   </ul>
                 </div>
               </div>
             </div>
+
+            @if(false)
+            <br>
             <div class="review_list">
+
+              @foreach($demontrations as $demo)
               <div class="review_item">
                 <div class="media">
                   <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-1.png') }}" alt="" />
+                    <img src="{{ url('img/avatar.jpg') }}" style="width: 70px;border-radius: 50px;" />
                   </div>
                   <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+                    <h4>{{ $demo->nom_complet_user }} </h4>
+                    @for($i = 0; $i < $demo->note_etoile; $i++)
+                      <i class="fa fa-star"></i>
+                      @endfor
                   </div>
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
+                  {{ $demo->description_demontration }}
                 </p>
               </div>
-              <div class="review_item">
-                <div class="media">
-                  <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-2.png') }}" alt="" />
-                  </div>
-                  <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
-                </p>
-              </div>
-              <div class="review_item">
-                <div class="media">
-                  <div class="d-flex">
-                    <img src="{{ url('img/product/single-product/review-3.png') }}" alt="" />
-                  </div>
-                  <div class="media-body">
-                    <h4>Blake Ruiz</h4>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo
-                </p>
-              </div>
+              @endforeach
+
             </div>
+            @endif
+            <!-- <h3>Soyer le premier à donner votre avis !</h3> -->
+            <div class="review_list">
+              <img src="{{ url('img/commenaire.jpg') }}">
+            </div>
+
           </div>
           <div class="col-lg-6">
             <div class="review_box">
@@ -536,36 +471,37 @@
               <p>Votre note : </p>
               <ul class="list">
                 <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
+                  <a class="Aetoile" href="javascript:void(0)">
+                    <i class="far fa-star etoileNote" id="etoile-1"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
+                  <a class="Aetoile" href="javascript:void(0)">
+                    <i class="far fa-star etoileNote" id="etoile-2"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
+                  <a class="Aetoile" href="javascript:void(0)">
+                    <i class="far fa-star etoileNote" id="etoile-3"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
+                  <a class="Aetoile" href="javascript:void(0)">
+                    <i class="far fa-star etoileNote" id="etoile-4"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="fa fa-star"></i>
+                  <a class="Aetoile" href="javascript:void(0)">
+                    <i class="far fa-star etoileNote" id="etoile-5"></i>
                   </a>
                 </li>
               </ul>
               <!-- <p>Outstanding</p> -->
-              <form class="row contact_form" action="" method="post" novalidate="novalidate" autocomplete="off">
+              <form class="row contact_form" action="{{ route('StoreDemo') }}" method="post" novalidate="novalidate" autocomplete="off">
+                @csrf
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="Nom complet" />
+                    <input type="text" class="form-control" name="nom_complet" placeholder="Nom complet" required />
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -575,14 +511,16 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="number" placeholder="Numéro de téléphone" />
+                    <input type="text" class="form-control" name="telephone" placeholder="Numéro de téléphone" required />
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <textarea class="form-control" name="message" rows="1" style="height: 100px;" placeholder="Votre avis"></textarea>
+                    <textarea class="form-control" name="avis" rows="1" style="height: 100px;" placeholder="Votre avis" required></textarea>
                   </div>
                 </div>
+                <input type="hidden" id="note_etoile" name="note_etoile" value="">
+                <input type="hidden" name="produit" value="{{$info_produit->id_produit}}">
                 <div class="col-md-12 text-right">
                   <button type="submit" value="submit" class="btn_3">
                     Envoyer
@@ -706,6 +644,29 @@
 
     Array.from($("input:radio[name='radioOptions']"))[0].click();
 
+    $(".etoileNote").mouseenter(function() {
+      var i = parseInt(this.id.split('-')[1]);
+      while (i != 0) {
+        $('#etoile-' + i).removeClass('far fa-star');
+        $('#etoile-' + i).addClass('fa fa-star');
+        i--;
+      }
+    });
+    $(".etoileNote").mouseout(function() {
+      var i = parseInt(this.id.split('-')[1]);
+      while (i != 0) {
+        $('#etoile-' + i).removeClass('fa fa-star');
+        $('#etoile-' + i).addClass('far fa-star');
+        i--;
+      }
+    });
+
+    $(".etoileNote").click(function() {
+      $(".etoileNote").unbind("mouseout");
+      $(".etoileNote").unbind("mouseenter");
+      $("#note_etoile").val(this.id.split('-')[1]);
+      $(".etoileNote").unbind("click");
+    });
 
   });
 </script>

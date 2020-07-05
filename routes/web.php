@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/blog', function () {
-    return view('blog');
-});
+// Route::get('/blog', function () {
+//     return view('blog');
+// });
 
 Route::get('/Panier', function () { //todo : transférer en controller !
     return view('cart');
@@ -35,21 +35,21 @@ Route::get('/element', function () {
     return view('element');
 });
 
-Route::get('/features', function () {
-    return view('features');
-});
+// Route::get('/features', function () {
+//     return view('features');
+// });
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Route::get('/login', function () {
+//     return view('login');
+// });
 
-Route::get('/single-blog', function () {
-    return view('single-blog');
-});
+// Route::get('/single-blog', function () {
+//     return view('single-blog');
+// });
 
-Route::get('/tracking', function () {
-    return view('tracking');
-});
+// Route::get('/tracking', function () {
+//     return view('tracking');
+// });
 
 // Front office
 Route::get('/', 'ClientPagesController@Accueil');
@@ -63,6 +63,8 @@ route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('i
 route::post('/AjoutPanier', 'ClientPagesController@AjoutPanier')->name("AjoutPanier");
 
 Route::post('/StoreMessage', 'ClientPagesController@StoreMessage')->name('StoreMessage');
+Route::post('/StoreCommentaire', 'ClientPagesController@StoreCommentaire')->name('StoreCommentaire');
+Route::post('/StoreDemo', 'ClientPagesController@StoreDemo')->name('StoreDemo');
 
 // Back office
 route::get('/Admin/Accueil', 'AdminPagesController@Accueil');

@@ -20,9 +20,16 @@ class ClientPagesController extends Controller
     {
         $info_produit = collect(DB::select("select * from produit inner join type_produit on type_produit.id_type = produit.type_ inner join marque ON marque.id_marque = type_produit.marque_ where produit.id_produit = $product "))->first();
         $produits = DB::select("select * from produit limit 5");
+        $commentaires = DB::select("select * from commentaire where commentaire.produit_ = $product");
+        $demontrations = DB::select("select * from demontration where demontration.produit_ = $product");
+        $notes = DB::select("select note_etoile , count(id_demontration) as nbr from demontration where demontration.produit_ = $product group by note_etoile");
+
         return view("single-product")
             ->with('info_produit', $info_produit)
-            ->with('produits', $produits);
+            ->with('produits', $produits)
+            ->with('commentaires', $commentaires)
+            ->with('demontrations', $demontrations)
+            ->with('notes', $notes);
     }
 
     public function importDescriptions(Request $request)
@@ -179,5 +186,53 @@ class ClientPagesController extends Controller
                 $nbr += session()->get('produits')['' . $prod];
             }
         return $nbr;
+    }
+
+    public function StoreCommentaire(Request $request)
+    {
+        $nom_complet = $request->nom_complet;
+        $email = $request->email;
+        $telephone = $request->telephone;
+        $avis = $request->avis;
+        $produit = $request->produit;
+
+        DB::statement(
+            "insert into commentaire (description_commentaire, nom_complet_user, email_personne, telephone, produit_) 
+                     values(:description_commentaire, :nom_complet_user, :email_personne, :telephone, :produit_)",
+            array(
+                "description_commentaire" => $avis,
+                "nom_complet_user" => $nom_complet,
+                "email_personne" => $email,
+                "telephone" => $telephone,
+                "produit_" => $produit,
+            )
+        );
+
+        return redirect(url()->previous());
+    }
+
+    public function StoreDemo(Request $request)
+    {
+        $nom_complet = $request->nom_complet;
+        $email = $request->email;
+        $telephone = $request->telephone;
+        $avis = $request->avis;
+        $produit = $request->produit;
+        $note_etoile = $request->note_etoile;
+
+        DB::statement(
+            "insert into demontration (description_demontration, nom_complet_user, email_personne, telephone, note_etoile, produit_) 
+                     values(:description_demontration, :nom_complet_user, :email_personne, :telephone, :note_etoile, :produit_)",
+            array(
+                "description_demontration" => $avis,
+                "nom_complet_user" => $nom_complet,
+                "email_personne" => $email,
+                "telephone" => $telephone,
+                "produit_" => $produit,
+                "note_etoile" => $note_etoile,
+            )
+        );
+
+        return redirect(url()->previous());
     }
 }
