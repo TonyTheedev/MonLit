@@ -92,154 +92,46 @@
 <!-- banner part start-->
 
 <!-- feature_part start-->
-<section class="product_list padding_top">
+<section class="feature_part padding_top">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="section_tittle text-center">
-                    <h2 style="margin-left: 25%;">Derniéres nouveautés</h2>
+                    <h2>Dernieres nouveautés</h2>
                 </div>
             </div>
         </div>
-        <!-- <div class="row align-items-center justify-content-between">
+        <div class="row align-items-center justify-content-between">
             <div class="col-lg-7 col-sm-6">
                 <div class="single_feature_post_text">
                     <p>Qualité premium</p>
-                    <h3>
-                        Nouveauté chez
-                        <br>
-                        Mora
-                    </h3>
-                    <a href="/Produit/6" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
-                    <img src="img/bedMoraTransparent.png" alt="" style="width: 70%;border-radius: 30%;bottom: 50px;">
+                    <h3>Chez Mora</h3>
+                    <a href="#" class="feature_btn">Explorer ! <i class="fas fa-play"></i></a>
+                    <img src="img/feature/feature_1.png" alt="">
                 </div>
             </div>
             <div class="col-lg-5 col-sm-6">
                 <div class="single_feature_post_text">
                     <p>Qualité premium</p>
-                    <h3>
-                        Nouveauté chez
-                        <br>
-                        Naturel
-                    </h3>
-                    <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
-                    <img src="img/serviettesTransparent.png" alt="" style="width: 70%;bottom: 50px;">
+                    <h3>Chez Piell</h3>
+                    <a href="#" class="feature_btn">Explorer ! <i class="fas fa-play"></i></a>
+                    <img src="img/feature/feature_2.png" alt="">
                 </div>
             </div>
             <div class="col-lg-5 col-sm-6">
                 <div class="single_feature_post_text">
                     <p>Qualité premium</p>
-                    <h3>
-                        Nouveauté chez
-                        <br>
-                        Irina Home
-                    </h3>
-                    <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
+                    <h3>Chez Viven</h3>
+                    <a href="#" class="feature_btn">Explorer ! <i class="fas fa-play"></i></a>
                     <img src="img/feature/feature_3.png" alt="">
                 </div>
             </div>
             <div class="col-lg-7 col-sm-6">
                 <div class="single_feature_post_text">
                     <p>Qualité premium</p>
-                    <h3>
-                        Nouveauté chez
-                        <br>
-                        Bait & Gan
-                    </h3>
-                    <a href="#" class="feature_btn">Explorer <i class="fas fa-play"></i></a>
+                    <h3>Chez Irina Home</h3>
+                    <a href="#" class="feature_btn">Explorer ! <i class="fas fa-play"></i></a>
                     <img src="img/feature/feature_4.png" alt="">
-                </div>
-            </div>
-        </div> -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="product_list_slider owl-carousel">
-                    <div class="single_product_list_slider">
-                        <h3>Nouveauté chez <strong style="text-decoration: underline;">Mora</strong></h3>
-                        <br>
-                        <div class="row align-items-center justify-content-between">
-                            @foreach($produits as $prod)
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
-                                    <div class="single_product_text">
-                                        <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
-                                            <h4>
-                                                {{$prod->nom_produit}}
-                                            </h4>
-                                        </span>
-                                        <h3>
-                                            @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
-                                            {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
-                                            Dhs
-                                            @endif
-                                        </h3>
-                                        <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                    <div class="single_product_list_slider">
-                        <h3>Nouveauté chez <strong style="text-decoration: underline;">Irina Home</strong> </h3>
-                        <br>
-                        <div class="row align-items-center justify-content-between">
-
-                            @foreach($produits as $prod)
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
-                                    <div class="single_product_text">
-                                        <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
-                                            <h4>
-                                                {{$prod->nom_produit}}
-                                            </h4>
-                                        </span>
-                                        <h3>
-                                            @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
-                                            {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
-                                            Dhs
-                                            @endif
-                                        </h3>
-                                        <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                    <div class="single_product_list_slider">
-                        <h3>Nouveauté chez <strong style="text-decoration: underline;">Bait & Gan</strong></h3>
-                        <br>
-                        <div class="row align-items-center justify-content-between">
-
-                            @foreach($produits as $prod)
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
-                                    <div class="single_product_text">
-                                        <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
-                                            <h4>
-                                                {{$prod->nom_produit}}
-                                            </h4>
-                                        </span>
-                                        <h3>
-                                            @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
-                                            {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
-                                            Dhs
-                                            @endif
-                                        </h3>
-                                        <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -500,6 +392,9 @@
                         align: "center",
                         verticalAlign: "top"
                     });
+                    document.getElementsByTagName("head")[0].insertAdjacentHTML(
+                        "beforeend",
+                        "<style> .main_menu .cart i:after {content : '" + data + "'}</style>");
                 }
             });
 

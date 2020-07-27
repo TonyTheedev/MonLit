@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('blog');
 // });
 
-Route::get('/Panier', function () { //todo : transférer en controller !
-    return view('cart');
-});
+Route::get('/Panier', 'ClientPagesController@Panier');
 
 Route::get('/Catalogue', 'ClientPagesController@Category');
 
@@ -54,8 +52,7 @@ Route::get('/element', function () {
 // Front office
 Route::get('/', 'ClientPagesController@Accueil');
 
-
-route::post('login-page={page}', 'AuthController@AuthentificatedGoingToPage');
+route::post('login', 'AuthController@AuthentificatedGoingToPage');
 route::get('logout', 'AuthController@LogOut');
 
 Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');

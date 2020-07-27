@@ -21,7 +21,7 @@ class AuthController extends Controller
         return false;
     }
 
-    public function AuthentificatedGoingToPage(Request $request, $page)
+    public function AuthentificatedGoingToPage(Request $request)
     {
         $this->VerifyCredentials($request);
         // if (AuthController::IsAuthentificated())
@@ -31,10 +31,12 @@ class AuthController extends Controller
         //         return \redirect("/");
         // else
         //     return \redirect("/");
-        if ($page == "home")
-            return \redirect("/");
-        else
-            return \redirect($page);
+
+        // if ($page == "home")
+        //     return \redirect("/");
+        // else
+        //     return \redirect($page);
+        return redirect(url()->previous());
     }
 
     public static function IsAuthentificated()

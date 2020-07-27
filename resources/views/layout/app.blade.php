@@ -81,8 +81,6 @@
         .main_menu .cart i:after {
             content : "{{ App\Http\Controllers\ClientPagesController::nbrPanier() }}"
         }
-
-        /*  */
     </style>
 
     @section('linkcss')
@@ -141,25 +139,12 @@
                                                     {{ $marque->nom_marque }}
                                                     <span class="caret"></span>
                                                 </a>
-                                                <ul class="dropdown-menu-level2" style="background-color: #d387ab;background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);border-radius: 5px;">
-                                                    @foreach(
-                                                    DB::select("select type_produit.id_type , type_produit.libelle_type from marque inner join type_produit ON type_produit.marque_ = marque.id_marque where marque.id_marque = $marque->id_marque")
-                                                    as
-                                                    $type_prod
-                                                    )
-                                                    <li>
-                                                        <a style="padding-left: 6px;" tabindex="-1" href="#">
-                                                            {{ $type_prod->libelle_type }}
-                                                        </a>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
                                                 <hr style="margin: 3px;">
                                             </li>
                                             @endif
                                             @endforeach
                                             <li class="dropdown-submenu" style="padding-left: 9px;">
-                                                <a class="" tabindex="-1" href="/Catalogue">
+                                                <a class="" tabindex="-1" href="{{ url('/Catalogue') }}">
                                                     Tous nos produits !
                                                     <span class="caret"></span>
                                                 </a>
@@ -294,7 +279,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="Post" autocomplete="off" id="formLogin">
+                <form action="{{ url('login') }}" method="Post" autocomplete="off" id="formLogin">
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
@@ -440,10 +425,10 @@
         $(".owl-prev").html("précedent");
         $(".owl-next").html("suivant");
 
-        var action = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-        action === "" ?
-            document.getElementById('formLogin').action = "login-page=" + "home" :
-            document.getElementById('formLogin').action = "login-page=" + action;
+        // var action = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+        // action === "" ?
+        //     document.getElementById('formLogin').action = "login-page=" + "home" :
+        //     document.getElementById('formLogin').action = "login-page=" + action;
     </script>
     <script>
         $(document).ready(function() {
@@ -453,26 +438,6 @@
                 e.preventDefault();
             });
 
-            // $('.dropdown-submenu a.test').on("mouseover", function(e) {
-            //     $(this).next('ul').toggle();
-            //     e.stopPropagation();
-            //     e.preventDefault();
-            // });
-            //
-            // $('.dropdown-submenu a.test').on("mouseout", function(e) {
-            //     // $(this).next('ul').toggle();
-            //     // e.stopPropagation();
-            //     // e.preventDefault();
-            //     if ($(this).next('ul').is(':hover')) {
-            //         $(this).next('ul').toggle();
-            //         e.stopPropagation();
-            //         e.preventDefault();
-            //     }
-            // });
-
-            // $(".dropdown-menu-level2").on("mouseout", function(e) {
-            //     $('.dropdown-submenu a.test').mouseout();
-            // });
         });
     </script>
 </body>

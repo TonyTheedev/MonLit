@@ -290,6 +290,8 @@
       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <div class="row">
           <div class="col-lg-6">
+            @if(count($commentaires) != 0)
+            <br>
             <div class="comment_list">
 
               @foreach($commentaires as $avis)
@@ -314,8 +316,13 @@
                 </p>
               </div>
               @endforeach
-
             </div>
+
+            @else
+            <div class="review_list">
+              <img src="{{ url('img/commenaire.jpg') }}">
+            </div>
+            @endif
           </div>
           <div class="col-lg-6">
             <div class="review_box">
@@ -434,7 +441,7 @@
               </div>
             </div>
 
-            @if(false)
+            @if(count($demontrations) != 0)
             <br>
             <div class="review_list">
 
@@ -458,12 +465,11 @@
               @endforeach
 
             </div>
-            @endif
-            <!-- <h3>Soyer le premier à donner votre avis !</h3> -->
+            @else
             <div class="review_list">
               <img src="{{ url('img/commenaire.jpg') }}">
             </div>
-
+            @endif
           </div>
           <div class="col-lg-6">
             <div class="review_box">

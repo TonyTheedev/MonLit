@@ -70,9 +70,10 @@ class ClientPagesController extends Controller
                             'personne_' => $userConnected,
                             'produit_' => $produit,
                             'statut_commande' => 'En attente',
-                            'est_delivre' => 'false'
+                            'est_delivre' => 0
                         )
                     );
+                    // echo "user : $userConnected | nbr : $nbr | produit : '$produit'";
                 }
             } else {
                 if (!session()->has("produits"))
@@ -86,7 +87,7 @@ class ClientPagesController extends Controller
             }
             // \Session::forget("produits");
 
-            echo json_encode("success");
+            echo json_encode($this->nbrPanier());
         }
     }
 
@@ -186,6 +187,11 @@ class ClientPagesController extends Controller
                 $nbr += session()->get('produits')['' . $prod];
             }
         return $nbr;
+    }
+
+    public function Panier()
+    {
+        return view('cart');
     }
 
     public function StoreCommentaire(Request $request)
