@@ -109,19 +109,6 @@
                                     <a class="nav-link" href="{{url('/')}}">Accueil</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    {{-- <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <strong>Nos Marques</strong>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        @foreach(
-                                        DB::select("select * from marque")
-                                        as
-                                        $marque
-                                        )
-                                        <a class="dropdown-item" href="#">{{ $marque->nom_marque }}</a>
-                                        <hr style="margin: 0px;">
-                                        @endforeach
-                                    </div> --}}
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" style="padding: 30px 23px;" data-toggle="dropdown">
                                             <strong>Nos Marques</strong>
@@ -135,7 +122,7 @@
                                             )
                                             @if(sizeof(DB::select("select type_produit.id_type , type_produit.libelle_type from marque inner join type_produit ON type_produit.marque_ = marque.id_marque where marque.id_marque = $marque->id_marque")) != 0)
                                             <li class="dropdown-submenu" style="padding-left: 9px;">
-                                                <a class="test" tabindex="-1" href="#">
+                                                <a class="test" tabindex="-1" href="{{ url('/Catalogue') }}">
                                                     {{ $marque->nom_marque }}
                                                     <span class="caret"></span>
                                                 </a>
@@ -212,32 +199,17 @@
                         </div>
                         <div class="hearer_icon d-flex">
                             @if(App\Http\Controllers\AuthController::IsAuthentificated())
-                            <ul class="navbar-nav">
-                                <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
 
-                                <li class="nav-item dropdown">
-                                    <a style="cursor: pointer;" class=" dropdown-toggle">
-                                        <i class="fas fa-user-shield" data-toggle="modal" data-target="#modalLogin"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        @if(true)
-                                        <a class="dropdown-item" href="/Admin/ListeProduits">Administration</a>
-                                        @endif
-                                        <a class="dropdown-item" href="{{ url('logout') }}">Se déconnecter</a>
-                                    </div>
-                                </li>
+                            <a href="{{ url('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
 
-                                <!-- <div class="dropdown cart">
-                                    <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-cart-plus"></i>
-                                    </a>
-                                </div> -->
-                                <div class="dropdown cart">
-                                    <a class="dropdown-toggle" href="{{ url('/Panier') }}" id="navbarDropdown3" role="button">
-                                        <i class="fas fa-cart-plus"></i>
-                                    </a>
-                                </div>
-                            </ul>
+                            <div class="dropdown cart">
+                                <a class="dropdown-toggle" href="{{ url('/Panier') }}" id="navbarDropdown3" role="button">
+                                    <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
                             @else
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
 
@@ -258,8 +230,9 @@
         </div>
         <div class="search_input" id="search_input_box">
             <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Rechercher">
+                <form action="{{ url('RechercherProduit') }}" method="POST" class="d-flex justify-content-between search-inner" autocomplete="off">
+                    @csrf
+                    <input type="text" class="form-control" id="search_input" name="search_input" placeholder="Rechercher">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
@@ -311,6 +284,9 @@
                             <li><a href="">Notre réputation.</a></li>
                             <li><a href="">Plus d'infos.</a></li>
                             <li><a href="">Régle générale.</a></li>
+                            @if(App\Http\Controllers\AuthController::IsAuthentificated() && session()->get('userObject')->role_personne_ == 1 )
+                            <li><a href="{{ url('/Admin/ListeProduits') }}">Développeurs.</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

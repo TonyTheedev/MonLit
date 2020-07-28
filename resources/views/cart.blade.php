@@ -40,8 +40,65 @@
             </tr>
           </thead>
           <tbody>
+            @if(App\Http\Controllers\AuthController::IsAuthentificated())
+            @if(count($produitsEnregistres) !=0 )
+            @foreach($produitsEnregistres as $prod)
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="d-flex" style="width: 33%;">
+                    <img style="border-radius: 22px;" src='images/{{ collect(DB::select("select photo.chemin_photo from carateristique inner join produit on produit.id_produit = carateristique.produit_ inner join photo ON photo.produit_ = produit.id_produit where carateristique.id_caractere = $prod->produit_"))->first()->chemin_photo }}' alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p>
+                      {{ collect(DB::select("select produit.nom_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->nom_produit }}
+                      <br>
+                      <span style="font-weight: 500;text-decoration: underline;">
+                        {{ collect(DB::select("select carateristique.libelle_option_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->libelle_option_produit }}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td style="width: 10%;padding: 0px;">
+                <h5>
+                  <span id="prix{{ $prod->produit_ }}">
+                    {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->prix }}
+                  </span>
+                  Dhs
+                </h5>
+              </td>
+              <td>
+                <div class="product_count">
+                  <span class="input-number-decrement"> <i id="{{ $prod->produit_ }}" class="ti-angle-down" style="cursor: pointer;"></i></span>
+                  <input id="quantite{{ $prod->produit_ }}" class="input-number" type="text" min="0" value="{{ $prod->nbr }}">
+                  <span class="input-number-increment"> <i id="{{ $prod->produit_ }}" class="ti-angle-up" style="cursor: pointer;"></i></span>
+                </div>
+              </td>
+              <td style="padding: 0px;">
+                <h5>
+                  <span id="total{{ $prod->produit_ }}" class="spanTotal">
+                    {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->prix
+                    *
+                    $prod->nbr
+                  }}
+                  </span>
+                  Dhs</h5>
+              </td>
+            </tr>
+            @endforeach
+            @else
+            <tr>
+              <td>
+                Votre panier est vide !
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            @endif
 
-            @if(session()->has("produits"))
+            @elseif(session()->has("produits"))
             @foreach(session()->get("produits")->keys() as $prod)
             <tr>
               <td>
@@ -125,7 +182,7 @@
                 </h5>
               </td>
             </tr>
-            @if(session()->has("produits"))
+            @if(session()->has("produits") || isset($produitsEnregistres) )
             <tr class="shipping_area">
               <td></td>
               <td></td>
@@ -178,7 +235,7 @@
             &nbsp;
             Retour à la boutique
           </a>
-          @if(session()->has("produits"))
+          @if(session()->has("produits") || App\Http\Controllers\AuthController::IsAuthentificated())
           <a class="btn_1 checkout_btn_1" href="{{ url('/Paiement') }}">
             Confirmation
             &nbsp;

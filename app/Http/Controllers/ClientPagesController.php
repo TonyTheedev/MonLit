@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+// use App\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -30,6 +31,12 @@ class ClientPagesController extends Controller
             ->with('commentaires', $commentaires)
             ->with('demontrations', $demontrations)
             ->with('notes', $notes);
+    }
+
+    public function RechercherProduit(Request $request)
+    {
+        $critere = $request->search_input;
+        return redirect("Catalogue");
     }
 
     public function importDescriptions(Request $request)
@@ -136,7 +143,11 @@ class ClientPagesController extends Controller
 
     public function InfoPaiement()
     {
-        return view('checkout');
+        $produitsEnregistres = null;
+        if (AuthController::IsAuthentificated())
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+
+        return view('checkout', compact("produitsEnregistres"));
     }
 
     public function ConfirmationFinal(Request $request)
@@ -145,7 +156,7 @@ class ClientPagesController extends Controller
         $prenom = $request->prenom;
         $sexe = isset($request->radioHomme) ? 1 : 2;
         $adresse = $request->adresse;
-        $ville = $request->ville;
+        $ville = isset($request->ville) ? $request->ville : $request->addr;
         $telephone = $request->telephone;
         $email = $request->email;
         $codePostal = $request->codePostal;
@@ -173,7 +184,11 @@ class ClientPagesController extends Controller
         $last_person_id = collect(DB::select("select currval('personne_seq') as currval;"))->first()->currval;
         $last_person =  collect(DB::select("select * from personne where personne.id_personne = $last_person_id"))->first();
 
-        return view('confirmation')
+        $produitsEnregistres = null;
+        if (AuthController::IsAuthentificated())
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+
+        return view('confirmation', compact("produitsEnregistres"))
             ->with("MontantHidden", $request->MontantHidden)
             ->with("FacturationHidden", $request->FacturationHidden)
             ->with("last_person", $last_person);
@@ -182,7 +197,11 @@ class ClientPagesController extends Controller
     public static function nbrPanier()
     {
         $nbr = 0;
-        if (session()->has("produits"))
+        if (AuthController::IsAuthentificated())
+            $nbr = collect(DB::select("select count(*) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = " . session()->get('userObject')->id_personne))
+                ->first()
+                ->nbr;
+        elseif (session()->has("produits"))
             foreach (session()->get("produits")->keys() as $prod) {
                 $nbr += session()->get('produits')['' . $prod];
             }
@@ -191,7 +210,11 @@ class ClientPagesController extends Controller
 
     public function Panier()
     {
-        return view('cart');
+        $produitsEnregistres = null;
+        if (AuthController::IsAuthentificated())
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+
+        return view('cart', compact("produitsEnregistres"));
     }
 
     public function StoreCommentaire(Request $request)

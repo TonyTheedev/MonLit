@@ -44,7 +44,7 @@
                                     </li> -->
                                 @foreach($marques as $marque)
                                 <li>
-                                    <a href="#">{{$marque->nom_marque}}</a>
+                                    <a href="">{{$marque->nom_marque}}</a>
                                     <span>({{$marque->nbrproduct}})</span>
                                 </li>
                                 @endforeach
@@ -61,7 +61,7 @@
 
                                 @foreach($types as $type)
                                 <li>
-                                    <a href="#">{{$type->libelle_type}}</a>
+                                    <a href="">{{$type->libelle_type}}</a>
                                 </li>
                                 @endforeach
 
@@ -155,16 +155,23 @@
 
                 <div class="row align-items-center latest_product_inner">
 
-                    @foreach($produits as $produit)
+                    @foreach($produits as $prod)
                     <div class="col-lg-4 col-sm-6">
                         <div class="single_product_item">
-                            <img src="{{ url('img/bed.jpg') }}" alt="">
+                            <img src='../images/{{ collect(DB::select("select chemin_photo from photo where photo.produit_ = $prod->id_produit limit 1"))->first()->chemin_photo }}' alt="">
                             <div class="single_product_text">
-                                <h4>Nom du produit</h4>
-                                <h3>Prix Dhs</h3>
-                                <a href="#" class="add_cart">+ Au Panier
-                                    <!-- <i class="ti-heart"></i> -->
-                                </a>
+                                <span onclick="window.location.href='/Produit/'+ {{$prod->id_produit}}" style="cursor: pointer;">
+                                    <h4>
+                                        {{$prod->nom_produit}}
+                                    </h4>
+                                </span>
+                                <h3>
+                                    @if(isset(collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix))
+                                    {{ collect(DB::select("select carateristique.prix from produit inner join carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->prix }}
+                                    Dhs
+                                    @endif
+                                </h3>
+                                <a style="cursor: pointer;z-index: 100;" id='{{collect(DB::select("select carateristique.id_caractere from produit inner join  carateristique on carateristique.produit_ = produit.id_produit where carateristique.produit_ = $prod->id_produit order by carateristique.prix asc limit 1"))->first()->id_caractere }}' class="add_cart">+ Au panier</a>
                             </div>
                         </div>
                     </div>
@@ -279,4 +286,41 @@
 @section('scripts')
 <script src="js/stellar.js"></script>
 <script src="js/price_rangs.js"></script>
+<script src="{{ url('js/notify.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $(".add_cart").click(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('AjoutPanier') }}",
+                method: 'POST',
+                data: {
+                    produit: this.id,
+                    nbr: 1
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $.notify("Ajouté au panier 🤩 !", {
+                        autoHideDelay: 5000,
+                        className: 'success',
+                        align: "center",
+                        verticalAlign: "top"
+                    });
+                    document.getElementsByTagName("head")[0].insertAdjacentHTML(
+                        "beforeend",
+                        "<style> .main_menu .cart i:after {content : '" + data + "'}</style>");
+                }
+            });
+
+        });
+    });
+</script>
 @endsection

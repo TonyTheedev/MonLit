@@ -112,8 +112,27 @@
               </tr>
             </thead>
             <tbody>
+              @if(App\Http\Controllers\AuthController::IsAuthentificated())
+              @foreach($produitsEnregistres as $prod)
+              <tr>
+                <th colspan="2">
+                  <span>
+                    {{ collect(DB::select("select produit.nom_produit from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->nom_produit }}
+                  </span>
+                </th>
+                <th>x {{ $prod->nbr }} Pcs</th>
+                <th>
+                  <span>
+                    {{ collect(DB::select("select carateristique.prix from carateristique inner join produit on produit.id_produit = carateristique.produit_ where carateristique.id_caractere = $prod->produit_"))->first()->prix
+                        *
+                        $prod->nbr
+                      }} Dhs
+                  </span>
+                </th>
+              </tr>
+              @endforeach
 
-              @if(session()->has("produits"))
+              @elseif(session()->has("produits"))
               @foreach(session()->get("produits")->keys() as $prod)
               <tr>
                 <th colspan="2">

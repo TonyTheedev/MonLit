@@ -56,7 +56,7 @@
                     <li class="">
                         <a href="{{ url('/') }}" id="linkAccueil">
                             <i class="fas fa-home"></i>
-                            <strong>Accueil</strong>
+                            <strong>Accueil clients</strong>
                         </a>
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <i class="fas fa-bed"></i>
@@ -86,7 +86,20 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">About</a>
+                        <a href="{{ url('/Admin/Statistiques') }}" id="linkStats">
+                            <strong>
+                                <img src="{{ url('img/Stats.png') }}" style="height: 25px;">
+                                Statistiques
+                            </strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/Admin/Statistiques') }}" id="linkFacture">
+                            <strong>
+                                <img src="{{ url('img/Facture.png') }}" style="height: 25px;">
+                                Factures
+                            </strong>
+                        </a>
                     </li>
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -102,11 +115,6 @@
                                 <a href="#">Page 3</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="#" id="linkStats">
-                            <strong>Statistiques</strong>
-                        </a>
                     </li>
                     <li>
                         <a href="#" id="linkMessagerie">

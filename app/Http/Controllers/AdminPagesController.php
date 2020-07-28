@@ -186,6 +186,11 @@ class AdminPagesController extends Controller
         }
     }
 
+    public function Statistiques()
+    {
+        return view("BackOfficeAdmin.Statistiques");
+    }
+
     //*********************** */
     public function NosMarques()
     {
