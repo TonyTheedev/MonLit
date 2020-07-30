@@ -329,7 +329,7 @@
                         <p>Des promotion et de nouveaux produits chaque semaine !
                         </p>
                         <div>
-                            <form action="{{ route('StoreMessage') }}" method="post" class="subscribe_form relative mail_part">
+                            <form action="{{ route('StoreMessage') }}" method="post" class="subscribe_form relative mail_part" autocomplete="off">
                                 @csrf
                                 <input type="email" name="email_persone" id="" placeholder="votre_email@mail.com" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' votre_email@mail.com '" required>
                                 <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">s'abonner</button>
