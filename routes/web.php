@@ -26,6 +26,7 @@ route::get('logout', 'AuthController@LogOut');
 Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
 route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('importDescriptions');
 route::post('/AjoutPanier', 'ClientPagesController@AjoutPanier')->name("AjoutPanier");
+route::get('/viderPanier', 'ClientPagesController@viderPanier')->name("viderPanier");
 
 Route::post('/StoreMessage', 'ClientPagesController@StoreMessage')->name('StoreMessage');
 Route::post('/StoreCommentaire', 'ClientPagesController@StoreCommentaire')->name('StoreCommentaire');

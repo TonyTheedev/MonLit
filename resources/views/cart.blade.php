@@ -29,6 +29,10 @@
 <section class="cart_area padding_top">
   <div class="container">
     <div class="cart_inner">
+      <a href="{{ url('/viderPanier') }}" class="btn_1">
+        <i class="far fa-trash-alt"></i>
+        Vider mon panier
+      </a>
       <div class="table-responsive" style="overflow-x: unset;">
         <table class="table">
           <thead>

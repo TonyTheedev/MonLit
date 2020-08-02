@@ -80,7 +80,6 @@ class ClientPagesController extends Controller
                             'est_delivre' => 0
                         )
                     );
-                    // echo "user : $userConnected | nbr : $nbr | produit : '$produit'";
                 }
             } else {
                 if (!session()->has("produits"))
@@ -96,6 +95,19 @@ class ClientPagesController extends Controller
 
             echo json_encode($this->nbrPanier());
         }
+    }
+
+    public function viderPanier()
+    {
+        DB::statement(
+            "delete from commande where commande.personne_ = :personne_ and statut_commande = :statut_commande and est_delivre = :est_delivre",
+            array(
+                'personne_' => session()->get('userObject')->id_personne,
+                'statut_commande' => 'En attente',
+                'est_delivre' => 0
+            )
+        );
+        return redirect(url()->previous());
     }
 
     public function StoreMessage(Request $request)
@@ -160,8 +172,8 @@ class ClientPagesController extends Controller
         $telephone = $request->telephone;
         $email = $request->email;
         $codePostal = $request->codePostal;
-        if (isset($request->message))
-            echo "msg";
+        // if (isset($request->message))
+        //     echo "msg";
         $role = $request->compte == 'on' ? 2 : 3;
 
         DB::statement(
