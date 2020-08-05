@@ -94,16 +94,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/Admin/Statistiques') }}" id="linkFacture">
+                        <a href="#" id="linkFacture">
                             <strong>
                                 <img src="{{ url('img/Facture.png') }}" style="height: 25px;">
                                 Factures
                             </strong>
+                            <span class="badge badge-pill badge-danger" style="font-size: 9px;">à suivre ...</span>
                         </a>
                     </li>
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <strong>Ressource humaine</strong></a>
+                            <strong>
+                                <img src="{{ url('img/users.png') }}" style="height: 25px;">
+                                Personnels
+                            </strong>
+                            <span class="badge badge-pill badge-danger" style="font-size: 9px;">à suivre ...</span>
+                        </a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
                                 <a href="#">Page 1</a>
@@ -118,7 +124,11 @@
                     </li>
                     <li>
                         <a href="#" id="linkMessagerie">
-                            <strong>Courrier & Messagerie</strong>
+                            <strong>
+                                <img src="{{ url('img/Courrier.png') }}" style="height: 25px;">
+                                Courrier
+                            </strong>
+                            <span class="badge badge-pill badge-danger" style="font-size: 9px;">à suivre ...</span>
                         </a>
                     </li>
                 </ul>

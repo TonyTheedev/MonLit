@@ -40,13 +40,13 @@
           <ul>
 
             <li>
-              <p>Référence </p><span>: Ref{{ $last_person->role_personne_ . $last_person->id_personne }} </span>
+              <p>Référence </p><span>: Ref{{ rand (99,999) }} </span>
             </li>
             <li>
               <p>Date</p><span>: {{ (Carbon\Carbon::now())->toDateTimeString() }} </span>
             </li>
             <li>
-              <p>Par Mr/Mme </p><span>: {{$last_person->nom . ' ' . $last_person->prenom}} </span>
+              <p>Par Mr/Mme </p><span>: {{ App\Http\Controllers\AuthController::IsAuthentificated() ? $last_person->nom .' ' . $last_person->prenom : session()->get('nom') . ' ' . session()->get('prenom') }} </span>
             </li>
             <li>
               <p>Facturation</p><span>: {{ $FacturationHidden }} (TTC)</span>
@@ -62,19 +62,20 @@
           <h4>&Aacute; propos de la Livraison</h4>
           <ul>
             <li>
-              <p>Ville </p><span>: {{ $last_person->ville }} </span>
+              <p>Ville </p><span>: {{ App\Http\Controllers\AuthController::IsAuthentificated() ? $last_person->ville : session()->get('ville') }} </span>
             </li>
             <li>
-              <p>Adresse </p><span>: {{ $last_person->adresse }} </span>
+              <p>Adresse </p><span>: {{ App\Http\Controllers\AuthController::IsAuthentificated() ? $last_person->adresse : session()->get('adresse') }} </span>
             </li>
             <!-- <li>
               <p>country</p><span>: United States</span>
             </li> -->
             <li>
-              <p>Code Postal</p><span>: {{ $last_person->codepostal }} </span>
+              <p>Code Postal</p>
+              <span>: {{ App\Http\Controllers\AuthController::IsAuthentificated() ? $last_person->codepostal : session()->get('codePostal') }} </span>
             </li>
             <li>
-              <p>N&deg; Téléphone</p><span>: {{ $last_person->telephone }} </span>
+              <p>N&deg; Téléphone</p><span>: {{ App\Http\Controllers\AuthController::IsAuthentificated() ? $last_person->telephone : session()->get('telephone') }} </span>
             </li>
           </ul>
         </div>
@@ -181,6 +182,12 @@
           <button class="btn_3" onclick="window.print();return false;" />>
           <i class="fas fa-print"></i>
           Imprimer
+          </button>
+          <br>
+          <br>
+          <button class="btn_3" onclick="window.location.href='{{ route('backToHome') }}'" />
+          <i class="fas fa-home"></i>
+          Retour à l'accueil
           </button>
         </div>
       </div>

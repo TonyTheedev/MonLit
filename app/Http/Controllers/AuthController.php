@@ -21,6 +21,17 @@ class AuthController extends Controller
         return false;
     }
 
+    public static function ManualVerifyCredentials($username, $mdp)
+    {
+        $user = collect(DB::select("select * from personne where personne.username = '$username' and  personne.mot_de_passe = '$mdp'"))
+            ->first();
+        if (isset($user) == true) {
+            session()->put('userObject', $user);
+            return true;
+        }
+        return false;
+    }
+
     public function AuthentificatedGoingToPage(Request $request)
     {
         $this->VerifyCredentials($request);

@@ -91,7 +91,6 @@ class ClientPagesController extends Controller
                 $panier->put("$produit", $panier->get("$produit") + $nbr);
                 session()->put("produits", $panier);
             }
-            // \Session::forget("produits");
 
             echo json_encode($this->nbrPanier());
         }
@@ -99,15 +98,25 @@ class ClientPagesController extends Controller
 
     public function viderPanier()
     {
-        DB::statement(
-            "delete from commande where commande.personne_ = :personne_ and statut_commande = :statut_commande and est_delivre = :est_delivre",
-            array(
-                'personne_' => session()->get('userObject')->id_personne,
-                'statut_commande' => 'En attente',
-                'est_delivre' => 0
-            )
-        );
+        if (AuthController::IsAuthentificated())
+            DB::statement(
+                "delete from commande where commande.personne_ = :personne_ and statut_commande = :statut_commande and est_delivre = :est_delivre",
+                array(
+                    'personne_' => session()->get('userObject')->id_personne,
+                    'statut_commande' => 'En attente',
+                    'est_delivre' => 0
+                )
+            );
+        else
+            \Session::forget("produits");
+
         return redirect(url()->previous());
+    }
+
+    public function backToHome()
+    {
+        $this->viderPanier();
+        return redirect("/");
     }
 
     public function StoreMessage(Request $request)
@@ -157,52 +166,77 @@ class ClientPagesController extends Controller
     {
         $produitsEnregistres = null;
         if (AuthController::IsAuthentificated())
-            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = " . session()->get('userObject')->id_personne . " group by personne_, produit_, date_ajout, statut_commande, est_delivre");
 
         return view('checkout', compact("produitsEnregistres"));
     }
 
+    public function PrepareConfirmation(Request $request)
+    {
+        session()->put('MontantHidden', $request->MontantHidden);
+        session()->put('FacturationHidden', $request->FacturationHidden);
+
+        if (!AuthController::IsAuthentificated() && $request->compte == 'on') {
+            $nom = $request->nom;
+            $prenom = $request->prenom;
+            $sexe = $request->radioHomme == 'on' ? 1 : 2;
+            $adresse = $request->adresse;
+            $ville = isset($request->ville) ? $request->ville : $request->addr;
+            $telephone = $request->telephone;
+            $email = $request->email;
+            $codePostal = $request->codePostal;
+            // if (isset($request->message))
+            //     echo "msg";
+            $role =   2;
+            $username = str_replace('', ' ', $nom) . date("d") . '-' . date("is");
+            $mot_de_passe = "Pass-" . date("d") . '-' . date("is");
+            $id_personne = collect(DB::select("select * from personne order by id_personne desc limit 1"))->first()->id_personne + 1;
+
+            DB::statement(
+                "insert into personne(id_personne, nom, prenom, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_) 
+                        values(:id_personne, :nom, :prenom, :sexe_, :codepostal, :adresse, :ville, :telephone, :email, :username, :mot_de_passe, :role_personne_)",
+                array(
+                    'id_personne' => $id_personne,
+                    'nom' => $nom,
+                    'prenom' => $prenom,
+                    'sexe_' => $sexe,
+                    'adresse' => $adresse,
+                    'ville' => $ville,
+                    'telephone' => $telephone,
+                    'email' => $email,
+                    'codepostal' => $codePostal,
+                    'role_personne_' => $role,
+                    'username' => $username,
+                    'mot_de_passe' => $mot_de_passe
+                )
+            );
+            \App\Http\Controllers\AuthController::ManualVerifyCredentials($username, $mot_de_passe);
+        } else {
+            session()->put('nom', $request->nom);
+            session()->put('prenom', $request->prenom);
+            session()->put('adresse', $request->adresse);
+            session()->put('ville', isset($request->ville) ? $request->ville : $request->addr);
+            session()->put('telephone', $request->telephone);
+            session()->put('email', $request->email);
+            session()->put('codePostal', $request->codePostal);
+            session()->put('telephone', $request->telephone);
+        }
+        return redirect("ConfirmationFinal");
+    }
+
     public function ConfirmationFinal(Request $request)
     {
-        $nom = $request->nom;
-        $prenom = $request->prenom;
-        $sexe = isset($request->radioHomme) ? 1 : 2;
-        $adresse = $request->adresse;
-        $ville = isset($request->ville) ? $request->ville : $request->addr;
-        $telephone = $request->telephone;
-        $email = $request->email;
-        $codePostal = $request->codePostal;
-        // if (isset($request->message))
-        //     echo "msg";
-        $role = $request->compte == 'on' ? 2 : 3;
-
-        DB::statement(
-            "insert into personne(nom, prenom, sexe_, codepostal, adresse, ville, telephone, email, username, mot_de_passe, role_personne_) 
-                        values(:nom, :prenom, :sexe_, :codepostal, :adresse, :ville, :telephone, :email, :username, :mot_de_passe, :role_personne_)",
-            array(
-                'nom' => $nom,
-                'prenom' => $prenom,
-                'sexe_' => $sexe,
-                'adresse' => $adresse,
-                'ville' => $ville,
-                'telephone' => $telephone,
-                'email' => $email,
-                'codepostal' => $codePostal,
-                'role_personne_' => $role,
-                'username' => "invit",
-                'mot_de_passe' => "invit",
-            )
-        );
-        $last_person_id = collect(DB::select("select currval('personne_seq') as currval;"))->first()->currval;
-        $last_person =  collect(DB::select("select * from personne where personne.id_personne = $last_person_id"))->first();
+        // $id_personne = collect(DB::select("select * from personne order by id_personne desc limit 1"))->first()->id_personne;
+        // $last_person =  collect(DB::select("select * from personne where personne.id_personne = $id_personne"))->first();
+        $last_person =  collect(DB::select("select * from personne where personne.id_personne = " . session()->get('userObject')->id_personne))->first();
 
         $produitsEnregistres = null;
         if (AuthController::IsAuthentificated())
-            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = " . session()->get('userObject')->id_personne . " group by personne_, produit_, date_ajout, statut_commande, est_delivre");
 
         return view('confirmation', compact("produitsEnregistres"))
-            ->with("MontantHidden", $request->MontantHidden)
-            ->with("FacturationHidden", $request->FacturationHidden)
+            ->with("MontantHidden", session()->get('MontantHidden'))
+            ->with("FacturationHidden", session()->get('FacturationHidden'))
             ->with("last_person", $last_person);
     }
 
@@ -224,7 +258,7 @@ class ClientPagesController extends Controller
     {
         $produitsEnregistres = null;
         if (AuthController::IsAuthentificated())
-            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = 1 group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+            $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = " . session()->get('userObject')->id_personne . " group by personne_, produit_, date_ajout, statut_commande, est_delivre");
 
         return view('cart', compact("produitsEnregistres"));
     }

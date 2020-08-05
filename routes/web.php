@@ -17,7 +17,8 @@ Route::post('/RechercherProduit', 'ClientPagesController@RechercherProduit');
 Route::get('/Panier', 'ClientPagesController@Panier');
 Route::get('/Catalogue', 'ClientPagesController@Category');
 Route::get('/Paiement', 'ClientPagesController@InfoPaiement');
-Route::post('/Confirmation', 'ClientPagesController@ConfirmationFinal')->name("ConfirmationFinal");
+Route::post('/PrepareConfirmation', 'ClientPagesController@PrepareConfirmation')->name("PrepareConfirmation");
+Route::get('/ConfirmationFinal', 'ClientPagesController@ConfirmationFinal')->name("ConfirmationFinal");
 
 
 route::post('login', 'AuthController@AuthentificatedGoingToPage');
@@ -27,6 +28,7 @@ Route::get('/Produit/{product}', 'ClientPagesController@ProduitOverview');
 route::get('/Descriptions', 'ClientPagesController@importDescriptions')->name('importDescriptions');
 route::post('/AjoutPanier', 'ClientPagesController@AjoutPanier')->name("AjoutPanier");
 route::get('/viderPanier', 'ClientPagesController@viderPanier')->name("viderPanier");
+route::get('/backToHome', 'ClientPagesController@backToHome')->name("backToHome");
 
 Route::post('/StoreMessage', 'ClientPagesController@StoreMessage')->name('StoreMessage');
 Route::post('/StoreCommentaire', 'ClientPagesController@StoreCommentaire')->name('StoreCommentaire');

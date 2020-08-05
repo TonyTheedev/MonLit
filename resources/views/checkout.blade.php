@@ -61,7 +61,7 @@
       <a class="tp_btn" href="#">Chutter le prix !</a>
     </div>
     <div class="billing_details">
-      <form action="{{ route('ConfirmationFinal') }}" method="POST" autocomplete="off">
+      <form action="{{ route('PrepareConfirmation') }}" method="POST" autocomplete="off">
         @csrf
         <div class="row">
           <div class="col-lg-8">
@@ -139,10 +139,11 @@
                 <div class="col-md-12 form-group optionCompte" style="display: none;">
                   @endif
                   <div class="creat_account">
-                    <input type="checkbox" id="f-option2" name="compte" checked />
                     @if(!App\Http\Controllers\AuthController::IsAuthentificated())
+                    <input type="checkbox" id="f-option2" name="compte" checked />
                     <label for="f-option2">Créer un compte.</label>
                     @else
+                    <input type="checkbox" id="f-option2" name="MAJdata" checked />
                     <label for="f-option2">Mettre à jour mes données.</label>
                     @endif
                   </div>
