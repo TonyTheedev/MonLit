@@ -294,7 +294,7 @@
 
             </div>
             <div class="button-container">
-                <button type="submit" class="button">
+                <button type="submit" class="button" onclick="document.getElementsByClassName('btnLineCl')[0].click();">
                     <span>Enregistrer</span>
                 </button>
                 <!-- <input type="submit" value="Enregistrer"> -->
@@ -302,7 +302,7 @@
         </form>
     </div>
 
-    <input type="button" id="btnLine" value="+ caractéristiques" data-toggle="modal" data-target="#exampleModal">
+    <input type="button" id="btnLine" class="btnLineCl" value="+ caractéristiques" data-toggle="modal" data-target="#exampleModal" style="display: none;">
     <input type="hidden" name="nbrTotalOptions" id="nbrTotalOptions">
 
     <!-- Modal -->
