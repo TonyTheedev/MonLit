@@ -226,13 +226,12 @@ class ClientPagesController extends Controller
 
     public function ConfirmationFinal(Request $request)
     {
-        // $id_personne = collect(DB::select("select * from personne order by id_personne desc limit 1"))->first()->id_personne;
-        // $last_person =  collect(DB::select("select * from personne where personne.id_personne = $id_personne"))->first();
-        $last_person =  collect(DB::select("select * from personne where personne.id_personne = " . session()->get('userObject')->id_personne))->first();
-
+        $last_person = null;
         $produitsEnregistres = null;
-        if (AuthController::IsAuthentificated())
+        if (AuthController::IsAuthentificated()) {
+            $last_person =  collect(DB::select("select * from personne where personne.id_personne = " . session()->get('userObject')->id_personne))->first();
             $produitsEnregistres = DB::select("select personne_, produit_, date_ajout, statut_commande, est_delivre, count(produit_) as nbr from commande where commande.statut_commande = 'En attente' and commande.personne_ = " . session()->get('userObject')->id_personne . " group by personne_, produit_, date_ajout, statut_commande, est_delivre");
+        }
 
         return view('confirmation', compact("produitsEnregistres"))
             ->with("MontantHidden", session()->get('MontantHidden'))
