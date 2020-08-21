@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Mon Lit</title>
-    <link rel="icon" href="https://cdn.ycan.shop/stores/monlit/theme-settings/mWih5ydeDQTDV07yK7GjQzQGU9fKZOB5j45cbk9b.jpeg">
-    <!-- <link rel="icon" href="{{ url('img/favicon.png') }}"> -->
+    <link rel="icon" href="{{ url('img/MyBedFavicon.png') }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <!-- animate CSS -->
@@ -97,7 +96,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand" href="{{url('/')}}">
-                            <img style="width: 70%;" src="https://cdn.ycan.shop/stores/monlit/theme-settings/DGJnA1GfQWVA3j30pbv7UO1aNJFkhj5OkEdQDR1I.jpeg " alt="logo">
+                            <img style="width: 70%;" src="{{ url('img/MyBed.gif') }} " alt="logo">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="menu_icon"><i class="fas fa-bars"></i></span>
@@ -120,15 +119,13 @@
                                             as
                                             $marque
                                             )
-                                            @if(sizeof(DB::select("select type_produit.id_type , type_produit.libelle_type from marque inner join type_produit ON type_produit.marque_ = marque.id_marque where marque.id_marque = $marque->id_marque")) != 0)
                                             <li class="dropdown-submenu" style="padding-left: 9px;">
-                                                <a class="test" tabindex="-1" href="{{ url('/Catalogue') }}">
+                                                <a class="" tabindex="-1" href="{{ url('/Catalogue') }}">
                                                     {{ $marque->nom_marque }}
                                                     <span class="caret"></span>
                                                 </a>
                                                 <hr style="margin: 3px;">
                                             </li>
-                                            @endif
                                             @endforeach
                                             <li class="dropdown-submenu" style="padding-left: 9px;">
                                                 <a class="" tabindex="-1" href="{{ url('/Catalogue') }}">
@@ -139,59 +136,6 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <!-- <li class="nav-item dropdown">
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" style="padding: 30px 23px;" data-toggle="dropdown">Tutorials
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="#">HTML</a></li>
-                                            <li><a tabindex="-1" href="#">CSS</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
-                                                <ul class="dropdown-menu-level2" style="background-color: #d387ab;background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);border-radius: 5px;">
-                                                    <li><a style="padding-left: 6px;" tabindex="-1" href="#">2nd level
-                                                            dropdown</a></li>
-                                                    <li><a style="padding-left: 6px;" tabindex="-1" href="#">2nd level
-                                                            dropdown</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li> -->
-                                <!-- <li class="nav-item dropdown">
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Tutorials
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="#">HTML</a></li>
-                                            <li><a tabindex="-1" href="#">CSS</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                                                    <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                                                    <li class="dropdown-submenu">
-                                                        <a class="test" href="#">Another dropdown <span class="caret"></span></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="#">3rd level dropdown</a></li>
-                                                            <li><a href="#">3rd level dropdown</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li> -->
-                                <!-- <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{{url('/blog')}}" id="navbarDropdown_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        blog
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="{{url('/blog')}}"> blog</a>
-                                        <a class="dropdown-item" href="{{url('/single-blog')}}">Single blog</a>
-                                    </div>
-                                </li> -->
-
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="{{url('/contact')}}">Contact</a>
                                 </li>
