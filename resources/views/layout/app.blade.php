@@ -77,6 +77,10 @@
             color: white !important
         }
 
+        .banner_part {
+            background-color: white;
+        }
+
         .main_menu .cart i:after {
             content : "{{ App\Http\Controllers\ClientPagesController::nbrPanier() }}"
         }
